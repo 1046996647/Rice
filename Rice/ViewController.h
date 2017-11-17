@@ -2,7 +2,7 @@
 //  ViewController.h
 //  Rice
 //
-//  Created by ZhangWeiLiang on 2017/11/15.
+//  Created by ZhangWeiLiang on 2017/11/16.
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
@@ -10,6 +10,4 @@
 
 @interface ViewController : UIViewController
 
-
 @end
-
