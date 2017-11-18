@@ -12,7 +12,7 @@
 
 @protocol LeftViewControllerDelegate <NSObject>
 
-- (void)LeftViewControllerdidSelectRow:(LeftViewControllerRowType)LeftViewControllerRowType;
+- (void)LeftViewControllerdidSelectRow:(NSInteger)row;
 
 @end
 

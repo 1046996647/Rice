@@ -23,6 +23,12 @@
 		F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA48E1FBEB9BB009A55DF /* SettingVC.m */; };
 		F75BA4A11FBEBA64009A55DF /* HistoryOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4A01FBEBA64009A55DF /* HistoryOrderVC.m */; };
 		F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4A31FBEBA8B009A55DF /* SendingOrderVC.m */; };
+		F75BA4A71FBEBB78009A55DF /* BookOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4A61FBEBB78009A55DF /* BookOrderVC.m */; };
+		F75BA4AA1FBEBD45009A55DF /* HistoryOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4A91FBEBD45009A55DF /* HistoryOrderCell.m */; };
+		F75BA4B41FBECB80009A55DF /* CSLeftSlideControllerTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B31FBECB80009A55DF /* CSLeftSlideControllerTwo.m */; };
+		F75BA4B71FBED0D4009A55DF /* SendingOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */; };
+		F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */; };
+		F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4BC1FBED796009A55DF /* ViewController.m */; };
 		F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */; };
 		F767CA2F1FBD244900C7518C /* InfoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA121FBD244900C7518C /* InfoCache.m */; };
 		F767CA301FBD244900C7518C /* NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA141FBD244900C7518C /* NSStringExt.m */; };
@@ -55,11 +61,9 @@
 		F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA981FBD25B700C7518C /* BasePresentViewController.m */; };
 		F767CAA11FBD264800C7518C /* PersonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAA01FBD264700C7518C /* PersonModel.m */; };
 		F767CAB01FBD2DBB00C7518C /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAAF1FBD2DBB00C7518C /* MainViewController.m */; };
-		F767CABC1FBD2EB700C7518C /* CSLeftSlideControllerTwo.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAB41FBD2EB600C7518C /* CSLeftSlideControllerTwo.m */; };
 		F767CABD1FBD2EB700C7518C /* UIBarButtonItem+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAB71FBD2EB600C7518C /* UIBarButtonItem+Extensions.m */; };
 		F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAB91FBD2EB600C7518C /* UIView+Extensions.m */; };
 		F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CABF1FBD2ECA00C7518C /* LeftViewController.m */; };
-		F767CAC41FBD2FEF00C7518C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAC31FBD2FEF00C7518C /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +117,18 @@
 		F75BA4A01FBEBA64009A55DF /* HistoryOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderVC.m; sourceTree = "<group>"; };
 		F75BA4A21FBEBA8B009A55DF /* SendingOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendingOrderVC.h; sourceTree = "<group>"; };
 		F75BA4A31FBEBA8B009A55DF /* SendingOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendingOrderVC.m; sourceTree = "<group>"; };
+		F75BA4A51FBEBB78009A55DF /* BookOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookOrderVC.h; sourceTree = "<group>"; };
+		F75BA4A61FBEBB78009A55DF /* BookOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderVC.m; sourceTree = "<group>"; };
+		F75BA4A81FBEBD45009A55DF /* HistoryOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryOrderCell.h; sourceTree = "<group>"; };
+		F75BA4A91FBEBD45009A55DF /* HistoryOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderCell.m; sourceTree = "<group>"; };
+		F75BA4B21FBECB80009A55DF /* CSLeftSlideControllerTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLeftSlideControllerTwo.h; sourceTree = "<group>"; };
+		F75BA4B31FBECB80009A55DF /* CSLeftSlideControllerTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSLeftSlideControllerTwo.m; sourceTree = "<group>"; };
+		F75BA4B51FBED0D4009A55DF /* SendingOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendingOrderCell.h; sourceTree = "<group>"; };
+		F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendingOrderCell.m; sourceTree = "<group>"; };
+		F75BA4B81FBED1F6009A55DF /* BookOrderCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookOrderCell.h; sourceTree = "<group>"; };
+		F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderCell.m; sourceTree = "<group>"; };
+		F75BA4BB1FBED796009A55DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F75BA4BC1FBED796009A55DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F767CA0D1FBD244900C7518C /* AFNetworking_RequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking_RequestData.h; sourceTree = "<group>"; };
 		F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworking_RequestData.m; sourceTree = "<group>"; };
 		F767CA111FBD244900C7518C /* InfoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCache.h; sourceTree = "<group>"; };
@@ -180,8 +196,6 @@
 		F767CAA01FBD264700C7518C /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		F767CAAE1FBD2DBB00C7518C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		F767CAAF1FBD2DBB00C7518C /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		F767CAB31FBD2EB600C7518C /* CSLeftSlideControllerTwo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSLeftSlideControllerTwo.h; sourceTree = "<group>"; };
-		F767CAB41FBD2EB600C7518C /* CSLeftSlideControllerTwo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSLeftSlideControllerTwo.m; sourceTree = "<group>"; };
 		F767CAB61FBD2EB600C7518C /* UIBarButtonItem+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extensions.h"; sourceTree = "<group>"; };
 		F767CAB71FBD2EB600C7518C /* UIBarButtonItem+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extensions.m"; sourceTree = "<group>"; };
 		F767CAB81FBD2EB600C7518C /* UIView+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extensions.h"; sourceTree = "<group>"; };
@@ -189,8 +203,6 @@
 		F767CABB1FBD2EB600C7518C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		F767CABF1FBD2ECA00C7518C /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		F767CAC01FBD2ECA00C7518C /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
-		F767CAC21FBD2FEF00C7518C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F767CAC31FBD2FEF00C7518C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,8 +277,8 @@
 				F767CA0B1FBD244900C7518C /* Thirdparty */,
 				F75232D61FBC15BD002D4AF9 /* AppDelegate.h */,
 				F75232D71FBC15BD002D4AF9 /* AppDelegate.m */,
-				F767CAC21FBD2FEF00C7518C /* ViewController.h */,
-				F767CAC31FBD2FEF00C7518C /* ViewController.m */,
+				F75BA4BB1FBED796009A55DF /* ViewController.h */,
+				F75BA4BC1FBED796009A55DF /* ViewController.m */,
 				F767CA931FBD25B600C7518C /* BasePresentViewController.h */,
 				F767CA981FBD25B700C7518C /* BasePresentViewController.m */,
 				F767CA971FBD25B600C7518C /* BaseViewController.h */,
@@ -335,6 +347,12 @@
 		F75BA4911FBEBA0B009A55DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F75BA4A81FBEBD45009A55DF /* HistoryOrderCell.h */,
+				F75BA4A91FBEBD45009A55DF /* HistoryOrderCell.m */,
+				F75BA4B51FBED0D4009A55DF /* SendingOrderCell.h */,
+				F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */,
+				F75BA4B81FBED1F6009A55DF /* BookOrderCell.h */,
+				F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -348,6 +366,8 @@
 				F75BA4A01FBEBA64009A55DF /* HistoryOrderVC.m */,
 				F75BA4A21FBEBA8B009A55DF /* SendingOrderVC.h */,
 				F75BA4A31FBEBA8B009A55DF /* SendingOrderVC.m */,
+				F75BA4A51FBEBB78009A55DF /* BookOrderVC.h */,
+				F75BA4A61FBEBB78009A55DF /* BookOrderVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -442,6 +462,15 @@
 				F75BA48E1FBEB9BB009A55DF /* SettingVC.m */,
 			);
 			path = ControllView;
+			sourceTree = "<group>";
+		};
+		F75BA4AB1FBECACF009A55DF /* CSLeftSlideControllerTwo */ = {
+			isa = PBXGroup;
+			children = (
+				F75BA4B21FBECB80009A55DF /* CSLeftSlideControllerTwo.h */,
+				F75BA4B31FBECB80009A55DF /* CSLeftSlideControllerTwo.m */,
+			);
+			path = CSLeftSlideControllerTwo;
 			sourceTree = "<group>";
 		};
 		F767CA0B1FBD244900C7518C /* Thirdparty */ = {
@@ -653,21 +682,11 @@
 		F767CAB11FBD2EA800C7518C /* 侧滑 */ = {
 			isa = PBXGroup;
 			children = (
-				F767CAB21FBD2EB600C7518C /* CSLeftSlideControllerTwo */,
+				F75BA4AB1FBECACF009A55DF /* CSLeftSlideControllerTwo */,
 				F767CAB51FBD2EB600C7518C /* Category */,
 				F767CABA1FBD2EB600C7518C /* Constants */,
 			);
 			path = "侧滑";
-			sourceTree = "<group>";
-		};
-		F767CAB21FBD2EB600C7518C /* CSLeftSlideControllerTwo */ = {
-			isa = PBXGroup;
-			children = (
-				F767CAB31FBD2EB600C7518C /* CSLeftSlideControllerTwo.h */,
-				F767CAB41FBD2EB600C7518C /* CSLeftSlideControllerTwo.m */,
-			);
-			name = CSLeftSlideControllerTwo;
-			path = "../../../../Desktop/iOS开发资料/OC_demo/抽屉效果学习demo/CSLeftSlideDemo/CSLeftSlideDemo/CSLeftSlideControllerTwo";
 			sourceTree = "<group>";
 		};
 		F767CAB51FBD2EB600C7518C /* Category */ = {
@@ -883,7 +902,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */,
 				F767CA391FBD244900C7518C /* UIViewExt.m in Sources */,
+				F75BA4B41FBECB80009A55DF /* CSLeftSlideControllerTwo.m in Sources */,
 				F767CA991FBD25B700C7518C /* BaseViewController.m in Sources */,
 				F767CA361FBD244900C7518C /* UIImage+UIImageExt.m in Sources */,
 				F767CA791FBD249C00C7518C /* MJCChildMainView.m in Sources */,
@@ -897,6 +918,7 @@
 				F75BA4831FBEB905009A55DF /* MyOrderVC.m in Sources */,
 				F767CA7C1FBD249C00C7518C /* MJCTitlesView.m in Sources */,
 				F767CA821FBD249C00C7518C /* UILabel+MJCClassExtension.m in Sources */,
+				F75BA4B71FBED0D4009A55DF /* SendingOrderCell.m in Sources */,
 				F767CA7F1FBD249C00C7518C /* MJCOrdinaryLayout.m in Sources */,
 				F767CA321FBD244900C7518C /* RegexTool.m in Sources */,
 				F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */,
@@ -907,6 +929,8 @@
 				F767CA351FBD244900C7518C /* UIColor+Expend.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
 				F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */,
+				F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */,
+				F75BA4A71FBEBB78009A55DF /* BookOrderVC.m in Sources */,
 				F75BA47F1FBE7B3A009A55DF /* LeftViewCell.m in Sources */,
 				F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */,
 				F767CA831FBD249C00C7518C /* UIView+MJCClassExtension.m in Sources */,
@@ -917,17 +941,16 @@
 				F767CAA11FBD264800C7518C /* PersonModel.m in Sources */,
 				F75BA4A11FBEBA64009A55DF /* HistoryOrderVC.m in Sources */,
 				F75BA4861FBEB945009A55DF /* ReceiveAddressVC.m in Sources */,
-				F767CABC1FBD2EB700C7518C /* CSLeftSlideControllerTwo.m in Sources */,
 				F767CA7E1FBD249C00C7518C /* MJCCommonTools.m in Sources */,
 				F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */,
 				F767CA841FBD249C00C7518C /* MJCSegmentInterface.m in Sources */,
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
 				F767CA371FBD244900C7518C /* UILabel+WLAttributedString.m in Sources */,
+				F75BA4AA1FBEBD45009A55DF /* HistoryOrderCell.m in Sources */,
 				F767CA8F1FBD258F00C7518C /* LoginVC.m in Sources */,
 				F75BA4891FBEB95E009A55DF /* MyWalletVC.m in Sources */,
 				F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */,
-				F767CAC41FBD2FEF00C7518C /* ViewController.m in Sources */,
 				F767CA921FBD25A300C7518C /* RegisterVC.m in Sources */,
 				F767CA331FBD244900C7518C /* UITableView+EmptyData.m in Sources */,
 			);
@@ -1098,8 +1121,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice.Rice;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1115,8 +1139,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice.Rice;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
