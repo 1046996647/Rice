@@ -209,7 +209,7 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:frame];
     imgView.image = [UIImage imageNamed:icon];
     imgView.clipsToBounds = YES;
-    imgView.contentMode = UIViewContentModeScaleAspectFill;
+//    imgView.contentMode = UIViewContentModeScaleAspectFill;
     return imgView;
 }
 
@@ -242,7 +242,7 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
     tf.leftViewMode = UITextFieldViewModeAlways;
     tf.leftView = leftView;
     tf.backgroundColor = [UIColor colorWithHexString:backColor];
-    tf.returnKeyType = UIReturnKeySearch;
+//    tf.returnKeyType = UIReturnKeySearch;
 
 
     return tf;

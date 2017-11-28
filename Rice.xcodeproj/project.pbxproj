@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		546D1425719FF7BA7A293A13 /* libPods-Rice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658E96CCAD0EAA5379DB8B2 /* libPods-Rice.a */; };
+		F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */; };
 		F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232D71FBC15BD002D4AF9 /* AppDelegate.m */; };
 		F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75232DC1FBC15BD002D4AF9 /* Main.storyboard */; };
 		F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F75232DF1FBC15BD002D4AF9 /* Assets.xcassets */; };
@@ -64,6 +65,34 @@
 		F767CABD1FBD2EB700C7518C /* UIBarButtonItem+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAB71FBD2EB600C7518C /* UIBarButtonItem+Extensions.m */; };
 		F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CAB91FBD2EB600C7518C /* UIView+Extensions.m */; };
 		F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CABF1FBD2ECA00C7518C /* LeftViewController.m */; };
+		F7680A321FCCF81100EBC932 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A311FCCF81100EBC932 /* SettingCell.m */; };
+		F7680A351FCCFF2000EBC932 /* PersonalCenterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A331FCCFF2000EBC932 /* PersonalCenterVC.m */; };
+		F7680A381FCCFF5B00EBC932 /* InfoChangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A371FCCFF5B00EBC932 /* InfoChangeController.m */; };
+		F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A3C1FCD07A300EBC932 /* BRAddressModel.m */; };
+		F7680A4D1FCD07A300EBC932 /* BRAddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A3E1FCD07A300EBC932 /* BRAddressPickerView.m */; };
+		F7680A4E1FCD07A300EBC932 /* BRCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = F7680A3F1FCD07A300EBC932 /* BRCity.plist */; };
+		F7680A4F1FCD07A300EBC932 /* BaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A421FCD07A300EBC932 /* BaseView.m */; };
+		F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A461FCD07A300EBC932 /* BRDatePickerView.m */; };
+		F7680A511FCD07A300EBC932 /* NSDate+BRAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A481FCD07A300EBC932 /* NSDate+BRAdd.m */; };
+		F7680A521FCD07A300EBC932 /* BRStringPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A4B1FCD07A300EBC932 /* BRStringPickerView.m */; };
+		F7680A551FCD09A400EBC932 /* CountBindingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A541FCD09A400EBC932 /* CountBindingVC.m */; };
+		F7680A581FCD0CC800EBC932 /* ModifyPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A571FCD0CC800EBC932 /* ModifyPasswordVC.m */; };
+		F7680A5E1FCD131A00EBC932 /* ReceiveAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A5D1FCD131A00EBC932 /* ReceiveAddressCell.m */; };
+		F7680A611FCD2AB800EBC932 /* AddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A601FCD2AB800EBC932 /* AddAddressVC.m */; };
+		F7680A641FCD2C1C00EBC932 /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */; };
+		F7680A671FCD2CFB00EBC932 /* AddAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */; };
+		F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */; };
+		F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6C1FCD394300EBC932 /* OrderHeaderView.m */; };
+		F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */; };
+		F7680A731FCD401E00EBC932 /* OrderDetailTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */; };
+		F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */; };
+		F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A781FCD505300EBC932 /* BookHeaderView.m */; };
+		F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7B1FCD568600EBC932 /* EvaluateVC.m */; };
+		F7680A811FCD5F1A00EBC932 /* StartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7F1FCD5F1A00EBC932 /* StartsView.m */; };
+		F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */; };
+		F7E1B6611FC6973B0063EAA6 /* TYCyclePagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65D1FC6973B0063EAA6 /* TYCyclePagerView.m */; };
+		F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65F1FC6973B0063EAA6 /* TYPageControl.m */; };
+		F7E1B6651FC6978A0063EAA6 /* TYCyclePagerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B6631FC697890063EAA6 /* TYCyclePagerViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +116,8 @@
 		5443C738062C186FA8D71AE0 /* Pods-Rice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rice/Pods-Rice.debug.xcconfig"; sourceTree = "<group>"; };
 		9658E96CCAD0EAA5379DB8B2 /* libPods-Rice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rice.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E426CAE0D19C0522817BB9E6 /* Pods-Rice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rice.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rice/Pods-Rice.release.xcconfig"; sourceTree = "<group>"; };
+		F74B8FE81FC668D0004B1A19 /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
+		F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		F75232D31FBC15BD002D4AF9 /* Rice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F75232D61FBC15BD002D4AF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F75232D71FBC15BD002D4AF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -203,6 +234,62 @@
 		F767CABB1FBD2EB600C7518C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		F767CABF1FBD2ECA00C7518C /* LeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftViewController.m; sourceTree = "<group>"; };
 		F767CAC01FBD2ECA00C7518C /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
+		F7680A301FCCF81100EBC932 /* SettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		F7680A311FCCF81100EBC932 /* SettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		F7680A331FCCFF2000EBC932 /* PersonalCenterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalCenterVC.m; sourceTree = "<group>"; };
+		F7680A341FCCFF2000EBC932 /* PersonalCenterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterVC.h; sourceTree = "<group>"; };
+		F7680A361FCCFF5B00EBC932 /* InfoChangeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoChangeController.h; sourceTree = "<group>"; };
+		F7680A371FCCFF5B00EBC932 /* InfoChangeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoChangeController.m; sourceTree = "<group>"; };
+		F7680A3B1FCD07A300EBC932 /* BRAddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressModel.h; sourceTree = "<group>"; };
+		F7680A3C1FCD07A300EBC932 /* BRAddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddressModel.m; sourceTree = "<group>"; };
+		F7680A3D1FCD07A300EBC932 /* BRAddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRAddressPickerView.h; sourceTree = "<group>"; };
+		F7680A3E1FCD07A300EBC932 /* BRAddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRAddressPickerView.m; sourceTree = "<group>"; };
+		F7680A3F1FCD07A300EBC932 /* BRCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = BRCity.plist; sourceTree = "<group>"; };
+		F7680A411FCD07A300EBC932 /* BaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseView.h; sourceTree = "<group>"; };
+		F7680A421FCD07A300EBC932 /* BaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseView.m; sourceTree = "<group>"; };
+		F7680A431FCD07A300EBC932 /* BRPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRPickerView.h; sourceTree = "<group>"; };
+		F7680A451FCD07A300EBC932 /* BRDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRDatePickerView.h; sourceTree = "<group>"; };
+		F7680A461FCD07A300EBC932 /* BRDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRDatePickerView.m; sourceTree = "<group>"; };
+		F7680A471FCD07A300EBC932 /* NSDate+BRAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+BRAdd.h"; sourceTree = "<group>"; };
+		F7680A481FCD07A300EBC932 /* NSDate+BRAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+BRAdd.m"; sourceTree = "<group>"; };
+		F7680A4A1FCD07A300EBC932 /* BRStringPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BRStringPickerView.h; sourceTree = "<group>"; };
+		F7680A4B1FCD07A300EBC932 /* BRStringPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BRStringPickerView.m; sourceTree = "<group>"; };
+		F7680A531FCD09A400EBC932 /* CountBindingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountBindingVC.h; sourceTree = "<group>"; };
+		F7680A541FCD09A400EBC932 /* CountBindingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountBindingVC.m; sourceTree = "<group>"; };
+		F7680A561FCD0CC800EBC932 /* ModifyPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModifyPasswordVC.h; sourceTree = "<group>"; };
+		F7680A571FCD0CC800EBC932 /* ModifyPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModifyPasswordVC.m; sourceTree = "<group>"; };
+		F7680A5C1FCD131A00EBC932 /* ReceiveAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveAddressCell.h; sourceTree = "<group>"; };
+		F7680A5D1FCD131A00EBC932 /* ReceiveAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveAddressCell.m; sourceTree = "<group>"; };
+		F7680A5F1FCD2AB800EBC932 /* AddAddressVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressVC.h; sourceTree = "<group>"; };
+		F7680A601FCD2AB800EBC932 /* AddAddressVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressVC.m; sourceTree = "<group>"; };
+		F7680A621FCD2C1C00EBC932 /* AddAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
+		F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
+		F7680A651FCD2CFB00EBC932 /* AddAddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressModel.h; sourceTree = "<group>"; };
+		F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressModel.m; sourceTree = "<group>"; };
+		F7680A681FCD369B00EBC932 /* HistoryOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryOrderDetailVC.h; sourceTree = "<group>"; };
+		F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderDetailVC.m; sourceTree = "<group>"; };
+		F7680A6B1FCD394300EBC932 /* OrderHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderHeaderView.h; sourceTree = "<group>"; };
+		F7680A6C1FCD394300EBC932 /* OrderHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderHeaderView.m; sourceTree = "<group>"; };
+		F7680A6E1FCD3C9400EBC932 /* OrderDetailOneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailOneCell.h; sourceTree = "<group>"; };
+		F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailOneCell.m; sourceTree = "<group>"; };
+		F7680A711FCD401E00EBC932 /* OrderDetailTwoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTwoCell.h; sourceTree = "<group>"; };
+		F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTwoCell.m; sourceTree = "<group>"; };
+		F7680A741FCD4A8000EBC932 /* BookOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookOrderDetailVC.h; sourceTree = "<group>"; };
+		F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderDetailVC.m; sourceTree = "<group>"; };
+		F7680A771FCD505300EBC932 /* BookHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookHeaderView.h; sourceTree = "<group>"; };
+		F7680A781FCD505300EBC932 /* BookHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookHeaderView.m; sourceTree = "<group>"; };
+		F7680A7A1FCD568600EBC932 /* EvaluateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateVC.h; sourceTree = "<group>"; };
+		F7680A7B1FCD568600EBC932 /* EvaluateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateVC.m; sourceTree = "<group>"; };
+		F7680A7E1FCD5F1A00EBC932 /* StartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartsView.h; sourceTree = "<group>"; };
+		F7680A7F1FCD5F1A00EBC932 /* StartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartsView.m; sourceTree = "<group>"; };
+		F7E1B65A1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerTransformLayout.h; sourceTree = "<group>"; };
+		F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerTransformLayout.m; sourceTree = "<group>"; };
+		F7E1B65C1FC6973B0063EAA6 /* TYCyclePagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerView.h; sourceTree = "<group>"; };
+		F7E1B65D1FC6973B0063EAA6 /* TYCyclePagerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerView.m; sourceTree = "<group>"; };
+		F7E1B65E1FC6973B0063EAA6 /* TYPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPageControl.h; sourceTree = "<group>"; };
+		F7E1B65F1FC6973B0063EAA6 /* TYPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPageControl.m; sourceTree = "<group>"; };
+		F7E1B6631FC697890063EAA6 /* TYCyclePagerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerViewCell.m; sourceTree = "<group>"; };
+		F7E1B6641FC697890063EAA6 /* TYCyclePagerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerViewCell.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +335,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F74B8FE71FC668D0004B1A19 /* SGAdvertScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				F74B8FE81FC668D0004B1A19 /* SGAdvertScrollView.h */,
+				F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */,
+			);
+			path = SGAdvertScrollView;
+			sourceTree = "<group>";
+		};
 		F75232CA1FBC15BD002D4AF9 = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +387,8 @@
 				F767CABF1FBD2ECA00C7518C /* LeftViewController.m */,
 				F75BA47D1FBE7B3A009A55DF /* LeftViewCell.h */,
 				F75BA47E1FBE7B3A009A55DF /* LeftViewCell.m */,
+				F7E1B6641FC697890063EAA6 /* TYCyclePagerViewCell.h */,
+				F7E1B6631FC697890063EAA6 /* TYCyclePagerViewCell.m */,
 				F767CA9E1FBD263200C7518C /* UrlFile.h */,
 				F767CA8B1FBD24F600C7518C /* 登录注册 */,
 				F75BA4801FBEB8BC009A55DF /* 我的订单 */,
@@ -353,6 +451,16 @@
 				F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */,
 				F75BA4B81FBED1F6009A55DF /* BookOrderCell.h */,
 				F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */,
+				F7680A6B1FCD394300EBC932 /* OrderHeaderView.h */,
+				F7680A6C1FCD394300EBC932 /* OrderHeaderView.m */,
+				F7680A771FCD505300EBC932 /* BookHeaderView.h */,
+				F7680A781FCD505300EBC932 /* BookHeaderView.m */,
+				F7680A6E1FCD3C9400EBC932 /* OrderDetailOneCell.h */,
+				F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */,
+				F7680A711FCD401E00EBC932 /* OrderDetailTwoCell.h */,
+				F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */,
+				F7680A7E1FCD5F1A00EBC932 /* StartsView.h */,
+				F7680A7F1FCD5F1A00EBC932 /* StartsView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -368,6 +476,12 @@
 				F75BA4A31FBEBA8B009A55DF /* SendingOrderVC.m */,
 				F75BA4A51FBEBB78009A55DF /* BookOrderVC.h */,
 				F75BA4A61FBEBB78009A55DF /* BookOrderVC.m */,
+				F7680A681FCD369B00EBC932 /* HistoryOrderDetailVC.h */,
+				F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */,
+				F7680A741FCD4A8000EBC932 /* BookOrderDetailVC.h */,
+				F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */,
+				F7680A7A1FCD568600EBC932 /* EvaluateVC.h */,
+				F7680A7B1FCD568600EBC932 /* EvaluateVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -375,6 +489,8 @@
 		F75BA4931FBEBA18009A55DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F7680A651FCD2CFB00EBC932 /* AddAddressModel.h */,
+				F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -382,6 +498,10 @@
 		F75BA4941FBEBA18009A55DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F7680A5C1FCD131A00EBC932 /* ReceiveAddressCell.h */,
+				F7680A5D1FCD131A00EBC932 /* ReceiveAddressCell.m */,
+				F7680A621FCD2C1C00EBC932 /* AddAddressCell.h */,
+				F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -391,6 +511,8 @@
 			children = (
 				F75BA4841FBEB945009A55DF /* ReceiveAddressVC.h */,
 				F75BA4851FBEB945009A55DF /* ReceiveAddressVC.m */,
+				F7680A5F1FCD2AB800EBC932 /* AddAddressVC.h */,
+				F7680A601FCD2AB800EBC932 /* AddAddressVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -451,6 +573,8 @@
 		F75BA49D1FBEBA2B009A55DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F7680A301FCCF81100EBC932 /* SettingCell.h */,
+				F7680A311FCCF81100EBC932 /* SettingCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -460,6 +584,14 @@
 			children = (
 				F75BA48D1FBEB9BB009A55DF /* SettingVC.h */,
 				F75BA48E1FBEB9BB009A55DF /* SettingVC.m */,
+				F7680A341FCCFF2000EBC932 /* PersonalCenterVC.h */,
+				F7680A331FCCFF2000EBC932 /* PersonalCenterVC.m */,
+				F7680A361FCCFF5B00EBC932 /* InfoChangeController.h */,
+				F7680A371FCCFF5B00EBC932 /* InfoChangeController.m */,
+				F7680A531FCD09A400EBC932 /* CountBindingVC.h */,
+				F7680A541FCD09A400EBC932 /* CountBindingVC.m */,
+				F7680A561FCD0CC800EBC932 /* ModifyPasswordVC.h */,
+				F7680A571FCD0CC800EBC932 /* ModifyPasswordVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -573,6 +705,9 @@
 		F767CA3B1FBD249C00C7518C /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F7680A391FCD07A300EBC932 /* BRPickerView */,
+				F7E1B6591FC6973B0063EAA6 /* TYCyclePagerView */,
+				F74B8FE71FC668D0004B1A19 /* SGAdvertScrollView */,
 				F767CAB11FBD2EA800C7518C /* 侧滑 */,
 				F767CA511FBD249C00C7518C /* MJCSlideInterface */,
 			);
@@ -710,6 +845,72 @@
 			path = "../../../../Desktop/iOS开发资料/OC_demo/抽屉效果学习demo/CSLeftSlideDemo/CSLeftSlideDemo/Constants";
 			sourceTree = "<group>";
 		};
+		F7680A391FCD07A300EBC932 /* BRPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F7680A3A1FCD07A300EBC932 /* AddressPickerView */,
+				F7680A401FCD07A300EBC932 /* Base */,
+				F7680A431FCD07A300EBC932 /* BRPickerView.h */,
+				F7680A441FCD07A300EBC932 /* DatePickerView */,
+				F7680A471FCD07A300EBC932 /* NSDate+BRAdd.h */,
+				F7680A481FCD07A300EBC932 /* NSDate+BRAdd.m */,
+				F7680A491FCD07A300EBC932 /* StringPickerView */,
+			);
+			path = BRPickerView;
+			sourceTree = "<group>";
+		};
+		F7680A3A1FCD07A300EBC932 /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F7680A3B1FCD07A300EBC932 /* BRAddressModel.h */,
+				F7680A3C1FCD07A300EBC932 /* BRAddressModel.m */,
+				F7680A3D1FCD07A300EBC932 /* BRAddressPickerView.h */,
+				F7680A3E1FCD07A300EBC932 /* BRAddressPickerView.m */,
+				F7680A3F1FCD07A300EBC932 /* BRCity.plist */,
+			);
+			path = AddressPickerView;
+			sourceTree = "<group>";
+		};
+		F7680A401FCD07A300EBC932 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				F7680A411FCD07A300EBC932 /* BaseView.h */,
+				F7680A421FCD07A300EBC932 /* BaseView.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		F7680A441FCD07A300EBC932 /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F7680A451FCD07A300EBC932 /* BRDatePickerView.h */,
+				F7680A461FCD07A300EBC932 /* BRDatePickerView.m */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
+		F7680A491FCD07A300EBC932 /* StringPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F7680A4A1FCD07A300EBC932 /* BRStringPickerView.h */,
+				F7680A4B1FCD07A300EBC932 /* BRStringPickerView.m */,
+			);
+			path = StringPickerView;
+			sourceTree = "<group>";
+		};
+		F7E1B6591FC6973B0063EAA6 /* TYCyclePagerView */ = {
+			isa = PBXGroup;
+			children = (
+				F7E1B65A1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.h */,
+				F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */,
+				F7E1B65C1FC6973B0063EAA6 /* TYCyclePagerView.h */,
+				F7E1B65D1FC6973B0063EAA6 /* TYCyclePagerView.m */,
+				F7E1B65E1FC6973B0063EAA6 /* TYPageControl.h */,
+				F7E1B65F1FC6973B0063EAA6 /* TYPageControl.m */,
+			);
+			path = TYCyclePagerView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -780,7 +981,7 @@
 				TargetAttributes = {
 					F75232D21FBC15BD002D4AF9 = {
 						CreatedOnToolsVersion = 9.1;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					F75232EA1FBC15BD002D4AF9 = {
 						CreatedOnToolsVersion = 9.1;
@@ -822,6 +1023,7 @@
 				F75232E31FBC15BD002D4AF9 /* LaunchScreen.storyboard in Resources */,
 				F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */,
 				F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */,
+				F7680A4E1FCD07A300EBC932 /* BRCity.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +1104,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F7680A381FCCFF5B00EBC932 /* InfoChangeController.m in Sources */,
+				F7680A4D1FCD07A300EBC932 /* BRAddressPickerView.m in Sources */,
+				F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */,
 				F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */,
 				F767CA391FBD244900C7518C /* UIViewExt.m in Sources */,
 				F75BA4B41FBECB80009A55DF /* CSLeftSlideControllerTwo.m in Sources */,
@@ -910,11 +1115,18 @@
 				F767CA791FBD249C00C7518C /* MJCChildMainView.m in Sources */,
 				F767CA7D1FBD249C00C7518C /* MJCAlertMessage.m in Sources */,
 				F767CA341FBD244900C7518C /* UIView+Toast.m in Sources */,
+				F7E1B6611FC6973B0063EAA6 /* TYCyclePagerView.m in Sources */,
 				F767CA301FBD244900C7518C /* NSStringExt.m in Sources */,
 				F767CA7A1FBD249C00C7518C /* MJCIndicatorView.m in Sources */,
+				F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */,
 				F75232E61FBC15BD002D4AF9 /* main.m in Sources */,
 				F767CA311FBD244900C7518C /* CountDownServer.m in Sources */,
+				F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */,
 				F75BA48C1FBEB9A3009A55DF /* ServiceVC.m in Sources */,
+				F7680A5E1FCD131A00EBC932 /* ReceiveAddressCell.m in Sources */,
+				F7680A811FCD5F1A00EBC932 /* StartsView.m in Sources */,
+				F7680A731FCD401E00EBC932 /* OrderDetailTwoCell.m in Sources */,
+				F7680A511FCD07A300EBC932 /* NSDate+BRAdd.m in Sources */,
 				F75BA4831FBEB905009A55DF /* MyOrderVC.m in Sources */,
 				F767CA7C1FBD249C00C7518C /* MJCTitlesView.m in Sources */,
 				F767CA821FBD249C00C7518C /* UILabel+MJCClassExtension.m in Sources */,
@@ -922,22 +1134,37 @@
 				F767CA7F1FBD249C00C7518C /* MJCOrdinaryLayout.m in Sources */,
 				F767CA321FBD244900C7518C /* RegexTool.m in Sources */,
 				F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */,
+				F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */,
 				F767CA381FBD244900C7518C /* UIViewController+UIViewControllerExt.m in Sources */,
+				F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */,
 				F767CA3A1FBD244900C7518C /* ZXPUnicode.m in Sources */,
 				F767CA811FBD249C00C7518C /* UIColor+MJCClassExtension.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
+				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
+				F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */,
 				F767CA351FBD244900C7518C /* UIColor+Expend.m in Sources */,
+				F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */,
+				F7680A671FCD2CFB00EBC932 /* AddAddressModel.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
+				F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */,
+				F7680A351FCCFF2000EBC932 /* PersonalCenterVC.m in Sources */,
 				F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */,
+				F7680A611FCD2AB800EBC932 /* AddAddressVC.m in Sources */,
 				F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */,
+				F7680A4F1FCD07A300EBC932 /* BaseView.m in Sources */,
 				F75BA4A71FBEBB78009A55DF /* BookOrderVC.m in Sources */,
+				F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */,
+				F7E1B6651FC6978A0063EAA6 /* TYCyclePagerViewCell.m in Sources */,
 				F75BA47F1FBE7B3A009A55DF /* LeftViewCell.m in Sources */,
 				F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */,
 				F767CA831FBD249C00C7518C /* UIView+MJCClassExtension.m in Sources */,
+				F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */,
+				F7680A551FCD09A400EBC932 /* CountBindingVC.m in Sources */,
 				F767CABD1FBD2EB700C7518C /* UIBarButtonItem+Extensions.m in Sources */,
 				F767CA801FBD249C00C7518C /* UIButton+MJCClassExtension.m in Sources */,
 				F767CAB01FBD2DBB00C7518C /* MainViewController.m in Sources */,
 				F767CA2F1FBD244900C7518C /* InfoCache.m in Sources */,
+				F7680A321FCCF81100EBC932 /* SettingCell.m in Sources */,
 				F767CAA11FBD264800C7518C /* PersonModel.m in Sources */,
 				F75BA4A11FBEBA64009A55DF /* HistoryOrderVC.m in Sources */,
 				F75BA4861FBEB945009A55DF /* ReceiveAddressVC.m in Sources */,
@@ -946,12 +1173,15 @@
 				F767CA841FBD249C00C7518C /* MJCSegmentInterface.m in Sources */,
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
+				F7680A521FCD07A300EBC932 /* BRStringPickerView.m in Sources */,
 				F767CA371FBD244900C7518C /* UILabel+WLAttributedString.m in Sources */,
 				F75BA4AA1FBEBD45009A55DF /* HistoryOrderCell.m in Sources */,
+				F7680A581FCD0CC800EBC932 /* ModifyPasswordVC.m in Sources */,
 				F767CA8F1FBD258F00C7518C /* LoginVC.m in Sources */,
 				F75BA4891FBEB95E009A55DF /* MyWalletVC.m in Sources */,
 				F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */,
 				F767CA921FBD25A300C7518C /* RegisterVC.m in Sources */,
+				F7680A641FCD2C1C00EBC932 /* AddAddressCell.m in Sources */,
 				F767CA331FBD244900C7518C /* UITableView+EmptyData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1116,15 +1346,17 @@
 			baseConfigurationReference = 5443C738062C186FA8D71AE0 /* Pods-Rice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D59VU3JG9L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7c1f73ac-691d-460a-afa2-5736c663f5c8";
+				PROVISIONING_PROFILE_SPECIFIER = 17812;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1134,15 +1366,16 @@
 			baseConfigurationReference = E426CAE0D19C0522817BB9E6 /* Pods-Rice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = D59VU3JG9L;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

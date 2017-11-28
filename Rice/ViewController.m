@@ -23,9 +23,9 @@
     // Do any additional setup after loading the view.
     
     NavigationController *mainNav = [[NavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
-    
+
     LeftViewController *leftVC = [[LeftViewController alloc] init];
-    
+
     //    初始化CSLeftSlideControllerTwo（主界面不跟着移动）
     CSLeftSlideControllerTwo *LeftSlideController = [[CSLeftSlideControllerTwo alloc] initWithLeftViewController:leftVC MainViewController:mainNav];
     [self addChildViewController:LeftSlideController];

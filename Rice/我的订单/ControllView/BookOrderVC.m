@@ -8,6 +8,7 @@
 
 #import "BookOrderVC.h"
 #import "BookOrderCell.h"
+#import "BookOrderDetailVC.h"
 
 @interface BookOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -64,6 +65,9 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    BookOrderDetailVC *vc = [[BookOrderDetailVC alloc] init];
+    vc.title = @"预约订单详情";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

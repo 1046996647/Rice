@@ -62,6 +62,7 @@ static CGFloat const defaultIndicatorH = 1.5;
     self.showsHorizontalScrollIndicator = NO;
     self.backgroundColor = [UIColor whiteColor];
     UIImageView *backgroudView = [[UIImageView alloc]init];
+//    backgroudView.contentMode = UIViewContentModeScaleAspectFill;
     [self addSubview:backgroudView];
     _backgroudView = backgroudView;
 }

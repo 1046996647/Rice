@@ -8,6 +8,7 @@
 
 #import "HistoryOrderVC.h"
 #import "HistoryOrderCell.h"
+#import "HistoryOrderDetailVC.h"
 
 @interface HistoryOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -62,6 +63,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    HistoryOrderDetailVC *vc = [[HistoryOrderDetailVC alloc] init];
+    vc.title = @"历史订单详情";
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 

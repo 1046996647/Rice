@@ -7,6 +7,7 @@
 //
 
 #import "HistoryOrderCell.h"
+#import "EvaluateVC.h"
 
 @implementation HistoryOrderCell
 
@@ -35,15 +36,16 @@
         _evaluateBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
         _evaluateBtn.layer.borderWidth = 1;
         [self.contentView addSubview:_evaluateBtn];
+        [_evaluateBtn addTarget:self action:@selector(evaluateAction) forControlEvents:UIControlEventTouchUpInside];
         
-        _confirmBtn = [UIButton buttonWithframe:CGRectMake(_evaluateBtn.left-10-_evaluateBtn.width, _evaluateBtn.top, _evaluateBtn.width, 26) text:@"餐盒确认" font:_stateLab.font textColor:@"#333333" backgroundColor:@"#FFE690" normal:@"" selected:nil];
-        _confirmBtn.layer.cornerRadius = 5;
-        _confirmBtn.layer.masksToBounds = YES;
-        _confirmBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
-        _confirmBtn.layer.borderWidth = 1;
-        [self.contentView addSubview:_confirmBtn];
+//        _confirmBtn = [UIButton buttonWithframe:CGRectMake(_evaluateBtn.left-10-_evaluateBtn.width, _evaluateBtn.top, _evaluateBtn.width, 26) text:@"餐盒确认" font:_stateLab.font textColor:@"#333333" backgroundColor:@"#FFE690" normal:@"" selected:nil];
+//        _confirmBtn.layer.cornerRadius = 5;
+//        _confirmBtn.layer.masksToBounds = YES;
+//        _confirmBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
+//        _confirmBtn.layer.borderWidth = 1;
+//        [self.contentView addSubview:_confirmBtn];
         
-        _moneyLab = [UILabel labelWithframe:CGRectMake(_nameLab.left, _nameLab.bottom+26, _confirmBtn.left-_nameLab.left, 21) text:@"￥14.8" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        _moneyLab = [UILabel labelWithframe:CGRectMake(_nameLab.left, _nameLab.bottom+26, _evaluateBtn.left-_nameLab.left, 21) text:@"￥14.8" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_moneyLab];
         
         _line = [[UIView alloc] initWithFrame:CGRectMake(0, _moneyLab.bottom+17, kScreenWidth, .5)];
@@ -54,6 +56,13 @@
     
     
     return self;
+}
+
+- (void)evaluateAction
+{
+    EvaluateVC *vc = [[EvaluateVC alloc] init];
+    vc.title = @"评价";
+    [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
 @end
