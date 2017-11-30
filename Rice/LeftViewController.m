@@ -42,6 +42,8 @@
     [headerView addSubview:headerBtn];
 //    [releseBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
     
+    [headerBtn sd_setImageWithURL:[NSURL URLWithString:@""] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"Group 5-1"]];
+    
     UILabel *headerLab = [UILabel labelWithframe:CGRectMake(headerBtn.center.x-100, headerBtn.bottom+8, 200, 24) text:@"Dayday" font:[UIFont systemFontOfSize:17] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
     [headerView addSubview:headerLab];
     

@@ -169,7 +169,7 @@
             [cell.contentView addSubview:headImg];
             self.headImg = headImg;
         }
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:self.person.img] placeholderImage:[UIImage imageNamed:@"Group"]];
+        [self.headImg sd_setImageWithURL:[NSURL URLWithString:self.person.headImg] placeholderImage:[UIImage imageNamed:@"Group"]];
 
     }
     

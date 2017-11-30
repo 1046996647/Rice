@@ -10,6 +10,10 @@
 
 @interface OrderHeaderView : UIView
 
-
+@property(nonatomic,strong) UILabel *addresLab;
+@property(nonatomic,strong) UILabel *nameLab;
+@property(nonatomic,strong) UILabel *moneyLab;
+@property(nonatomic,strong) UIImageView *addressImg;
+@property(nonatomic,strong) UIImageView *imgView;
 
 @end

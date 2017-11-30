@@ -33,6 +33,8 @@
     exitBtn.layer.cornerRadius = 7;
     exitBtn.layer.masksToBounds = YES;
     [footerView addSubview:exitBtn];
+    [exitBtn addTarget:self action:@selector(exitAction:) forControlEvents:UIControlEventTouchUpInside];
+
     
     footerView.height = exitBtn.bottom;
 //    [exitBtn addTarget:self action:@selector(exitAction) forControlEvents:UIControlEventTouchUpInside];
@@ -47,6 +49,13 @@
     
     self.dataArr = @[@"个人信息",@"社交账号绑定",@"修改密码",@"关于我们"
                      ];
+}
+
+- (void)exitAction:(UIButton *)btn
+{
+    [InfoCache archiveObject:nil toFile:Person];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 - (void)didReceiveMemoryWarning {

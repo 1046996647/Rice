@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		546D1425719FF7BA7A293A13 /* libPods-Rice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9658E96CCAD0EAA5379DB8B2 /* libPods-Rice.a */; };
+		F74430071FCE5A0500B92863 /* BookView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430061FCE5A0500B92863 /* BookView.m */; };
+		F744300A1FCE784F00B92863 /* BookFoodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430091FCE784F00B92863 /* BookFoodVC.m */; };
+		F744300D1FCE7D3600B92863 /* PaymentOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */; };
+		F74430101FCE8BCF00B92863 /* OrderDetailTwoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = F744300F1FCE8BCF00B92863 /* OrderDetailTwoCell1.m */; };
+		F74430131FCE98A800B92863 /* MarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430121FCE98A800B92863 /* MarkVC.m */; };
 		F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */; };
 		F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232D71FBC15BD002D4AF9 /* AppDelegate.m */; };
 		F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75232DC1FBC15BD002D4AF9 /* Main.storyboard */; };
@@ -116,6 +121,16 @@
 		5443C738062C186FA8D71AE0 /* Pods-Rice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Rice/Pods-Rice.debug.xcconfig"; sourceTree = "<group>"; };
 		9658E96CCAD0EAA5379DB8B2 /* libPods-Rice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Rice.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E426CAE0D19C0522817BB9E6 /* Pods-Rice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Rice.release.xcconfig"; path = "Pods/Target Support Files/Pods-Rice/Pods-Rice.release.xcconfig"; sourceTree = "<group>"; };
+		F74430051FCE5A0500B92863 /* BookView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookView.h; sourceTree = "<group>"; };
+		F74430061FCE5A0500B92863 /* BookView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookView.m; sourceTree = "<group>"; };
+		F74430081FCE784F00B92863 /* BookFoodVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookFoodVC.h; sourceTree = "<group>"; };
+		F74430091FCE784F00B92863 /* BookFoodVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookFoodVC.m; sourceTree = "<group>"; };
+		F744300B1FCE7D3600B92863 /* PaymentOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentOrderVC.h; sourceTree = "<group>"; };
+		F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentOrderVC.m; sourceTree = "<group>"; };
+		F744300E1FCE8BCF00B92863 /* OrderDetailTwoCell1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTwoCell1.h; sourceTree = "<group>"; };
+		F744300F1FCE8BCF00B92863 /* OrderDetailTwoCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTwoCell1.m; sourceTree = "<group>"; };
+		F74430111FCE98A800B92863 /* MarkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkVC.h; sourceTree = "<group>"; };
+		F74430121FCE98A800B92863 /* MarkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkVC.m; sourceTree = "<group>"; };
 		F74B8FE81FC668D0004B1A19 /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
 		F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		F75232D31FBC15BD002D4AF9 /* Rice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rice.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +175,7 @@
 		F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderCell.m; sourceTree = "<group>"; };
 		F75BA4BB1FBED796009A55DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F75BA4BC1FBED796009A55DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F762CF6E1FCFA17F00D87B31 /* UrlFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlFile.h; sourceTree = "<group>"; };
 		F767CA0D1FBD244900C7518C /* AFNetworking_RequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking_RequestData.h; sourceTree = "<group>"; };
 		F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworking_RequestData.m; sourceTree = "<group>"; };
 		F767CA111FBD244900C7518C /* InfoCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoCache.h; sourceTree = "<group>"; };
@@ -222,7 +238,6 @@
 		F767CA981FBD25B700C7518C /* BasePresentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePresentViewController.m; sourceTree = "<group>"; };
 		F767CA9C1FBD25D500C7518C /* Rice.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rice.pch; sourceTree = "<group>"; };
 		F767CA9D1FBD25D600C7518C /* DefineFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefineFile.h; sourceTree = "<group>"; };
-		F767CA9E1FBD263200C7518C /* UrlFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlFile.h; sourceTree = "<group>"; };
 		F767CA9F1FBD264700C7518C /* PersonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonModel.h; sourceTree = "<group>"; };
 		F767CAA01FBD264700C7518C /* PersonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonModel.m; sourceTree = "<group>"; };
 		F767CAAE1FBD2DBB00C7518C /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -383,13 +398,16 @@
 				F767CA961FBD25B600C7518C /* NavigationController.m */,
 				F767CAAE1FBD2DBB00C7518C /* MainViewController.h */,
 				F767CAAF1FBD2DBB00C7518C /* MainViewController.m */,
+				F74430081FCE784F00B92863 /* BookFoodVC.h */,
+				F74430091FCE784F00B92863 /* BookFoodVC.m */,
 				F767CAC01FBD2ECA00C7518C /* LeftViewController.h */,
 				F767CABF1FBD2ECA00C7518C /* LeftViewController.m */,
 				F75BA47D1FBE7B3A009A55DF /* LeftViewCell.h */,
 				F75BA47E1FBE7B3A009A55DF /* LeftViewCell.m */,
 				F7E1B6641FC697890063EAA6 /* TYCyclePagerViewCell.h */,
 				F7E1B6631FC697890063EAA6 /* TYCyclePagerViewCell.m */,
-				F767CA9E1FBD263200C7518C /* UrlFile.h */,
+				F74430051FCE5A0500B92863 /* BookView.h */,
+				F74430061FCE5A0500B92863 /* BookView.m */,
 				F767CA8B1FBD24F600C7518C /* 登录注册 */,
 				F75BA4801FBEB8BC009A55DF /* 我的订单 */,
 				F767CA8A1FBD24F000C7518C /* 收货地址 */,
@@ -459,6 +477,8 @@
 				F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */,
 				F7680A711FCD401E00EBC932 /* OrderDetailTwoCell.h */,
 				F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */,
+				F744300E1FCE8BCF00B92863 /* OrderDetailTwoCell1.h */,
+				F744300F1FCE8BCF00B92863 /* OrderDetailTwoCell1.m */,
 				F7680A7E1FCD5F1A00EBC932 /* StartsView.h */,
 				F7680A7F1FCD5F1A00EBC932 /* StartsView.m */,
 			);
@@ -482,6 +502,10 @@
 				F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */,
 				F7680A7A1FCD568600EBC932 /* EvaluateVC.h */,
 				F7680A7B1FCD568600EBC932 /* EvaluateVC.m */,
+				F744300B1FCE7D3600B92863 /* PaymentOrderVC.h */,
+				F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */,
+				F74430111FCE98A800B92863 /* MarkVC.h */,
+				F74430121FCE98A800B92863 /* MarkVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -800,6 +824,7 @@
 				F767CA911FBD25A300C7518C /* RegisterVC.m */,
 				F767CA9F1FBD264700C7518C /* PersonModel.h */,
 				F767CAA01FBD264700C7518C /* PersonModel.m */,
+				F762CF6E1FCFA17F00D87B31 /* UrlFile.h */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
@@ -1147,16 +1172,20 @@
 				F7680A671FCD2CFB00EBC932 /* AddAddressModel.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
 				F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */,
+				F74430071FCE5A0500B92863 /* BookView.m in Sources */,
 				F7680A351FCCFF2000EBC932 /* PersonalCenterVC.m in Sources */,
 				F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */,
 				F7680A611FCD2AB800EBC932 /* AddAddressVC.m in Sources */,
 				F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */,
 				F7680A4F1FCD07A300EBC932 /* BaseView.m in Sources */,
 				F75BA4A71FBEBB78009A55DF /* BookOrderVC.m in Sources */,
+				F74430101FCE8BCF00B92863 /* OrderDetailTwoCell1.m in Sources */,
+				F74430131FCE98A800B92863 /* MarkVC.m in Sources */,
 				F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */,
 				F7E1B6651FC6978A0063EAA6 /* TYCyclePagerViewCell.m in Sources */,
 				F75BA47F1FBE7B3A009A55DF /* LeftViewCell.m in Sources */,
 				F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */,
+				F744300A1FCE784F00B92863 /* BookFoodVC.m in Sources */,
 				F767CA831FBD249C00C7518C /* UIView+MJCClassExtension.m in Sources */,
 				F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */,
 				F7680A551FCD09A400EBC932 /* CountBindingVC.m in Sources */,
@@ -1174,6 +1203,7 @@
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
 				F7680A521FCD07A300EBC932 /* BRStringPickerView.m in Sources */,
+				F744300D1FCE7D3600B92863 /* PaymentOrderVC.m in Sources */,
 				F767CA371FBD244900C7518C /* UILabel+WLAttributedString.m in Sources */,
 				F75BA4AA1FBEBD45009A55DF /* HistoryOrderCell.m in Sources */,
 				F7680A581FCD0CC800EBC932 /* ModifyPasswordVC.m in Sources */,

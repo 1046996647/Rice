@@ -12,12 +12,6 @@
 
 @interface OrderHeaderView()
 
-@property(nonatomic,strong) UILabel *addresLab;
-@property(nonatomic,strong) UILabel *nameLab;
-@property(nonatomic,strong) UILabel *moneyLab;
-//@property(nonatomic,strong) UILabel *stateLab;
-@property(nonatomic,strong) UIImageView *imgView;
-
 
 @end
 
@@ -27,6 +21,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _addressImg = [UIImageView imgViewWithframe:CGRectMake(kScreenWidth-13-10, 16, 13, 21) icon:@"11"];
+        [self addSubview:_addressImg];
         
         _addresLab = [UILabel labelWithframe:CGRectMake(21, 10, kScreenWidth-21-10, 20) text:@"浙江杭州余杭区赛银国际广场8幢802" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self addSubview:_addresLab];
@@ -46,8 +43,16 @@
         
         self.height = _moneyLab.bottom+4;
         
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addressAction)];
+        [self addGestureRecognizer:tap];
+        
     }
     return self;
+}
+
+- (void)addressAction
+{
+    
 }
 
 @end

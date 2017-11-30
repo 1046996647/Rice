@@ -27,8 +27,9 @@
     // Do any additional setup after loading the view.
     
     OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    headerView.addressImg.hidden = YES;
+    headerView.userInteractionEnabled = NO;
 
-    
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;

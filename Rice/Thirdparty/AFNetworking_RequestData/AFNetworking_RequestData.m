@@ -79,23 +79,25 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
     
     // 用户信息不包含token
     PersonModel *person = [InfoCache unarchiveObjectWithFile:Person];
-    NSString *token = [InfoCache unarchiveObjectWithFile:@"token"];
-    NSString *userid = [InfoCache unarchiveObjectWithFile:@"userid"];
-    NSString *siteId = [InfoCache unarchiveObjectWithFile:@"siteId"];
+//    NSString *token = [InfoCache unarchiveObjectWithFile:@"token"];
+//    NSString *userid = [InfoCache unarchiveObjectWithFile:@"userid"];
+//    NSString *siteId = [InfoCache unarchiveObjectWithFile:@"siteId"];
 
     //======POST=====
     if ([Method isEqualToString:@"POST"]) {
 
         if (person) {
-//            [dic  setValue:person.uid forKey:@"uid"];
+            [dic  setValue:person.Token forKey:@"Token"];
+            [dic  setValue:person.userId forKey:@"userId"];
+            
         }
 
-        if (token) {
-            [dic  setValue:token forKey:@"token"];
-            [dic  setValue:userid forKey:@"userid"];
-            [dic  setValue:siteId forKey:@"siteId"];
-
-        }
+//        if (token) {
+//            [dic  setValue:token forKey:@"token"];
+//            [dic  setValue:userid forKey:@"userid"];
+//            [dic  setValue:siteId forKey:@"siteId"];
+//
+//        }
 
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -109,8 +111,8 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
             
             [SVProgressHUD dismiss];
 
-            NSNumber *code = [responseObject objectForKey:@"status"];
-            if (0 == [code integerValue] || 3 == [code integerValue]) {
+            NSNumber *code = [responseObject objectForKey:@"httpcode"];
+            if (500 == [code integerValue] || 400 == [code integerValue]) {
                 
 //                if (3 == [code integerValue]) {
 //                    

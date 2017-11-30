@@ -19,7 +19,8 @@
         
         self.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
         
-        _bgView = [UIImageView imgViewWithframe:CGRectZero icon:@""];
+        _bgView = [UIImageView imgViewWithframe:CGRectZero icon:@"backView"];
+//        _bgView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_bgView];
 
         _imgView = [UIImageView imgViewWithframe:CGRectZero icon:@""];
@@ -53,6 +54,9 @@
     
     [super layoutSubviews];
 
+    _bgView.frame = self.bounds;
+
+    
     _imgView.frame = CGRectMake(28, (138-120)/2, 120, 120);
     _imgView.layer.cornerRadius = _imgView.height/2;
     _imgView.layer.masksToBounds = YES;
@@ -60,11 +64,11 @@
     _imgView.layer.borderWidth = 5;
     _imgView.backgroundColor = [UIColor redColor];
     
-    _nameLab.frame = CGRectMake(_imgView.right+10, 24, kScreenWidth-40-(_imgView.right+10)-32, 24);
+    _nameLab.frame = CGRectMake(_imgView.right+10, 24, kScreenWidth-30-(_imgView.right+10)-32, 24);
     
     _moneyLab.frame = CGRectMake(_imgView.right+10, _nameLab.bottom+17, kScreenWidth-40-(_imgView.right+10)-32, 21);
     
-    _addBtn.frame = CGRectMake(kScreenWidth-40-28-36, _moneyLab.bottom+14, 28, 28);
+    _addBtn.frame = CGRectMake(kScreenWidth-30-28-36, _moneyLab.bottom+14, 28, 28);
     
     _countLab.frame = CGRectMake(_addBtn.left-28, _moneyLab.bottom+14, 28, 28);
     

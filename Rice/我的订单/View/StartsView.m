@@ -21,6 +21,7 @@
         
         self.panView = [[UIView alloc] initWithFrame:self.bounds];
         [self addSubview:self.panView];
+//        self.panView.backgroundColor = [UIColor redColor];
         
         self.StartsBtns = [NSMutableArray array];
         
@@ -38,6 +39,10 @@
             }
             
         }
+        
+        UIButton *button = [self.StartsBtns lastObject];
+        self.width = button.right;
+        self.panView.width = self.width;
         
     }
     return self;
