@@ -15,10 +15,20 @@
 @interface SettingVC () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *dataArr;
+//@property (nonatomic, strong) PersonModel *dataArr;
 
 @end
 
 @implementation SettingVC
+
+- (void)dealloc
+{
+    if (self.block) {
+        self.block = ^{
+            
+        };
+    }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

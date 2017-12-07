@@ -10,4 +10,7 @@
 
 @interface PaymentOrderVC : BaseViewController
 
+@property(nonatomic,strong) NSMutableDictionary *param;
+
+
 @end

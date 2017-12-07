@@ -45,12 +45,19 @@
 //    [self.view insertSubview:bg atIndex:0];
     
     
-    UIPanGestureRecognizer *tap = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHandler:)];
-    [self.view addGestureRecognizer:tap];
+//    UIPanGestureRecognizer *tap = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureHandler:)];
+//    [self.view addGestureRecognizer:tap];
     
     //接收侧滑通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationLeftSlide) name:kNotificationLeftSlide object:nil];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
 
 - (void)panGestureHandler:(UIPanGestureRecognizer *)PanGestureRecognizer{
     UIView *mainView = _mainVC.view;

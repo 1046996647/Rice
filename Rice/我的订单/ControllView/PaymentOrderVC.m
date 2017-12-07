@@ -38,6 +38,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    
+    
     // 头视图
     OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
     headerView.addressImg.hidden = NO;
@@ -176,6 +178,33 @@
     UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:@"￥0.00     确认支付" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
     [self.view addSubview:payBtn];
     //    [viewBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self placeOrder];
+}
+
+// 2.2    订单生成
+- (void)placeOrder
+{
+    
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:PlaceOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSArray *arr = responseObject[@"data"];
+        if ([arr isKindOfClass:[NSArray class]]) {
+            
+//            NSMutableArray *foodArr = [NSMutableArray array];
+//            for (NSDictionary *dic in arr) {
+//                FoodModel *model = [FoodModel yy_modelWithJSON:dic];
+//                [foodArr addObject:model];
+//            }
+//            self.foodArrs = foodArr;
+//            [_pagerView reloadData];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)markAction

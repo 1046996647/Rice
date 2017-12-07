@@ -14,21 +14,41 @@
 #import "TYCyclePagerViewCell.h"
 #import "LoginVC.h"
 #import "BookView.h"
+#import "AddAddressVC.h"
 #import "PaymentOrderVC.h"
+#import "NSStringExt.h"
+#import <QMapKit/QMapKit.h>
+#import <TencentLBS/TencentLBS.h>
 
-@interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate>
+
+@interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate,QMapViewDelegate,TencentLBSLocationManagerDelegate>
 
 @property (strong, nonatomic) SGAdvertScrollView *advertScrollViewTop;
 @property (nonatomic, strong) TYCyclePagerView *pagerView;
 @property (nonatomic, strong) BookView *bookView;
+@property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) MJCSegmentInterface *lala;
+@property (nonatomic, strong) UIView *adView;
+
 
 @property (nonatomic, strong) UIImageView *baseImg;
 
-@property (nonatomic, strong) NSArray *datas;
 @property (nonatomic, strong) UIButton *orderBtn;
 
 @property (nonatomic, strong) UIButton *bookBtn;
 @property (nonatomic, strong) UIButton *xiaDanBtn;
+@property (nonatomic, strong) NSArray *tagArrs;// 标签数组
+@property (nonatomic, strong) NSArray *foodArrs;// 菜品数组
+
+
+@property (nonatomic, strong) NSMutableArray *selectedArr;// 选中菜品数组
+@property (nonatomic, strong) NSMutableArray *foodIdArr;// id数组
+@property (nonatomic, assign) float totalPrice;// 总费用
+
+// 地图
+@property (nonatomic, strong) QMapView *mapView;
+@property (readwrite, nonatomic, strong) TencentLBSLocationManager *locationManager;
+@property (nonatomic, strong) TencentLBSLocation *location;
 
 
 
@@ -49,12 +69,15 @@
     [leftBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
+    // 赛银国际广场
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 110, 20)];
-    UIButton *rightBtn = [UIButton buttonWithframe:rightView.bounds text:@"赛银国际广场" font:SystemFont(14) textColor:@"#333333" backgroundColor:nil normal:@"定位" selected:@""];
+    UIButton *rightBtn = [UIButton buttonWithframe:rightView.bounds text:@"" font:SystemFont(14) textColor:@"#333333" backgroundColor:nil normal:@"定位" selected:@""];
     [rightView addSubview:rightBtn];
     rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    //    [setBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn addTarget:self action:@selector(addressAction) forControlEvents:UIControlEventTouchUpInside];
+    self.rightBtn = rightBtn;
+    rightBtn.titleLabel.lineBreakMode =  NSLineBreakByTruncatingTail;
     
     UIImageView *imgView = [UIImageView imgViewWithframe:CGRectMake(rightView.width-6, 0, 6, 20) icon:@"Shape"];
     imgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -62,7 +85,28 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
     
-    NSArray *titlesArr = @[@"中餐",@"日料",@"西餐",@"西餐1",@"西餐2",@"西餐3",@"西餐4",@"西餐5",@"西餐6"];
+    // 地图mapview
+    _mapView = [[QMapView alloc] initWithFrame:CGRectMake(0,
+                                                          0,
+                                                          kScreenWidth,
+                                                          self.view.height)];
+    _mapView.delegate = self;
+    [self.view addSubview:_mapView];
+    [_mapView setZoomLevel:15.01];
+    _mapView.showsUserLocation = NO;// 默认是NO
+
+    // 去掉logo
+    for (UIView *view in _mapView.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
+            break;
+        }
+    }
+    
+    [self configLocationManager];
+    [self startUpdatingLocation];
+    
+//    NSArray *titlesArr = @[@"中餐",@"日料",@"西餐",@"西餐1",@"西餐2",@"西餐3",@"西餐4",@"西餐5",@"西餐6"];
 
     //以下是我的控件中的代码
     MJCSegmentInterface *lala = [[MJCSegmentInterface alloc]init];
@@ -81,7 +125,7 @@
     lala.isChildScollEnabled = NO;
     //    lala.selectedSegmentIndex = 2;
     lala.indicatorStyles = MJCIndicatorItemTextStyle;
-    [lala intoTitlesArray:titlesArr hostController:self];
+//    [lala intoTitlesArray:titlesArr hostController:self];
     [self.view addSubview:lala];
 //    [lala intoChildControllerArray:vcarrr];
     lala.delegate  = self;
@@ -91,6 +135,9 @@
     lala.layer.shadowOffset = CGSizeMake(0,.5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     lala.layer.shadowOpacity = 1;//阴影透明度，默认0
     //    self.xiaDanBtn.layer.shadowRadius = 2;//阴影半径，默认3
+    self.lala = lala;
+    self.lala.hidden = YES;
+
     
     // 广告滚轮
     UIView *adView = [[UIView alloc] initWithFrame:CGRectMake(17, 37+25, kScreenWidth-34, 32)];
@@ -100,7 +147,7 @@
     adView.layer.borderColor = [UIColor colorWithHexString:@"#DBDBDB"].CGColor;
     adView.layer.borderWidth = .5;
     [self.view addSubview:adView];
-
+    self.adView = adView;
 
     UIImageView *leftImg = [UIImageView imgViewWithframe:CGRectMake(6, 0, 19, 32) icon:@"34"];
     leftImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -120,6 +167,11 @@
 
     // 底部视图
     [self initBottomView];
+    
+    // 选中菜品数组
+    self.selectedArr = [NSMutableArray array];
+    // id数组
+    self.foodIdArr = [NSMutableArray array];
 }
 
 - (void)initBottomView
@@ -161,7 +213,7 @@
 //        self.xiaDanBtn.layer.shadowRadius = 2;//阴影半径，默认3
     
     // 下单
-    UIButton *xiaDanBtn = [UIButton buttonWithframe:CGRectMake(bookBtn.right+10, bookBtn.top, bookBtn.width, bookBtn.height) text:@"￥0     下单" font:SystemFont(17) textColor:@"#444444" backgroundColor:@"#F8E249" normal:@"" selected:nil];
+    UIButton *xiaDanBtn = [UIButton buttonWithframe:CGRectMake(bookBtn.right+10, bookBtn.top, bookBtn.width, bookBtn.height) text:[NSString stringWithFormat:@"￥%.2f     下单",self.totalPrice] font:SystemFont(17) textColor:@"#444444" backgroundColor:@"#F8E249" normal:@"" selected:nil];
     [self.view addSubview:xiaDanBtn];
     self.xiaDanBtn = xiaDanBtn;
     //1.设置阴影颜色
@@ -185,6 +237,133 @@
     _pagerView.frame = CGRectMake(0, self.orderBtn.bottom+4, kScreenWidth, 138);
 
 }
+- (void)addressAction
+{
+    AddAddressVC *vc = [[AddAddressVC alloc] init];
+    vc.title = @"当前位置";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 获取标签
+- (void)getTags
+{
+
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
+    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetTags dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSArray *arr = responseObject[@"data"];
+        self.tagArrs = arr;
+        if ([arr isKindOfClass:[NSArray class]]) {
+            
+            if (arr.count < 4) {
+                self.lala.hidden = YES;
+                self.adView.top = 25;
+                [self getFoods:@""];
+            }
+            else {
+                self.lala.hidden = NO;
+
+                NSMutableArray *tagArr = [NSMutableArray array];
+                for (NSDictionary *dic in arr) {
+                    [tagArr addObject:dic[@"tagName"]];
+                }
+                [self.lala intoTitlesArray:tagArr hostController:self];
+
+                // 取出第一个tagId
+                NSDictionary *dic = [arr firstObject];
+                NSString *tagId = dic[@"tagId"];
+                [self getFoods:tagId];
+            }
+
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+// 首页菜品接口
+- (void)getFoods:(NSString *)tagId
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
+    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
+    [paramDic  setValue:tagId forKey:@"tagId"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetFoods dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSArray *arr = responseObject[@"data"];
+        if ([arr isKindOfClass:[NSArray class]]) {
+
+            NSMutableArray *foodArr = [NSMutableArray array];
+            for (NSDictionary *dic in arr) {
+                FoodModel *model = [FoodModel yy_modelWithJSON:dic];
+                [foodArr addObject:model];
+                
+                // 取得数量大于0且唯一的id
+                if (model.amount > 0) {
+                    if (![self.foodIdArr containsObject:model.foodId]) {
+                        [self.foodIdArr addObject:model.foodId];
+                        
+                        // 确保保存唯一id的model
+                        [self.selectedArr addObject:model];
+                    }
+                }
+                else {
+                    
+                    for (FoodModel *model1 in self.selectedArr) {
+                        if ([model1.foodId isEqualToString:model.foodId]) {
+                            model1.amount = model.amount;
+
+                            
+                        }
+                    }
+                    
+                }
+
+            }
+            self.foodArrs = foodArr;
+            [_pagerView reloadData];
+
+            [_pagerView scrollToItemAtIndex:0 animate:NO];
+
+            // 保存过的菜单
+            self.totalPrice = 0;
+            for (FoodModel *model1 in self.selectedArr) {
+                self.totalPrice = self.totalPrice+model1.foodPrice.integerValue*model1.amount.integerValue;
+            }
+            
+            [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%.2f     下单",self.totalPrice] forState:UIControlStateNormal];
+
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+// 首页配送中订单
+- (void)getSendingOrder
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetSendingOrder dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
+        
+        NSArray *arr = responseObject[@"data"];
+        if ([arr isKindOfClass:[NSArray class]]) {
+
+            self.bookView.orderArr = arr;
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)selectAction:(UIButton *)btn
 {
@@ -207,13 +386,56 @@
         
         self.baseImg.image = [UIImage imageNamed:@"home_2"];
 
+        PersonModel *model = [InfoCache unarchiveObjectWithFile:Person];
+        if (!model) {
+            LoginVC *vc = [[LoginVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            vc.block = ^{
+                [self getSendingOrder];
+
+            };
+            return;
+        }
+        [self getSendingOrder];
     }
 }
 
 - (void)xiaDanAction
 {
+    PersonModel *model = [InfoCache unarchiveObjectWithFile:Person];
+    if (!model) {
+        LoginVC *vc = [[LoginVC alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
+    if (self.totalPrice == 0) {
+        [self.navigationController.view makeToast:@"请选择菜品"];
+        return;
+
+    }
+    
+    NSMutableArray *arrM = [NSMutableArray array];
+    for (FoodModel *model in self.selectedArr) {
+        if (model.amount.integerValue > 0) {
+            NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.amount,@"amount", nil];
+            [arrM addObject:paramDic];
+        }
+
+    }
+    
+    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    [paramDic setValue:@"true" forKey:@"isUseBalance"];
+    [paramDic setValue:@"true" forKey:@"isUseCoupon"];
+    
+    NSString *jsonStr = [NSString JSONString:arrM];
+    [paramDic setValue:jsonStr forKey:@"listFoods"];
+    
+    NSLog(@"paramDic:%@",paramDic);
+
     PaymentOrderVC *vc = [[PaymentOrderVC alloc] init];
     vc.title = @"支付订单";
+    vc.param = paramDic;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -236,13 +458,53 @@
 #pragma mark - TYCyclePagerViewDataSource
 
 - (NSInteger)numberOfItemsInPagerView:(TYCyclePagerView *)pageView {
-//    return _datas.count;
-    return 5;
+    return self.foodArrs.count;
+//    return 5;
 }
 
 - (UICollectionViewCell *)pagerView:(TYCyclePagerView *)pagerView cellForItemAtIndex:(NSInteger)index {
     TYCyclePagerViewCell *cell = [pagerView dequeueReusableCellWithReuseIdentifier:@"cellId" forIndex:index];
 //    cell.backgroundColor = [UIColor redColor];
+    FoodModel *model = self.foodArrs[index];
+    cell.model = model;
+    cell.block = ^(FoodModel *model,NSInteger tag) {
+        
+        PersonModel *personModel = [InfoCache unarchiveObjectWithFile:Person];
+        if (!personModel) {
+            LoginVC *vc = [[LoginVC alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
+        }
+
+        if (![self.foodIdArr containsObject:model.foodId]) {
+            [self.foodIdArr addObject:model.foodId];
+            
+            // 确保保存唯一id的model
+            [self.selectedArr addObject:model];
+        }
+        else {
+            
+            for (FoodModel *model1 in self.selectedArr) {
+                if ([model1.foodId isEqualToString:model.foodId]) {
+                    model1.amount = model.amount;
+
+                }
+            }
+
+        }
+
+        self.totalPrice = 0;
+        for (FoodModel *model1 in self.selectedArr) {
+            self.totalPrice = self.totalPrice+model1.foodPrice.integerValue*model1.amount.integerValue;
+            NSLog(@"---id%@",model1.foodId);
+
+        }
+        
+        NSLog(@"---totalPrice%.2f",self.totalPrice);
+
+        [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%.2f     下单",self.totalPrice] forState:UIControlStateNormal];
+    };
+    
     return cell;
 }
 
@@ -261,20 +523,88 @@
 {
 //    _tag = tabItem.tag;
     NSLog(@"%ld",tabItem.tag);
-//
-//    if (_tag == 1) {
-//        self.viewBtn.hidden =  YES;
-//    }
-//    else {
-//        self.viewBtn.hidden =  NO;
-//
-//    }
+
+    NSDictionary *dic = self.tagArrs[tabItem.tag];
+    NSString *tagId = dic[@"tagId"];
+    [self getFoods:tagId];
 }
 
 #pragma mark SGAdvertScrollViewDelegate
 - (void)advertScrollView:(SGAdvertScrollView *)advertScrollView didSelectedItemAtIndex:(NSInteger)index {
+    
 //    DetailViewController *nextVC = [[DetailViewController alloc] init];
 //    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+// ----------------地图定位-------------------
+#pragma mark 地图定位
+#pragma mark - Action Handle
+- (void)configLocationManager {
+    
+    self.locationManager = [[TencentLBSLocationManager alloc] init];
+    [self.locationManager setDelegate:self];
+    [self.locationManager setPausesLocationUpdatesAutomatically:NO];
+//    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+    [self.locationManager setApiKey:@"ZVSBZ-57HCP-3JADY-LK5EG-WTLYK-VDFF2"];
+    [self.locationManager setRequestLevel:TencentLBSRequestLevelName];
+
+    
+    CLAuthorizationStatus authorizationStatus= [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+}
+
+- (void)startUpdatingLocation {
+    [self.locationManager startUpdatingLocation];
+}
+
+#pragma mark - TencentLBSLocationManagerDelegate
+
+- (void)tencentLBSLocationManager:(TencentLBSLocationManager *)manager
+                 didFailWithError:(NSError *)error {
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusDenied || authorizationStatus == kCLAuthorizationStatusRestricted) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"定位权限未开启，是否开启？" preferredStyle:  UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"是" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            if( [[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]] ) {
+#if  __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{}completionHandler:^(BOOL success) {
+                }];
+#elif __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+#endif
+            }
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"否" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        }]];
+        
+        [self presentViewController:alert animated:true completion:nil];
+        
+    } else {
+//        [self.displayLabel setText:[NSString stringWithFormat:@"%@", error]];
+    }
+}
+
+- (void)tencentLBSLocationManager:(TencentLBSLocationManager *)manager
+                didUpdateLocation:(TencentLBSLocation *)location {
+    
+    [self.locationManager stopUpdatingLocation];
+
+    self.location = location;
+    [self getTags];
+    
+    NSLog(@"latitude：%f,longitude：%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
+    [_mapView setCenterCoordinate:location.location.coordinate animated:YES];
+    
+    [self.rightBtn setTitle:location.name forState:UIControlStateNormal];
+}
+
+- (void)dealloc
+{
+    [self.locationManager stopUpdatingLocation];
+
 }
 
 @end

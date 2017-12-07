@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+
+typedef void(^LoginBlock)(void);
+
 @interface LoginVC : BaseViewController
+
+@property(nonatomic,copy) LoginBlock block;
+
 
 @end

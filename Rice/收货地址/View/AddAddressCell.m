@@ -7,6 +7,7 @@
 //
 
 #import "AddAddressCell.h"
+#import "SearchAddressVC.h"
 
 @implementation AddAddressCell
 
@@ -14,6 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+
         
         self.textLabel.textColor = [UIColor colorWithHexString:@"#333333"];
         self.textLabel.font = [UIFont systemFontOfSize:13];
@@ -27,7 +29,7 @@
         [_tf addTarget:self action:@selector(changeAction:) forControlEvents:UIControlEventEditingChanged];
         
         UIButton *saveBtn = [UIButton buttonWithframe:_tf.bounds text:nil font:[UIFont systemFontOfSize:14] textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
-//        [saveBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
+        [saveBtn addTarget:self action:@selector(pushAction) forControlEvents:UIControlEventTouchUpInside];
         [_tf addSubview:saveBtn];
         self.saveBtn = saveBtn;
         
@@ -47,6 +49,19 @@
     _line.frame = CGRectMake(21, self.height-1, self.width-21*2, 1);
     _tf.frame = CGRectMake(86, 0, self.width-86, 45);
     _saveBtn.frame = _tf.bounds;
+}
+
+- (void)pushAction
+{
+    SearchAddressVC *vc = [[SearchAddressVC alloc] init];
+    vc.title = @"新增地址";
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+    vc.block = ^(NSString *text,NSString *lat,NSString *lng) {
+        _model.text = text;
+        _tf.text = text;
+        _model.lat = lat;
+        _model.lng = lng;
+    };
 }
 
 - (void)setModel:(AddAddressModel *)model

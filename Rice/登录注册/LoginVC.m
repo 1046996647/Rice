@@ -295,6 +295,11 @@
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
+        // 回调订单
+        if (self.block) {
+            self.block();
+        }
+        
         
     } failure:^(NSError *error) {
         

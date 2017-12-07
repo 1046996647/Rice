@@ -47,7 +47,7 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
 }
 
 
@@ -57,23 +57,18 @@
     
     self.leftDataList = @[@"头像",@"昵称",@"生日"];
     
-//    if (!self.person.name) {
-//        self.person.name = @"请输入昵称";
-//    }
-//    if (!self.person.phone) {
-//        self.person.phone = @"请选择生日日期";
-//    }
-//    self.rightDataList = @[@"",self.person.name,self.person.phone];
-    self.rightDataList = @[@"",@"请输入昵称",@"请选择生日日期"];
+    self.person = [InfoCache unarchiveObjectWithFile:Person];
+
+    if (self.person.name.length == 0) {
+        self.person.name = @"未设置";
+    }
+    if (self.person.birthday.length == 0) {
+        self.person.birthday = @"请选择生日日期";
+    }
+    self.rightDataList = @[@"",self.person.name,self.person.birthday];
 
     [self.view addSubview:self.tableView];
-    
-    UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 36, 22) text:@"保存" font:SystemFont(16) textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
-    //    [viewBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:viewBtn];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUserBodyInfo) name:@"kRefreshNotification" object:nil];
+
     
 }
 
@@ -82,6 +77,58 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)headImgAction
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"相册选择" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        // 创建相册控制器
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        // 设置代理对象
+        pickerController.delegate = self;
+        // 设置选择后的图片可以被编辑
+        //            pickerController.allowsEditing=YES;
+        // 设置类型
+        pickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        // 设置为静态图像类型
+        pickerController.mediaTypes = @[@"public.image"];
+        // 跳转到相册页面
+        [self presentViewController:pickerController animated:YES completion:nil];
+        
+    }];
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"手机拍摄" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        // 创建相册控制器
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc] init];
+        
+        // 设置代理对象
+        pickerController.delegate = self;
+        // 设置选择后的图片可以被编辑
+        //            pickerController.allowsEditing=YES;
+        
+        // 判断当前设备是否有摄像头
+        if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear] || [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceFront]) {
+            
+            // 设置类型
+            pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            
+        }
+        
+        // 跳转页面，该行代码必须放最后
+        [self presentViewController:pickerController animated:YES completion:nil];
+        
+    }];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:albumAction];
+    [alertController addAction:cameraAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -114,6 +161,7 @@
     
     if (indexPath.row == 0) {
 
+        [self headImgAction];
         
     }
     if (indexPath.row == 1) {
@@ -124,16 +172,40 @@
         [self.navigationController pushViewController:vc animated:YES];
         vc.block = ^(NSString *str) {
             
-            self.person.name = str;
-            [self saveAction];
+            cell.detailTextLabel.text = str;
             
         };
         
     }
     if (indexPath.row == 2) {
         
-        [BRDatePickerView showDatePickerWithTitle:@"" dateType:UIDatePickerModeDate defaultSelValue:cell.detailTextLabel.text minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:NO resultBlock:^(NSString *selectValue) {
-            cell.detailTextLabel.text = selectValue;
+        NSString *birth = nil;
+        if (![cell.detailTextLabel.text isEqualToString:@"请选择生日日期"]) {
+            birth = cell.detailTextLabel.text;
+        }
+        [BRDatePickerView showDatePickerWithTitle:@"" dateType:UIDatePickerModeDate defaultSelValue:birth minDateStr:@"" maxDateStr:[NSDate currentDateString] isAutoSelect:NO resultBlock:^(NSString *selectValue) {
+            
+            NSMutableDictionary *paramDic=[NSMutableDictionary dictionary];
+            [paramDic  setObject:selectValue forKey:@"birthday"];
+
+            [AFNetworking_RequestData requestMethodPOSTUrl:SetUserInfo dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+                [SVProgressHUD dismiss];
+
+                NSLog(@"%@",responseObject);
+                self.person = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
+                [InfoCache archiveObject:self.person toFile:Person];
+
+                cell.detailTextLabel.text = selectValue;
+
+
+            } failure:^(NSError *error) {
+
+                NSLog(@"%@",error);
+                [SVProgressHUD dismiss];
+
+
+            }];
         }];
         
     }
@@ -212,11 +284,10 @@
     if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
         UIImageWriteToSavedPhotosAlbum(img, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
     }
-//    NSData *data = [UIImage imageCompressForWidth:img targetWidth:100];
     
     NSData *data = [UIImage imageOrientation:img];
 
-//    [self uploadImage:data];
+    [self uploadImage:data];
     
     
     
@@ -251,32 +322,29 @@
 
     
     NSMutableDictionary *paramDic=[NSMutableDictionary dictionary];
-    [paramDic  setObject:encodedImageStr forKey:@"imageStr"];
+    [paramDic  setObject:encodedImageStr forKey:@"headimg"];
     
-//    [AFNetworking_RequestData requestMethodPOSTUrl:UploadUserHeadImage dic:paramDic Succed:^(id responseObject) {
-//
-//        [SVProgressHUD dismiss];
-//
-//        NSLog(@"%@",responseObject);
+    [AFNetworking_RequestData requestMethodPOSTUrl:SetUserInfo dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+
+        NSLog(@"%@",responseObject);
+        self.person = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
+        [self.headImg sd_setImageWithURL:[NSURL URLWithString:self.person.headImg]];
+        [InfoCache archiveObject:self.person toFile:Person];
 //        [SVProgressHUD showSuccessWithStatus:@"头像上传成功!"];
 //        self.person.HeadImage = responseObject[@"Model1"];
-//
-//
+        
+
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //
 //            [SVProgressHUD dismiss];
 //
 //        });
-//        [self saveAction];
-//
-//
-//    } failure:^(NSError *error) {
-//
-//        NSLog(@"%@",error);
-//        [SVProgressHUD dismiss];
-//
-//
-//    }];
+
+    } failure:^(NSError *error) {
+
+
+    }];
 }
 
 //- (void)uploadImage:(NSString *)base64Str
@@ -302,83 +370,6 @@
 //    }];
 //}
 
-// 保存用户信息
-- (void)saveAction
-{
-    
-    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic  setValue:self.person.name
-                 forKey:@"UserName"];
-//    [paramDic  setValue:self.person.HeadImage
-//                 forKey:@"HeadImage"];
-//
-//    [AFNetworking_RequestData requestMethodPOSTUrl:SetUserBodyInfo dic:paramDic Succed:^(id responseObject) {
-//
-////        [SVProgressHUD dismiss];
-//
-//        NSLog(@"%@",responseObject);
-//
-//        NSNumber *code = [responseObject objectForKey:@"HttpCode"];
-//
-//        if (200 == [code integerValue]) {
-//
-//            [self getUserBodyInfo];
-//
-//        }
-//
-//    } failure:^(NSError *error) {
-//
-//        NSLog(@"%@",error);
-//        [SVProgressHUD dismiss];
-//
-//
-//    }];
-    
-}
 
-// 获取用户信息
-- (void)getUserBodyInfo
-{
-    
-//    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-//    [paramDic  setValue:self.person.UserId forKey:@"Id"];
-//
-//    [AFNetworking_RequestData requestMethodPOSTUrl:GetUserBodyInfo dic:paramDic Succed:^(id responseObject) {
-//
-////        [SVProgressHUD dismiss];
-//
-//        NSLog(@"%@",responseObject);
-//
-//        NSNumber *code = [responseObject objectForKey:@"HttpCode"];
-//
-//        if (200 == [code integerValue]) {
-//
-//            NSArray *arr = [responseObject objectForKey:@"ListData"];
-//            PersonModel *model = [PersonModel yy_modelWithJSON:[arr firstObject]];
-//            self.person = model;
-//            [InfoCache archiveObject:model toFile:@"Person"];
-//
-//            if (!self.person.name) {
-//                self.person.name = @"";
-//            }
-//            if (!self.person.phone) {
-//                self.person.phone = @"尚未绑定";
-//            }
-//            self.rightDataList = @[@"",self.person.name,self.person.phone,@"修改"];
-//
-//            [self.headImg sd_setImageWithURL:[NSURL URLWithString:self.person.HeadImage] placeholderImage:[UIImage imageNamed:@"error_head"]];
-//
-//            [self.tableView reloadData];
-//        }
-//
-//    } failure:^(NSError *error) {
-//
-//        NSLog(@"%@",error);
-//        [SVProgressHUD dismiss];
-//
-//
-//    }];
-    
-}
 
 @end

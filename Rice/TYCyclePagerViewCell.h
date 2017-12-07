@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FoodModel.h"
+
+typedef void(^TYCyclePagerViewBlock)(FoodModel *model,NSInteger tag);
 
 @interface TYCyclePagerViewCell : UICollectionViewCell
 
@@ -17,6 +20,8 @@
 @property(nonatomic,strong) UILabel *countLab;
 @property(nonatomic,strong) UIButton *delBtn;
 @property(nonatomic,strong) UIButton *addBtn;
+@property(nonatomic,strong) FoodModel *model;
+@property(nonatomic,copy) TYCyclePagerViewBlock block;
 
 
 @end

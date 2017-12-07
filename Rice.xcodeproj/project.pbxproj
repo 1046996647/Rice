@@ -13,6 +13,11 @@
 		F744300D1FCE7D3600B92863 /* PaymentOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */; };
 		F74430101FCE8BCF00B92863 /* OrderDetailTwoCell1.m in Sources */ = {isa = PBXBuildFile; fileRef = F744300F1FCE8BCF00B92863 /* OrderDetailTwoCell1.m */; };
 		F74430131FCE98A800B92863 /* MarkVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430121FCE98A800B92863 /* MarkVC.m */; };
+		F749A78F1FD64E450091F3C9 /* SearchAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F749A78E1FD64E450091F3C9 /* SearchAddressVC.m */; };
+		F749A7921FD64FF70091F3C9 /* NearbyAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F749A7901FD64FF70091F3C9 /* NearbyAddressCell.m */; };
+		F749A7941FD66CAF0091F3C9 /* QMapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F749A7931FD66CAE0091F3C9 /* QMapKit.framework */; };
+		F749A79A1FD681490091F3C9 /* SearchResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F749A7991FD681490091F3C9 /* SearchResultVC.m */; };
+		F749A79C1FD6846F0091F3C9 /* QMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */; };
 		F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */; };
 		F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232D71FBC15BD002D4AF9 /* AppDelegate.m */; };
 		F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75232DC1FBC15BD002D4AF9 /* Main.storyboard */; };
@@ -94,6 +99,21 @@
 		F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A781FCD505300EBC932 /* BookHeaderView.m */; };
 		F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7B1FCD568600EBC932 /* EvaluateVC.m */; };
 		F7680A811FCD5F1A00EBC932 /* StartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7F1FCD5F1A00EBC932 /* StartsView.m */; };
+		F77CDADF1FD10B5300B0578B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */; };
+		F77CDAE11FD10B5D00B0578B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE01FD10B5D00B0578B /* libz.tbd */; };
+		F77CDAEF1FD1195100B0578B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE41FD10B8800B0578B /* CoreLocation.framework */; };
+		F77CDAF01FD1195F00B0578B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE61FD10BA200B0578B /* CoreGraphics.framework */; };
+		F77CDAF11FD1197D00B0578B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE21FD10B6600B0578B /* SystemConfiguration.framework */; };
+		F77CDAF21FD1198500B0578B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE31FD10B7900B0578B /* QuartzCore.framework */; };
+		F77CDAF31FD1199100B0578B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE51FD10B9900B0578B /* Foundation.framework */; };
+		F77CDAF71FD123C400B0578B /* TencentLBS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAF61FD123C400B0578B /* TencentLBS.framework */; };
+		F77CDAF91FD123DC00B0578B /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAF81FD123DC00B0578B /* libz.1.2.5.tbd */; };
+		F77CDB001FD1360100B0578B /* tiananmen.png in Resources */ = {isa = PBXBuildFile; fileRef = F77CDAFC1FD1360100B0578B /* tiananmen.png */; };
+		F77CDB011FD1360100B0578B /* tencent.png in Resources */ = {isa = PBXBuildFile; fileRef = F77CDAFD1FD1360100B0578B /* tencent.png */; };
+		F77CDB021FD1360100B0578B /* redflag.png in Resources */ = {isa = PBXBuildFile; fileRef = F77CDAFE1FD1360100B0578B /* redflag.png */; };
+		F77CDB031FD1360100B0578B /* QMapKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F77CDAFF1FD1360100B0578B /* QMapKit.bundle */; };
+		F77CDB071FD1449900B0578B /* FoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77CDB061FD1449900B0578B /* FoodModel.m */; };
+		F77CDB0A1FD14A5800B0578B /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77CDB091FD14A5800B0578B /* OrderModel.m */; };
 		F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */; };
 		F7E1B6611FC6973B0063EAA6 /* TYCyclePagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65D1FC6973B0063EAA6 /* TYCyclePagerView.m */; };
 		F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65F1FC6973B0063EAA6 /* TYPageControl.m */; };
@@ -131,6 +151,14 @@
 		F744300F1FCE8BCF00B92863 /* OrderDetailTwoCell1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTwoCell1.m; sourceTree = "<group>"; };
 		F74430111FCE98A800B92863 /* MarkVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkVC.h; sourceTree = "<group>"; };
 		F74430121FCE98A800B92863 /* MarkVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkVC.m; sourceTree = "<group>"; };
+		F749A78D1FD64E450091F3C9 /* SearchAddressVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchAddressVC.h; sourceTree = "<group>"; };
+		F749A78E1FD64E450091F3C9 /* SearchAddressVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchAddressVC.m; sourceTree = "<group>"; };
+		F749A7901FD64FF70091F3C9 /* NearbyAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyAddressCell.m; sourceTree = "<group>"; };
+		F749A7911FD64FF70091F3C9 /* NearbyAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyAddressCell.h; sourceTree = "<group>"; };
+		F749A7931FD66CAE0091F3C9 /* QMapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QMapKit.framework; path = "../Desktop/腾讯地图/TencentMapSDK_iOS_2D_v1_2_8/sdk/QMapKit.framework"; sourceTree = "<group>"; };
+		F749A7981FD681490091F3C9 /* SearchResultVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchResultVC.h; sourceTree = "<group>"; };
+		F749A7991FD681490091F3C9 /* SearchResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchResultVC.m; sourceTree = "<group>"; };
+		F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QMapSearchKit.framework; sourceTree = "<group>"; };
 		F74B8FE81FC668D0004B1A19 /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
 		F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		F75232D31FBC15BD002D4AF9 /* Rice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rice.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -297,6 +325,23 @@
 		F7680A7B1FCD568600EBC932 /* EvaluateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateVC.m; sourceTree = "<group>"; };
 		F7680A7E1FCD5F1A00EBC932 /* StartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartsView.h; sourceTree = "<group>"; };
 		F7680A7F1FCD5F1A00EBC932 /* StartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartsView.m; sourceTree = "<group>"; };
+		F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		F77CDAE01FD10B5D00B0578B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		F77CDAE21FD10B6600B0578B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		F77CDAE31FD10B7900B0578B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		F77CDAE41FD10B8800B0578B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F77CDAE51FD10B9900B0578B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F77CDAE61FD10BA200B0578B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F77CDAF61FD123C400B0578B /* TencentLBS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentLBS.framework; sourceTree = "<group>"; };
+		F77CDAF81FD123DC00B0578B /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		F77CDAFC1FD1360100B0578B /* tiananmen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiananmen.png; sourceTree = "<group>"; };
+		F77CDAFD1FD1360100B0578B /* tencent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tencent.png; sourceTree = "<group>"; };
+		F77CDAFE1FD1360100B0578B /* redflag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redflag.png; sourceTree = "<group>"; };
+		F77CDAFF1FD1360100B0578B /* QMapKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = QMapKit.bundle; sourceTree = "<group>"; };
+		F77CDB051FD1449900B0578B /* FoodModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FoodModel.h; sourceTree = "<group>"; };
+		F77CDB061FD1449900B0578B /* FoodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodModel.m; sourceTree = "<group>"; };
+		F77CDB081FD14A5800B0578B /* OrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		F77CDB091FD14A5800B0578B /* OrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
 		F7E1B65A1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerTransformLayout.h; sourceTree = "<group>"; };
 		F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerTransformLayout.m; sourceTree = "<group>"; };
 		F7E1B65C1FC6973B0063EAA6 /* TYCyclePagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerView.h; sourceTree = "<group>"; };
@@ -312,6 +357,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77CDAF31FD1199100B0578B /* Foundation.framework in Frameworks */,
+				F749A7941FD66CAF0091F3C9 /* QMapKit.framework in Frameworks */,
+				F77CDAF21FD1198500B0578B /* QuartzCore.framework in Frameworks */,
+				F77CDAF71FD123C400B0578B /* TencentLBS.framework in Frameworks */,
+				F77CDAF11FD1197D00B0578B /* SystemConfiguration.framework in Frameworks */,
+				F77CDAF01FD1195F00B0578B /* CoreGraphics.framework in Frameworks */,
+				F77CDAEF1FD1195100B0578B /* CoreLocation.framework in Frameworks */,
+				F77CDAF91FD123DC00B0578B /* libz.1.2.5.tbd in Frameworks */,
+				F749A79C1FD6846F0091F3C9 /* QMapSearchKit.framework in Frameworks */,
+				F77CDADF1FD10B5300B0578B /* libsqlite3.tbd in Frameworks */,
+				F77CDAE11FD10B5D00B0578B /* libz.tbd in Frameworks */,
 				546D1425719FF7BA7A293A13 /* libPods-Rice.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -336,6 +392,17 @@
 		40B35775575112A9B732F542 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */,
+				F77CDAF81FD123DC00B0578B /* libz.1.2.5.tbd */,
+				F749A7931FD66CAE0091F3C9 /* QMapKit.framework */,
+				F77CDAF61FD123C400B0578B /* TencentLBS.framework */,
+				F77CDAE61FD10BA200B0578B /* CoreGraphics.framework */,
+				F77CDAE51FD10B9900B0578B /* Foundation.framework */,
+				F77CDAE41FD10B8800B0578B /* CoreLocation.framework */,
+				F77CDAE31FD10B7900B0578B /* QuartzCore.framework */,
+				F77CDAE21FD10B6600B0578B /* SystemConfiguration.framework */,
+				F77CDAE01FD10B5D00B0578B /* libz.tbd */,
+				F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */,
 				9658E96CCAD0EAA5379DB8B2 /* libPods-Rice.a */,
 			);
 			name = Frameworks;
@@ -362,6 +429,7 @@
 		F75232CA1FBC15BD002D4AF9 = {
 			isa = PBXGroup;
 			children = (
+				F77CDAFB1FD135EF00B0578B /* Resources */,
 				F75232D51FBC15BD002D4AF9 /* Rice */,
 				F75232EE1FBC15BD002D4AF9 /* RiceTests */,
 				F75232F91FBC15BD002D4AF9 /* RiceUITests */,
@@ -408,6 +476,11 @@
 				F7E1B6631FC697890063EAA6 /* TYCyclePagerViewCell.m */,
 				F74430051FCE5A0500B92863 /* BookView.h */,
 				F74430061FCE5A0500B92863 /* BookView.m */,
+				F77CDB051FD1449900B0578B /* FoodModel.h */,
+				F77CDB061FD1449900B0578B /* FoodModel.m */,
+				F77CDB081FD14A5800B0578B /* OrderModel.h */,
+				F77CDB091FD14A5800B0578B /* OrderModel.m */,
+				F77CDB041FD1363F00B0578B /* 地图 */,
 				F767CA8B1FBD24F600C7518C /* 登录注册 */,
 				F75BA4801FBEB8BC009A55DF /* 我的订单 */,
 				F767CA8A1FBD24F000C7518C /* 收货地址 */,
@@ -526,6 +599,8 @@
 				F7680A5D1FCD131A00EBC932 /* ReceiveAddressCell.m */,
 				F7680A621FCD2C1C00EBC932 /* AddAddressCell.h */,
 				F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */,
+				F749A7911FD64FF70091F3C9 /* NearbyAddressCell.h */,
+				F749A7901FD64FF70091F3C9 /* NearbyAddressCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -537,6 +612,10 @@
 				F75BA4851FBEB945009A55DF /* ReceiveAddressVC.m */,
 				F7680A5F1FCD2AB800EBC932 /* AddAddressVC.h */,
 				F7680A601FCD2AB800EBC932 /* AddAddressVC.m */,
+				F749A78D1FD64E450091F3C9 /* SearchAddressVC.h */,
+				F749A78E1FD64E450091F3C9 /* SearchAddressVC.m */,
+				F749A7981FD681490091F3C9 /* SearchResultVC.h */,
+				F749A7991FD681490091F3C9 /* SearchResultVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -923,6 +1002,24 @@
 			path = StringPickerView;
 			sourceTree = "<group>";
 		};
+		F77CDAFB1FD135EF00B0578B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F77CDAFF1FD1360100B0578B /* QMapKit.bundle */,
+				F77CDAFC1FD1360100B0578B /* tiananmen.png */,
+				F77CDAFE1FD1360100B0578B /* redflag.png */,
+				F77CDAFD1FD1360100B0578B /* tencent.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F77CDB041FD1363F00B0578B /* 地图 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "地图";
+			sourceTree = "<group>";
+		};
 		F7E1B6591FC6973B0063EAA6 /* TYCyclePagerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1007,6 +1104,11 @@
 					F75232D21FBC15BD002D4AF9 = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					F75232EA1FBC15BD002D4AF9 = {
 						CreatedOnToolsVersion = 9.1;
@@ -1045,10 +1147,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F77CDB001FD1360100B0578B /* tiananmen.png in Resources */,
 				F75232E31FBC15BD002D4AF9 /* LaunchScreen.storyboard in Resources */,
 				F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */,
+				F77CDB011FD1360100B0578B /* tencent.png in Resources */,
 				F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */,
+				F77CDB031FD1360100B0578B /* QMapKit.bundle in Resources */,
 				F7680A4E1FCD07A300EBC932 /* BRCity.plist in Resources */,
+				F77CDB021FD1360100B0578B /* redflag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1133,6 +1239,7 @@
 				F7680A4D1FCD07A300EBC932 /* BRAddressPickerView.m in Sources */,
 				F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */,
 				F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */,
+				F77CDB0A1FD14A5800B0578B /* OrderModel.m in Sources */,
 				F767CA391FBD244900C7518C /* UIViewExt.m in Sources */,
 				F75BA4B41FBECB80009A55DF /* CSLeftSlideControllerTwo.m in Sources */,
 				F767CA991FBD25B700C7518C /* BaseViewController.m in Sources */,
@@ -1143,6 +1250,7 @@
 				F7E1B6611FC6973B0063EAA6 /* TYCyclePagerView.m in Sources */,
 				F767CA301FBD244900C7518C /* NSStringExt.m in Sources */,
 				F767CA7A1FBD249C00C7518C /* MJCIndicatorView.m in Sources */,
+				F749A79A1FD681490091F3C9 /* SearchResultVC.m in Sources */,
 				F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */,
 				F75232E61FBC15BD002D4AF9 /* main.m in Sources */,
 				F767CA311FBD244900C7518C /* CountDownServer.m in Sources */,
@@ -1157,6 +1265,7 @@
 				F767CA821FBD249C00C7518C /* UILabel+MJCClassExtension.m in Sources */,
 				F75BA4B71FBED0D4009A55DF /* SendingOrderCell.m in Sources */,
 				F767CA7F1FBD249C00C7518C /* MJCOrdinaryLayout.m in Sources */,
+				F749A7921FD64FF70091F3C9 /* NearbyAddressCell.m in Sources */,
 				F767CA321FBD244900C7518C /* RegexTool.m in Sources */,
 				F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */,
 				F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */,
@@ -1202,6 +1311,7 @@
 				F767CA841FBD249C00C7518C /* MJCSegmentInterface.m in Sources */,
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
+				F749A78F1FD64E450091F3C9 /* SearchAddressVC.m in Sources */,
 				F7680A521FCD07A300EBC932 /* BRStringPickerView.m in Sources */,
 				F744300D1FCE7D3600B92863 /* PaymentOrderVC.m in Sources */,
 				F767CA371FBD244900C7518C /* UILabel+WLAttributedString.m in Sources */,
@@ -1213,6 +1323,7 @@
 				F767CA921FBD25A300C7518C /* RegisterVC.m in Sources */,
 				F7680A641FCD2C1C00EBC932 /* AddAddressCell.m in Sources */,
 				F767CA331FBD244900C7518C /* UITableView+EmptyData.m in Sources */,
+				F77CDB071FD1449900B0578B /* FoodModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1378,11 +1489,46 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D59VU3JG9L;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Rice/地图",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MJRefresh\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"YYModel\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lsqlite3",
+					"-lstdc++.6.0.9",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "7c1f73ac-691d-460a-afa2-5736c663f5c8";
@@ -1398,11 +1544,46 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Rice/地图",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Rice/Rice.pch";
 				INFOPLIST_FILE = Rice/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"MJRefresh\"",
+					"-l\"SDWebImage\"",
+					"-l\"SVProgressHUD\"",
+					"-l\"YYModel\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-lsqlite3",
+					"-lstdc++.6.0.9",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HongHu.Rice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

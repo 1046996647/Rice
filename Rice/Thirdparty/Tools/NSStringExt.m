@@ -278,13 +278,12 @@
     return dateStr;
 }
 
-// 字典转json格式字符串：
-+ (NSString*)dictionaryToJson:(NSDictionary *)dic
+// 字典或数组转json格式字符串：
++ (NSString*)JSONString:(id)obj
 {
-    
     NSError *error;
     
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:obj options:NSJSONWritingPrettyPrinted error:&error];
     
     NSString *jsonString;
     
@@ -303,6 +302,7 @@
     NSRange range = {0,jsonString.length};
     
     //去掉字符串中的空格
+    
     [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
     
     NSRange range2 = {0,mutStr.length};
@@ -312,7 +312,6 @@
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     
     return mutStr;
-    
 }
 
 @end

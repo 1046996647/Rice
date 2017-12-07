@@ -20,7 +20,7 @@
         self.backgroundColor = [UIColor colorWithHexString:@"#FFFFFF"];
         
         _bgView = [UIImageView imgViewWithframe:CGRectZero icon:@"backView"];
-//        _bgView.contentMode = UIViewContentModeScaleAspectFill;
+        _bgView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:_bgView];
 
         _imgView = [UIImageView imgViewWithframe:CGRectZero icon:@""];
@@ -36,6 +36,8 @@
         
         _addBtn = [UIButton buttonWithframe:CGRectZero text:nil font:nil textColor:nil backgroundColor:nil normal:@"37" selected:nil];
         [self.contentView addSubview:_addBtn];
+        _addBtn.tag = 0;
+        [_addBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
         
         _countLab = [UILabel labelWithframe:CGRectZero text:@"0" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
         [self.contentView addSubview:_countLab];
@@ -43,6 +45,9 @@
         
         _delBtn = [UIButton buttonWithframe:CGRectZero text:nil font:nil textColor:nil backgroundColor:nil normal:@"38" selected:nil];
         [self.contentView addSubview:_delBtn];
+        _delBtn.tag = 1;
+        [_delBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
+
 
     }
     return self;
@@ -62,7 +67,7 @@
     _imgView.layer.masksToBounds = YES;
     _imgView.layer.borderColor = [UIColor colorWithHexString:@"#F8E249"].CGColor;
     _imgView.layer.borderWidth = 5;
-    _imgView.backgroundColor = [UIColor redColor];
+//    _imgView.backgroundColor = [UIColor redColor];
     
     _nameLab.frame = CGRectMake(_imgView.right+10, 24, kScreenWidth-30-(_imgView.right+10)-32, 24);
     
@@ -74,8 +79,70 @@
     
     _delBtn.frame = CGRectMake(_countLab.left-28, _moneyLab.bottom+14, 28, 28);
 
+}
 
+- (void)btnAction:(UIButton *)btn
+{
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [paraDic setValue:self.model.foodId forKey:@"foodId"];
+    
+    if (btn.tag == 0) {
+        [paraDic setValue:@"1" forKey:@"math"];
+    }
+    else {
+        [paraDic setValue:@"-1" forKey:@"math"];
+
+        if (_model.amount.integerValue == 0) {
+
+            return;
+        }
+    }
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:SetTempFoods dic:paraDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        NSInteger amount = _model.amount.integerValue;
+        if (btn.tag == 0) {
+            _model.amount = [NSString stringWithFormat:@"%ld",(long)amount+1];
+        }
+        else {
+            
+            _model.amount = [NSString stringWithFormat:@"%ld",(long)amount-1];
+
+            
+        }
+        _countLab.text = _model.amount;
+        
+        if (self.block) {
+            self.block(_model, btn.tag);
+        }
+
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
 
 }
+
+- (void)setModel:(FoodModel *)model
+{
+    _model = model;
+    
+    [_imgView sd_setImageWithURL:[NSURL URLWithString:model.foodImg] placeholderImage:nil];
+    _nameLab.text = model.foodName;
+    _countLab.text = _model.amount;
+    _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.foodPrice];
+}
+
+
+
+
+
+
+
+
+
 
 @end

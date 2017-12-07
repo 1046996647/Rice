@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "IQKeyboardManager.h"
+#import <QMapKit/QMapKit.h>
+#import <QMapSearchKit/QMapSearchKit.h>
 
 
 @interface AppDelegate ()
@@ -26,6 +28,10 @@
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
+    
+    [QMapServices sharedServices].apiKey = @"ZVSBZ-57HCP-3JADY-LK5EG-WTLYK-VDFF2";
+    [[QMSSearchServices sharedServices] setApiKey:@"ZVSBZ-57HCP-3JADY-LK5EG-WTLYK-VDFF2"];
+
     
     return YES;
 }

@@ -17,7 +17,7 @@
         
         _selectBtn = [UIButton buttonWithframe:CGRectZero text:@"" font:nil textColor:nil backgroundColor:nil normal:@"Oval 4" selected:@"选中的勾"];
         [self.contentView addSubview:_selectBtn];
-//        [_selectBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+        [_selectBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
         
         _nameLab = [UILabel labelWithframe:CGRectZero text:@"Dayday" font:[UIFont boldSystemFontOfSize:17] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_nameLab];
@@ -29,6 +29,23 @@
         [self.contentView addSubview:_addressLab];
     }
     return self;
+}
+
+- (void)selectAction
+{
+    NSMutableDictionary *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [paramDic setValue:self.model.addressId forKey:@"addressId"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:ChooseAddress dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        if (self.block) {
+            self.block();
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)layoutSubviews
@@ -43,7 +60,15 @@
 
 }
 
-
+- (void)setModel:(AddAddressModel *)model
+{
+    _model = model;
+    
+    _nameLab.text = model.name;
+    _phoneLab.text = model.phone;
+    _addressLab.text = [NSString stringWithFormat:@"%@%@",model.address,model.detail];
+    _selectBtn.selected = model.isRecently.boolValue;
+}
 
 
 

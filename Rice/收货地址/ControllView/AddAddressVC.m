@@ -24,11 +24,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.dataArr = @[@{@"leftTitle":@"  姓名：",@"rightTitle":@"请填写收货人的姓名",@"text":@"",@"key":@"title"},
-                     @{@"leftTitle":@"  电话：",@"rightTitle":@"请填写收货手机号码",@"text":@"",@"key":@"cateName"},
-                     @{@"leftTitle":@"  收货地址：",@"rightTitle":@"请选择收货地址",@"text":@"",@"key":@"tag"},
-                     @{@"leftTitle":@"  门牌号：",@"rightTitle":@"请填写楼牌号",@"text":@"",@"key":@"tag"}
-                     ];
+    if (self.model) {
+        self.dataArr = @[@{@"leftTitle":@"  姓名：",@"rightTitle":@"请填写收货人的姓名",@"text":self.model.name,@"key":@"name"},
+                         @{@"leftTitle":@"  电话：",@"rightTitle":@"请填写收货手机号码",@"text":self.model.phone,@"key":@"phone"},
+                         @{@"leftTitle":@"  收货地址：",@"rightTitle":@"请选择收货地址",@"text":self.model.address,@"key":@"address"},
+                         @{@"leftTitle":@"  门牌号：",@"rightTitle":@"请填写楼牌号",@"text":self.model.detail,@"key":@"detail"}
+                         ];
+    }
+    else {
+        self.dataArr = @[@{@"leftTitle":@"  姓名：",@"rightTitle":@"请填写收货人的姓名",@"text":@"",@"key":@"name"},
+                         @{@"leftTitle":@"  电话：",@"rightTitle":@"请填写收货手机号码",@"text":@"",@"key":@"phone"},
+                         @{@"leftTitle":@"  收货地址：",@"rightTitle":@"请选择收货地址",@"text":@"",@"key":@"address"},
+                         @{@"leftTitle":@"  门牌号：",@"rightTitle":@"请填写楼牌号",@"text":@"",@"key":@"detail"}
+                         ];
+    }
+
     
     NSMutableArray *arrM = [NSMutableArray array];
     for (NSDictionary *dic in self.dataArr) {
@@ -55,11 +65,55 @@
     exitBtn.layer.cornerRadius = 7;
     exitBtn.layer.masksToBounds = YES;
     [footerView addSubview:exitBtn];
+    [exitBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+
     
 //    footerView.height = exitBtn.bottom;
     
     _tableView.tableHeaderView = nameLab;
     _tableView.tableFooterView = footerView;
+}
+
+- (void)saveAction
+{
+    [self.view endEditing:YES];
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+
+    for (AddAddressModel *model in self.dataArr) {
+        
+        if (model.text.length == 0) {
+            [self.view makeToast:@"请完善地址信息"];
+            return;
+        }
+        
+        [paramDic setValue:model.text forKey:model.key];
+        if (model.lat) {
+            [paramDic setValue:model.lat forKey:@"lat"];
+            [paramDic setValue:model.lng forKey:@"lng"];
+        }
+
+    }
+    
+    NSString *urlStr = nil;
+    if ([self.title isEqualToString:@"修改地址"]) {
+        urlStr = UpdateAddress;
+        [paramDic setValue:self.model.addressId forKey:@"addressId"];
+        [paramDic setValue:self.model.lat forKey:@"lat"];
+        [paramDic setValue:self.model.lng forKey:@"lng"];
+    }
+    else {
+        urlStr = AddAddress;
+    }
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }];
+
 }
 
 #pragma mark - UITableViewDataSource

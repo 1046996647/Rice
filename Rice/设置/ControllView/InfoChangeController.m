@@ -55,21 +55,21 @@
     _tv.keyboardType = UIKeyboardTypeNumberPad;
     [_tv addTarget:self action:@selector(valueChange:) forControlEvents:UIControlEventEditingChanged];
     
-    if ([self.title isEqualToString:@"名字"]) {
-        _tv.keyboardType = UIKeyboardTypeDefault;
-
-    }
-    
-    if ([self.title isEqualToString:@"身高"]) {
-
-        fontNum = heightNum;
-
-
-    } else if ([self.title isEqualToString:@"体重"]) {
-
-        fontNum = weightNum;
-
-    }
+//    if ([self.title isEqualToString:@"名字"]) {
+//        _tv.keyboardType = UIKeyboardTypeDefault;
+//
+//    }
+//
+//    if ([self.title isEqualToString:@"身高"]) {
+//
+//        fontNum = heightNum;
+//
+//
+//    } else if ([self.title isEqualToString:@"体重"]) {
+//
+//        fontNum = weightNum;
+//
+//    }
 
     //导航栏的确定按钮
     [self initRightBtn];
@@ -90,14 +90,9 @@
 //导航栏的确定按钮
 - (void)initRightBtn
 {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 40, 30);
-    btn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [btn setTitle:@"确定" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor colorWithHexString:@"#77A72C"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightBar = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    [self.navigationItem setRightBarButtonItem:rightBar];
+    UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 36, 22) text:@"完成" font:SystemFont(16) textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
+    [viewBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:viewBtn];
 }
 
 //右上角按钮点击事件
@@ -112,19 +107,28 @@
     //键盘收起
     [_tv resignFirstResponder];
     
+    NSMutableDictionary *paramDic=[NSMutableDictionary dictionary];
+    [paramDic  setObject:_tv.text forKey:@"name"];
     
-    if (self.block) {
-        self.block(_tv.text);
-    }
-    [self.navigationController popViewControllerAnimated:YES];
-//    if ([_tv.text isEqualToString:self.text]) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    else {
-//        
-//        
-//        
-//    }
+    [AFNetworking_RequestData requestMethodPOSTUrl:SetUserInfo dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        PersonModel *person = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
+        [InfoCache archiveObject:person toFile:Person];
+        
+        if (self.block) {
+            self.block(_tv.text);
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+        NSLog(@"%@",error);        
+        
+    }];
+    
+
+
 
 }
 
@@ -137,8 +141,8 @@
 
 - (void)valueChange:(UITextField *)tf
 {
-    if (tf.text.length > fontNum) {
-        tf.text = [tf.text substringToIndex:fontNum];
+    if (tf.text.length > 12) {
+        tf.text = [tf.text substringToIndex:12];
     }
 }
 

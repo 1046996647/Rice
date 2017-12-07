@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OrderModel.h"
+
 
 @interface BookView : UIView
+
+@property(nonatomic,strong) NSArray *orderArr;
+
 
 @end

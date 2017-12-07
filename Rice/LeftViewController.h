@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Constants.h"
 #import "BaseViewController.h"
+#import "PersonModel.h"
 
 @protocol LeftViewControllerDelegate <NSObject>
 
@@ -19,5 +20,6 @@
 @interface LeftViewController : BaseViewController
 
 @property (nonatomic, weak) id <LeftViewControllerDelegate> delegate;
+@property (nonatomic, strong) PersonModel *personModel;
 
 @end

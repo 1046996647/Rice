@@ -42,7 +42,7 @@
 // nsdate 转 nsstring(如:@"yyyy-MM-dd HH:mm:ss"];)
 + (NSString *)stringFromDate:(NSDate *)date format:(NSString *)format;
 
-// 字典转json格式字符串：
-+ (NSString*)dictionaryToJson:(NSDictionary *)dic;
+// 字典或数组转json格式字符串：
++ (NSString*)JSONString:(id)obj;
 
 @end

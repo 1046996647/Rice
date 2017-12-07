@@ -236,13 +236,8 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:SendMail dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        NSNumber *code = [responseObject objectForKey:@"status"];
-        if (1 == [code integerValue]) {
-            
-            NSString *message = [responseObject objectForKey:@"message"];
-            [self.view makeToast:message];
-            
-        }
+        NSString *message = [responseObject objectForKey:@"message"];
+        [self.navigationController.view makeToast:message];
         
         
     } failure:^(NSError *error) {
@@ -268,20 +263,22 @@
         
     }
 
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     NSString *url = nil;
     if ([self.title isEqualToString:@"注册"]) {
     
         url = Register;
+        [paramDic  setValue:self.password.text forKey:@"password"];
+
     }
     else {
-        url = @"asfsdf";
+        url = FindPassword;
+        [paramDic  setValue:self.password.text forKey:@"newPassword"];
 
     }
     
-    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
     [paramDic  setValue:self.phone.text forKey:@"phone"];
     [paramDic  setValue:self.validate.text forKey:@"verificationCode"];
-    [paramDic  setValue:self.password.text forKey:@"password"];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:url dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         

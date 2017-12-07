@@ -8,6 +8,12 @@
 
 #import "BaseViewController.h"
 
+typedef void(^SettingBlock)(void);
+
+
 @interface SettingVC : BaseViewController
+
+@property (nonatomic, copy) SettingBlock block;
+
 
 @end
