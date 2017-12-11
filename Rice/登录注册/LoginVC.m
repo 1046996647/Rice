@@ -293,6 +293,9 @@
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         [InfoCache archiveObject:model toFile:Person];
         
+        // 用户信息通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
+        
         [self.navigationController popToRootViewControllerAnimated:YES];
         
         // 回调订单

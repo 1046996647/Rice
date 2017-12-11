@@ -19,6 +19,7 @@
 		F749A79A1FD681490091F3C9 /* SearchResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F749A7991FD681490091F3C9 /* SearchResultVC.m */; };
 		F749A79C1FD6846F0091F3C9 /* QMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */; };
 		F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */; };
+		F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F74FE9911FD8DBBE004C3199 /* PayMentModel.m */; };
 		F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232D71FBC15BD002D4AF9 /* AppDelegate.m */; };
 		F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75232DC1FBC15BD002D4AF9 /* Main.storyboard */; };
 		F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F75232DF1FBC15BD002D4AF9 /* Assets.xcassets */; };
@@ -90,7 +91,6 @@
 		F7680A5E1FCD131A00EBC932 /* ReceiveAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A5D1FCD131A00EBC932 /* ReceiveAddressCell.m */; };
 		F7680A611FCD2AB800EBC932 /* AddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A601FCD2AB800EBC932 /* AddAddressVC.m */; };
 		F7680A641FCD2C1C00EBC932 /* AddAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */; };
-		F7680A671FCD2CFB00EBC932 /* AddAddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */; };
 		F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */; };
 		F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6C1FCD394300EBC932 /* OrderHeaderView.m */; };
 		F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */; };
@@ -161,6 +161,8 @@
 		F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QMapSearchKit.framework; sourceTree = "<group>"; };
 		F74B8FE81FC668D0004B1A19 /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
 		F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
+		F74FE9901FD8DBBE004C3199 /* PayMentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayMentModel.h; sourceTree = "<group>"; };
+		F74FE9911FD8DBBE004C3199 /* PayMentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayMentModel.m; sourceTree = "<group>"; };
 		F75232D31FBC15BD002D4AF9 /* Rice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F75232D61FBC15BD002D4AF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F75232D71FBC15BD002D4AF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -307,8 +309,6 @@
 		F7680A601FCD2AB800EBC932 /* AddAddressVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressVC.m; sourceTree = "<group>"; };
 		F7680A621FCD2C1C00EBC932 /* AddAddressCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressCell.h; sourceTree = "<group>"; };
 		F7680A631FCD2C1C00EBC932 /* AddAddressCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressCell.m; sourceTree = "<group>"; };
-		F7680A651FCD2CFB00EBC932 /* AddAddressModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AddAddressModel.h; sourceTree = "<group>"; };
-		F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AddAddressModel.m; sourceTree = "<group>"; };
 		F7680A681FCD369B00EBC932 /* HistoryOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryOrderDetailVC.h; sourceTree = "<group>"; };
 		F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryOrderDetailVC.m; sourceTree = "<group>"; };
 		F7680A6B1FCD394300EBC932 /* OrderHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderHeaderView.h; sourceTree = "<group>"; };
@@ -529,6 +529,8 @@
 		F75BA4901FBEBA0B009A55DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F74FE9901FD8DBBE004C3199 /* PayMentModel.h */,
+				F74FE9911FD8DBBE004C3199 /* PayMentModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -586,8 +588,6 @@
 		F75BA4931FBEBA18009A55DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F7680A651FCD2CFB00EBC932 /* AddAddressModel.h */,
-				F7680A661FCD2CFB00EBC932 /* AddAddressModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1273,12 +1273,12 @@
 				F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */,
 				F767CA3A1FBD244900C7518C /* ZXPUnicode.m in Sources */,
 				F767CA811FBD249C00C7518C /* UIColor+MJCClassExtension.m in Sources */,
+				F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
 				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
 				F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */,
 				F767CA351FBD244900C7518C /* UIColor+Expend.m in Sources */,
 				F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */,
-				F7680A671FCD2CFB00EBC932 /* AddAddressModel.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
 				F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */,
 				F74430071FCE5A0500B92863 /* BookView.m in Sources */,
@@ -1487,6 +1487,7 @@
 			baseConfigurationReference = 5443C738062C186FA8D71AE0 /* Pods-Rice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = D59VU3JG9L;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1542,6 +1543,7 @@
 			baseConfigurationReference = E426CAE0D19C0522817BB9E6 /* Pods-Rice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (

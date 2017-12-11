@@ -14,7 +14,7 @@
 #import "TYCyclePagerViewCell.h"
 #import "LoginVC.h"
 #import "BookView.h"
-#import "AddAddressVC.h"
+#import "SearchAddressVC.h"
 #import "PaymentOrderVC.h"
 #import "NSStringExt.h"
 #import <QMapKit/QMapKit.h>
@@ -235,11 +235,13 @@
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     _pagerView.frame = CGRectMake(0, self.orderBtn.bottom+4, kScreenWidth, 138);
+    
+    [self getSendingOrder];
 
 }
 - (void)addressAction
 {
-    AddAddressVC *vc = [[AddAddressVC alloc] init];
+    SearchAddressVC *vc = [[SearchAddressVC alloc] init];
     vc.title = @"当前位置";
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -334,7 +336,7 @@
             // 保存过的菜单
             self.totalPrice = 0;
             for (FoodModel *model1 in self.selectedArr) {
-                self.totalPrice = self.totalPrice+model1.foodPrice.integerValue*model1.amount.integerValue;
+                self.totalPrice = self.totalPrice+model1.foodPrice.floatValue*model1.amount.floatValue;
             }
             
             [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%.2f     下单",self.totalPrice] forState:UIControlStateNormal];
@@ -354,11 +356,9 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:GetSendingOrder dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
         
-        NSArray *arr = responseObject[@"data"];
-        if ([arr isKindOfClass:[NSArray class]]) {
+        id obj = responseObject[@"data"];
+        self.bookView.dic = obj;
 
-            self.bookView.orderArr = arr;
-        }
         
     } failure:^(NSError *error) {
         
@@ -396,7 +396,7 @@
             };
             return;
         }
-        [self getSendingOrder];
+//        [self getSendingOrder];
     }
 }
 
@@ -425,8 +425,8 @@
     }
     
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-    [paramDic setValue:@"true" forKey:@"isUseBalance"];
-    [paramDic setValue:@"true" forKey:@"isUseCoupon"];
+    [paramDic setValue:@"1" forKey:@"isUseBalance"];
+    [paramDic setValue:@"1" forKey:@"isUseCoupon"];
     
     NSString *jsonStr = [NSString JSONString:arrM];
     [paramDic setValue:jsonStr forKey:@"listFoods"];
@@ -495,7 +495,7 @@
 
         self.totalPrice = 0;
         for (FoodModel *model1 in self.selectedArr) {
-            self.totalPrice = self.totalPrice+model1.foodPrice.integerValue*model1.amount.integerValue;
+            self.totalPrice = self.totalPrice+model1.foodPrice.floatValue*model1.amount.floatValue;
             NSLog(@"---id%@",model1.foodId);
 
         }

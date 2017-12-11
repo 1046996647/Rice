@@ -43,7 +43,7 @@
     NSMutableArray *arrM = [NSMutableArray array];
     for (NSDictionary *dic in self.dataArr) {
         
-        AddAddressModel *model = [AddAddressModel yy_modelWithJSON:dic];
+        UserAddressModel *model = [UserAddressModel yy_modelWithJSON:dic];
         [arrM addObject:model];
     }
     
@@ -80,7 +80,7 @@
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
 
-    for (AddAddressModel *model in self.dataArr) {
+    for (UserAddressModel *model in self.dataArr) {
         
         if (model.text.length == 0) {
             [self.view makeToast:@"请完善地址信息"];
@@ -155,7 +155,7 @@
         cell.line.hidden = NO;
 
     }
-    AddAddressModel *model = self.dataArr[indexPath.row];
+    UserAddressModel *model = self.dataArr[indexPath.row];
     cell.model = model;
     return cell;
 }

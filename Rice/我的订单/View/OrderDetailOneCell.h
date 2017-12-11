@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PayMentModel.h"
 
 @interface OrderDetailOneCell : UITableViewCell
 
@@ -14,5 +15,6 @@
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *countLab;
 @property(nonatomic,strong) UILabel *moneyLab;
+@property(nonatomic,strong) FoodModel1 *model;
 
 @end

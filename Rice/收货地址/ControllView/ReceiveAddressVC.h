@@ -7,7 +7,12 @@
 //
 
 #import "BaseViewController.h"
+#import "ReceiveAddressCell.h"
+
 
 @interface ReceiveAddressVC : BaseViewController
+
+@property(nonatomic,copy) ReceiveAddressBlock block;
+
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "ReceiveAddressVC.h"
-#import "ReceiveAddressCell.h"
 #import "AddAddressVC.h"
 
 @interface ReceiveAddressVC ()
@@ -61,7 +60,7 @@
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
 
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:GetAddress dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetAddress dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         NSArray *arr = responseObject[@"data"];
         if ([arr isKindOfClass:[NSArray class]]) {
@@ -70,7 +69,7 @@
             for (NSDictionary *dic in arr) {
                 
                 NSMutableArray *arrM1 = [NSMutableArray array];
-                AddAddressModel *model = [AddAddressModel yy_modelWithJSON:dic];
+                UserAddressModel *model = [UserAddressModel yy_modelWithJSON:dic];
                 [arrM1 addObject:model];
                 [arrM addObject:arrM1];
             }
@@ -130,7 +129,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    AddAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
+    UserAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
     
     AddAddressVC *vc = [[AddAddressVC alloc] init];
     vc.title = @"修改地址";
@@ -155,7 +154,7 @@
 {
 
     
-    AddAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
+    UserAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
 
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
     
@@ -210,12 +209,13 @@
         
         cell = [[ReceiveAddressCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:identity];
-        cell.block = ^{
-            [self getAddress];
-            [self.navigationController popViewControllerAnimated:YES];
-        };
+        cell.block = self.block;
+//        cell.block = ^(UserAddressModel *model) {
+//            //            [self getAddress];
+//            [self.navigationController popViewControllerAnimated:YES];
+//        };
     }
-    AddAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
+    UserAddressModel *model = self.dataArr[indexPath.section][indexPath.row];
     cell.model = model;
 //    cell.dataArr = _dataArr;
     return cell;

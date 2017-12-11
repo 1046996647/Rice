@@ -40,8 +40,11 @@
     [AFNetworking_RequestData requestMethodPOSTUrl:ChooseAddress dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
         
         if (self.block) {
-            self.block();
+            self.block(_model);
         }
+        
+        [self.viewController.navigationController popViewControllerAnimated:YES];
+
         
     } failure:^(NSError *error) {
         
@@ -60,7 +63,7 @@
 
 }
 
-- (void)setModel:(AddAddressModel *)model
+- (void)setModel:(UserAddressModel *)model
 {
     _model = model;
     

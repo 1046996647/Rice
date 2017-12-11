@@ -12,7 +12,7 @@
 
 @interface BookView : UIView
 
-@property(nonatomic,strong) NSArray *orderArr;
+@property(nonatomic,strong) NSDictionary *dic;
 
 
 @end

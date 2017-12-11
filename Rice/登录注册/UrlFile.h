@@ -44,6 +44,12 @@
 // 2.2    订单生成
 #define PlaceOrder  [NSString stringWithFormat:@"%@/api/Order/PlaceOrder",BaseUrl]
 
+// 3.2    创建未支付订单
+#define CreateOrder  [NSString stringWithFormat:@"%@/api/Order/CreateOrder",BaseUrl]
+
+// 3.3    支付
+#define PayOrder  [NSString stringWithFormat:@"%@/api/Order/PayOrder",BaseUrl]
+
 // 2.3    首页配送中订单
 #define GetSendingOrder  [NSString stringWithFormat:@"%@/api/HomePage/GetSendingOrder",BaseUrl]
 

@@ -25,6 +25,7 @@
 @property(nonatomic,strong) UILabel *kmLab;
 @property(nonatomic,strong) UIButton *cancelBtn;
 @property(nonatomic,strong) UIButton *cuiDanBtn;
+@property(nonatomic,strong) UIButton *maskBtn;
 @property(nonatomic,strong) UIView *line1;
 @property(nonatomic,strong) UIView *line2;
 
@@ -55,7 +56,7 @@
         _baseView.hidden = YES;
         
         // 骑手
-        _horsemanLab = [UILabel labelWithframe:CGRectMake(self.width-90-13, 11, 90, 21) text:@"" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+        _horsemanLab = [UILabel labelWithframe:CGRectMake(self.width-100-13, 11, 100, 21) text:@"" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
         [_baseView addSubview:_horsemanLab];
         
         // 菜1
@@ -76,7 +77,7 @@
         [_baseView addSubview:_nameLab2];
         
         // 距离 距您4.8km
-        _kmLab = [UILabel labelWithframe:CGRectMake(self.width-68-13, _evaBtn.bottom+7, 68, 18) text:@"距您4.8km" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#8B572A"];
+        _kmLab = [UILabel labelWithframe:CGRectMake(self.width-68-13, _evaBtn.bottom+7, 68, 18) text:@"" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#8B572A"];
         [_baseView addSubview:_kmLab];
         
         
@@ -104,6 +105,11 @@
         _cuiDanBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10);
         [_baseView addSubview:_cuiDanBtn];
         
+        // 蒙版
+        _maskBtn = [UIButton buttonWithframe:CGRectMake(0, _cancelBtn.top, self.width, 44) text:@"" font:SystemFont(15) textColor:@"#666666" backgroundColor:nil normal:@"" selected:nil];
+        [_baseView addSubview:_maskBtn];
+        _maskBtn.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.5];
+        
 //        self.height = _cuiDanBtn.bottom;
         
     }
@@ -111,13 +117,17 @@
 }
 
 
-- (void)setOrderArr:(NSArray *)orderArr
+- (void)setDic:(NSDictionary *)dic
 {
-    _orderArr = orderArr;
+    _dic = dic;
 
-    if (_orderArr.count>0) {
+    if ([dic isKindOfClass:[NSDictionary class]]) {
         
-        OrderModel *model = [OrderModel yy_modelWithJSON:[orderArr firstObject]];
+        _baseView.hidden = NO;
+        _imgView.hidden = YES;
+        _remindLab.hidden = YES;
+
+        OrderModel *model = [OrderModel yy_modelWithJSON:dic];
         
         if (model.foodNames.count<2) {
             _nameLab2.hidden = YES;
@@ -129,13 +139,38 @@
             _nameLab2.text = model.foodNames[1];
             
         }
-        _kmLab.text = [NSString stringWithFormat:@"距您%@km",model.distance];
-        _horsemanLab.text = [NSString stringWithFormat:@"骑手 %@",model.riderName];
+        
+        if (model.status.integerValue == 1) {
+            _kmLab.hidden = YES;
+            _countLab.hidden = YES;
+            _evaBtn.hidden = YES;
+            _maskBtn.hidden = NO;
+            
+            _horsemanLab.text = [NSString stringWithFormat:@"等待骑手接单"];
+
+        }
+        else {
+            _kmLab.hidden = NO;
+            _countLab.hidden = NO;
+            _evaBtn.hidden = NO;
+            _maskBtn.hidden = YES;
+
+            _horsemanLab.text = [NSString stringWithFormat:@"骑手 %@",model.riderName];
+
+        }
+        
         _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.priceAll];
+
+        
+        _kmLab.text = [NSString stringWithFormat:@"距您%@km",model.distance];
         _countLab.text = [NSString stringWithFormat:@"%@单",model.sendCount];
         [_evaBtn setTitle:model.riderStars forState:UIControlStateNormal];
     }
-    
+    else {
+        _baseView.hidden = YES;
+        _imgView.hidden = NO;
+        _remindLab.hidden = NO;
+    }
     
     
 }

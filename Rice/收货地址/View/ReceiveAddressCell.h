@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddAddressModel.h"
+#import "PayMentModel.h"
 
-typedef void(^ReceiveAddressBlock)(void);
+typedef void(^ReceiveAddressBlock)(UserAddressModel *model);
 
 @interface ReceiveAddressCell : UITableViewCell
 
@@ -19,7 +19,7 @@ typedef void(^ReceiveAddressBlock)(void);
 @property(nonatomic,strong) UILabel *nameLab;
 @property(nonatomic,strong) UILabel *phoneLab;
 @property(nonatomic,strong) UILabel *addressLab;
-@property(nonatomic,strong) AddAddressModel *model;
+@property(nonatomic,strong) UserAddressModel *model;
 @property(nonatomic,copy) ReceiveAddressBlock block;
 
 

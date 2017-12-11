@@ -47,7 +47,13 @@
 
 }
 
-
+- (void)setModel:(FoodModel1 *)model
+{
+    _model = model;
+    _nameLab.text = model.foodName;
+    _countLab.text = [NSString stringWithFormat:@"X%@",model.amount];
+    _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.price];
+}
 
 
 

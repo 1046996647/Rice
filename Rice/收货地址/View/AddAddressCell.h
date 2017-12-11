@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddAddressModel.h"
+#import "PayMentModel.h"
 
 
 @interface AddAddressCell : UITableViewCell
@@ -16,7 +16,7 @@
 @property(nonatomic,strong) UITextField *tf;
 @property(nonatomic,strong) UIButton *saveBtn;
 
-@property(nonatomic,strong) AddAddressModel *model;
+@property(nonatomic,strong) UserAddressModel *model;
 
 
 @end

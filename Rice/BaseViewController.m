@@ -29,7 +29,7 @@
         [button setImage:[UIImage imageNamed:@"6"] forState:UIControlStateNormal];
         //        [button setImage:[UIImage imageNamed:@"navigationReturnClick"] forState:UIControlStateHighlighted];
         CGRect frame = button.frame;
-        frame.size = CGSizeMake(30, 20);
+        frame.size = CGSizeMake(30, 30);
         button.frame = frame;
 //        button.backgroundColor = [UIColor greenColor]
         button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;

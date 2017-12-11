@@ -7,11 +7,11 @@
 //
 
 #import "BaseViewController.h"
-#import "AddAddressModel.h"
+#import "PayMentModel.h"
 
 @interface AddAddressVC : BaseViewController
 
-@property (nonatomic, strong) AddAddressModel *model;
+@property (nonatomic, strong) UserAddressModel *model;
 
 
 @end

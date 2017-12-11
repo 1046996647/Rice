@@ -32,7 +32,7 @@
     
     
     NSArray *vcarrr = @[vc1,vc2,vc3];
-    NSArray *titlesArr = @[@"历史订单",@"正在配送订单",@"预约订单"];
+    NSArray *titlesArr = @[@"历史订单",@"进行中订单",@"预约订单"];
     for (int i = 0 ; i < vcarrr.count; i++) {//赋值标题
         UIViewController *vc = vcarrr[i];
         vc.title = titlesArr[i];

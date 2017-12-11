@@ -64,7 +64,7 @@
     };
 }
 
-- (void)setModel:(AddAddressModel *)model
+- (void)setModel:(UserAddressModel *)model
 {
     _model = model;
     
