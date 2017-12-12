@@ -92,6 +92,8 @@
         
         _addresLab.text = [NSString stringWithFormat:@"%@%@",userAddressModel.address,userAddressModel.detail];
         _nameLab.text = [NSString stringWithFormat:@"%@ %@",userAddressModel.name,userAddressModel.phone];
+        
+
     }
     else {
         

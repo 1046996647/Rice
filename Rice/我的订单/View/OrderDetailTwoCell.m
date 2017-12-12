@@ -44,4 +44,13 @@
     _line.frame = CGRectMake(22, self.height-1, self.width-44, 1);
     
 }
+
+- (void)setModel:(FoodModel1 *)model
+{
+    _model = model;
+    _nameLab.text = model.foodName;
+    _countLab.text = model.amount;
+}
+
+
 @end

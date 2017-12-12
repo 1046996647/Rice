@@ -10,13 +10,20 @@
 
 @class PriceAllModel, UserAddressModel, PayMentModel, FoodModel1;
 
-//
+// status：0未支付1待抢单2派送中
 @interface PayMentModel : NSObject
 
 
 @property(nonatomic,strong) NSArray *listFoods;
 @property(nonatomic,strong) PriceAllModel *priceAll;// 嵌套时字段必须对应
 @property(nonatomic,strong) UserAddressModel *userAddress;
+@property(nonatomic,strong) NSString *balance;
+@property(nonatomic,strong) NSString *coupon;
+@property(nonatomic,strong) NSString *useBalance;
+@property(nonatomic,strong) NSString *useCoupon;
+@property(nonatomic,strong) NSString *orderId;
+@property(nonatomic,strong) NSString *status;
+@property(nonatomic,assign) NSInteger restSeconds;
 
 
 @end
@@ -27,6 +34,7 @@
 @property(nonatomic,strong) NSString *amount;
 @property(nonatomic,strong) NSString *foodId;
 @property(nonatomic,strong) NSString *foodName;
+@property(nonatomic,strong) NSString *name;
 @property(nonatomic,strong) NSString *isMain;
 @property(nonatomic,strong) NSString *price;
 
@@ -36,8 +44,8 @@
 @interface PriceAllModel : NSObject
 
 @property(nonatomic,strong) NSString *payMoney;
-@property(nonatomic,strong) NSString *useBalance;
-@property(nonatomic,strong) NSString *useCoupon;
+@property(nonatomic,strong) NSString *price;
+
 
 
 @end

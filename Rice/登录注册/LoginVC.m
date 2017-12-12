@@ -290,6 +290,9 @@
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
+        [InfoCache archiveObject:self.phone.text toFile:@"phone"];
+
+        
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
         [InfoCache archiveObject:model toFile:Person];
         

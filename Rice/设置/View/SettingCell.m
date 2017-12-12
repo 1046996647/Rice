@@ -42,4 +42,8 @@
 
 }
 
+- (void)dealloc {
+    NSLog(@"---------cell释放");
+}
+
 @end

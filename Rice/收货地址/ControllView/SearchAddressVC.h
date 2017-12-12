@@ -7,6 +7,8 @@
 //
 
 #import "BaseViewController.h"
+#import <TencentLBS/TencentLBS.h>
+
 
 typedef void(^SearchAddressBlock)(NSString *text,NSString *lat,NSString *lng);
 
@@ -14,6 +16,7 @@ typedef void(^SearchAddressBlock)(NSString *text,NSString *lat,NSString *lng);
 @interface SearchAddressVC : BaseViewController
 
 @property(nonatomic,copy) SearchAddressBlock block;
+@property (nonatomic, strong) TencentLBSLocation *lBSLocation;
 
 
 @end

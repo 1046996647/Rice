@@ -17,8 +17,10 @@
 #import "SearchAddressVC.h"
 #import "PaymentOrderVC.h"
 #import "NSStringExt.h"
+#import "RiderModel.h"
 #import <QMapKit/QMapKit.h>
 #import <TencentLBS/TencentLBS.h>
+//#import "CAAnimation+HCAnimation.h"
 
 
 @interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate,QMapViewDelegate,TencentLBSLocationManagerDelegate>
@@ -32,6 +34,8 @@
 
 
 @property (nonatomic, strong) UIImageView *baseImg;
+@property (nonatomic, strong) UIImageView *pinView1;
+
 
 @property (nonatomic, strong) UIButton *orderBtn;
 
@@ -39,6 +43,10 @@
 @property (nonatomic, strong) UIButton *xiaDanBtn;
 @property (nonatomic, strong) NSArray *tagArrs;// 标签数组
 @property (nonatomic, strong) NSArray *foodArrs;// 菜品数组
+@property (nonatomic, strong) NSArray *annotations;
+
+@property (nonatomic, strong) NSArray *areas;
+@property (nonatomic, strong) NSDictionary *areaDic;
 
 
 @property (nonatomic, strong) NSMutableArray *selectedArr;// 选中菜品数组
@@ -48,7 +56,8 @@
 // 地图
 @property (nonatomic, strong) QMapView *mapView;
 @property (readwrite, nonatomic, strong) TencentLBSLocationManager *locationManager;
-@property (nonatomic, strong) TencentLBSLocation *location;
+//@property (nonatomic, strong) TencentLBSLocation *location;
+@property(nonatomic, nonatomic) CLLocationCoordinate2D coordinate;
 
 
 
@@ -56,6 +65,41 @@
 
 @implementation MainViewController
 // 添加到self.view上的控件uiviewext失效？？？
+
+- (MJCSegmentInterface *)lala
+{
+    if (!_lala) {
+        //以下是我的控件中的代码
+        _lala = [[MJCSegmentInterface alloc]init];
+        _lala.titleBarStyles = MJCTitlesScrollStyle;
+        _lala.frame = CGRectMake(0, 0, kScreenWidth, 37);
+        //    lala.titlesViewFrame = CGRectMake(0, 0, 0, 37);
+        //    lala.titlesViewBackImage =  [UIImage imageNamed:@"nav-background"];
+        _lala.titlesViewBackColor = [UIColor colorWithHexString:@"#F8E249"];
+        _lala.itemBackColor =  [UIColor clearColor];
+        _lala.itemTextNormalColor = colorWithHexStr(@"#CD9435");;
+        _lala.itemTextSelectedColor = colorWithHexStr(@"#444444");;
+        //    lala.indicatorColor = colorWithHexStr(@"#D0021B");
+        _lala.indicatorHidden = YES;
+        _lala.isIndicatorsAnimals = YES;
+        _lala.itemTextFontSize = 14;
+        _lala.isChildScollEnabled = NO;
+        //        lala.selectedSegmentIndex = 2;
+        _lala.indicatorStyles = MJCIndicatorItemTextStyle;
+        //    [lala intoTitlesArray:titlesArr hostController:self];
+        [self.view addSubview:_lala];
+        //    [lala intoChildControllerArray:vcarrr];
+        _lala.delegate  = self;
+        _lala.backgroundColor = [UIColor clearColor];
+        //1.设置阴影颜色
+        _lala.layer.shadowColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
+        _lala.layer.shadowOffset = CGSizeMake(0,.5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+        _lala.layer.shadowOpacity = 1;//阴影透明度，默认0
+        //    self.xiaDanBtn.layer.shadowRadius = 2;//阴影半径，默认3
+        _lala.hidden = YES;
+    }
+    return _lala;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +133,7 @@
     _mapView = [[QMapView alloc] initWithFrame:CGRectMake(0,
                                                           0,
                                                           kScreenWidth,
-                                                          self.view.height)];
+                                                          kScreenHeight+64)];
     _mapView.delegate = self;
     [self.view addSubview:_mapView];
     [_mapView setZoomLevel:15.01];
@@ -103,40 +147,20 @@
         }
     }
     
+    
+    // 大头针
+    UIImageView *pinView1 = [UIImageView imgViewWithframe:CGRectMake(0, (kScreenHeight-kTopHeight-34)/2, _mapView.width, 34) icon:@"14"];
+    pinView1.contentMode = UIViewContentModeScaleAspectFit;
+//    pinView1.backgroundColor = [UIColor redColor];
+    [self.view addSubview:pinView1];
+    self.pinView1 = pinView1;
+    
     [self configLocationManager];
     [self startUpdatingLocation];
     
 //    NSArray *titlesArr = @[@"中餐",@"日料",@"西餐",@"西餐1",@"西餐2",@"西餐3",@"西餐4",@"西餐5",@"西餐6"];
 
-    //以下是我的控件中的代码
-    MJCSegmentInterface *lala = [[MJCSegmentInterface alloc]init];
-    lala.titleBarStyles = MJCTitlesScrollStyle;
-    lala.frame = CGRectMake(0, 0, kScreenWidth, 37);
-//    lala.titlesViewFrame = CGRectMake(0, 0, 0, 37);
-//    lala.titlesViewBackImage =  [UIImage imageNamed:@"nav-background"];
-    lala.titlesViewBackColor = [UIColor colorWithHexString:@"#F8E249"];
-    lala.itemBackColor =  [UIColor clearColor];
-    lala.itemTextNormalColor = colorWithHexStr(@"#CD9435");;
-    lala.itemTextSelectedColor = colorWithHexStr(@"#444444");;
-//    lala.indicatorColor = colorWithHexStr(@"#D0021B");
-    lala.indicatorHidden = YES;
-    lala.isIndicatorsAnimals = YES;
-    lala.itemTextFontSize = 14;
-    lala.isChildScollEnabled = NO;
-    //    lala.selectedSegmentIndex = 2;
-    lala.indicatorStyles = MJCIndicatorItemTextStyle;
-//    [lala intoTitlesArray:titlesArr hostController:self];
-    [self.view addSubview:lala];
-//    [lala intoChildControllerArray:vcarrr];
-    lala.delegate  = self;
-    lala.backgroundColor = [UIColor clearColor];
-    //1.设置阴影颜色
-    lala.layer.shadowColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
-    lala.layer.shadowOffset = CGSizeMake(0,.5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-    lala.layer.shadowOpacity = 1;//阴影透明度，默认0
-    //    self.xiaDanBtn.layer.shadowRadius = 2;//阴影半径，默认3
-    self.lala = lala;
-    self.lala.hidden = YES;
+    
 
     
     // 广告滚轮
@@ -229,21 +253,63 @@
     [self.view addSubview:bookView];
     self.bookView = bookView;
     bookView.hidden = YES;
-
+    
+    PersonModel *model = [InfoCache unarchiveObjectWithFile:Person];
+    if (model) {
+        [self getSendingOrder];
+        
+    }
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     _pagerView.frame = CGRectMake(0, self.orderBtn.bottom+4, kScreenWidth, 138);
     
-    [self getSendingOrder];
 
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
+}
+
 - (void)addressAction
 {
-    SearchAddressVC *vc = [[SearchAddressVC alloc] init];
-    vc.title = @"当前位置";
-    [self.navigationController pushViewController:vc animated:YES];
+//    SearchAddressVC *vc = [[SearchAddressVC alloc] init];
+//    vc.title = @"当前位置";
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
+// 2.1    用户所在区域
+- (void)getArea
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    [paramDic  setValue:@(self.coordinate.latitude) forKey:@"lat"];
+    [paramDic  setValue:@(self.coordinate.longitude) forKey:@"lng"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetArea dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
+        
+        id obj = responseObject[@"data"];
+        if ([obj isKindOfClass:[NSArray class]]) {
+            
+            self.areas = obj;
+
+            if (self.areas.count > 0) {
+                self.areaDic = self.areas[0];
+                [self.rightBtn setTitle:self.areaDic[@"areaName"] forState:UIControlStateNormal];
+                
+                
+                [self getTags];
+            }
+
+
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 // 获取标签
@@ -251,11 +317,16 @@
 {
 
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
-    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
+//    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
+//    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
+    [paramDic  setValue:self.areaDic[@"areaId"] forKey:@"areaId"];
 
-    [AFNetworking_RequestData requestMethodPOSTUrl:GetTags dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetTags dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
         
+        [_lala removeFromSuperview];
+        _lala = nil;
+        [self.view addSubview:self.lala];
+
         NSArray *arr = responseObject[@"data"];
         self.tagArrs = arr;
         if ([arr isKindOfClass:[NSArray class]]) {
@@ -273,6 +344,7 @@
                     [tagArr addObject:dic[@"tagName"]];
                 }
                 [self.lala intoTitlesArray:tagArr hostController:self];
+
 
                 // 取出第一个tagId
                 NSDictionary *dic = [arr firstObject];
@@ -292,13 +364,15 @@
 {
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
-    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
+//    [paramDic  setValue:@(self.location.location.coordinate.latitude) forKey:@"lat"];
+//    [paramDic  setValue:@(self.location.location.coordinate.longitude) forKey:@"lng"];
     [paramDic  setValue:tagId forKey:@"tagId"];
+    [paramDic  setValue:self.areaDic[@"areaId"] forKey:@"areaId"];
 
-    [AFNetworking_RequestData requestMethodPOSTUrl:GetFoods dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetFoods dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
         
-        NSArray *arr = responseObject[@"data"];
+        NSArray *arr = responseObject[@"data"][@"foods"];
         if ([arr isKindOfClass:[NSArray class]]) {
 
             NSMutableArray *foodArr = [NSMutableArray array];
@@ -340,6 +414,10 @@
             }
             
             [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%.2f     下单",self.totalPrice] forState:UIControlStateNormal];
+            
+            // 骑手数据
+            FoodModel *model1 = [self.foodArrs firstObject];
+            [self getRiders:model1.foodId];
 
         }
         
@@ -354,11 +432,50 @@
     
     NSMutableDictionary  *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:GetSendingOrder dic:paramDic showHUD:YES response:YES Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetSendingOrder dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
         
         id obj = responseObject[@"data"];
         self.bookView.dic = obj;
 
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+// 2.4    获取周围骑手
+- (void)getRiders:(NSString *)foodId
+{
+    
+    NSMutableDictionary *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    [paramDic  setValue:@(self.coordinate.latitude) forKey:@"lat"];
+    [paramDic  setValue:@(self.coordinate.longitude) forKey:@"lng"];
+    [paramDic  setValue:self.areaDic[@"areaId"] forKey:@"areaId"];
+    [paramDic  setValue:foodId forKey:@"foodId"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetRiders dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
+        
+        [_mapView removeAnnotations:_annotations];
+
+        
+        id obj = responseObject[@"data"];
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in obj) {
+            RiderModel *model = [RiderModel yy_modelWithJSON:dic];
+            
+            QPointAnnotation *sigma = [[QPointAnnotation alloc] init];
+            sigma.title = model.riderType;
+            sigma.coordinate = CLLocationCoordinate2DMake(model.lat.doubleValue,model.lng.doubleValue);
+            [arrM addObject:sigma];
+
+        }
+        self.annotations = arrM;
+        
+        if (self.annotations) {
+            [_mapView addAnnotations:_annotations];
+
+        }
+        
         
     } failure:^(NSError *error) {
         
@@ -518,6 +635,13 @@
     return layout;
 }
 
+- (void)pagerView:(TYCyclePagerView *)pageView didScrollFromIndex:(NSInteger)fromIndex toIndex:(NSInteger)toIndex {
+    
+    FoodModel *model = self.foodArrs[toIndex];
+    [self getRiders:model.foodId];
+    NSLog(@"%ld ->  %ld",fromIndex,toIndex);
+}
+
 #pragma mark MJCSegmentDelegate
 - (void)mjc_ClickEvent:(UIButton *)tabItem childViewController:(UIViewController *)childViewController segmentInterface:(MJCSegmentInterface *)segmentInterface
 {
@@ -559,6 +683,97 @@
     [self.locationManager startUpdatingLocation];
 }
 
+#pragma mark - Delegate
+-(QAnnotationView *)mapView:(QMapView *)mapView
+          viewForAnnotation:(id<QAnnotation>)annotation {
+    static NSString *iconReuseIndentifier1 = @"iconReuseIdentifier1";
+//    static NSString *iconReuseIndentifier2 = @"iconReuseIndentifier2";
+//    static NSString *customReuseIndentifier = @"custReuseIdentifieer";
+
+    if ([annotation isKindOfClass:[QPointAnnotation class]]) {
+        
+        QAnnotationView *annotationView = (QAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:iconReuseIndentifier1];
+        if (annotationView == nil) {
+            annotationView = [[QAnnotationView alloc]
+                              initWithAnnotation:annotation
+                              reuseIdentifier:iconReuseIndentifier1];
+        }
+        
+        NSString *path = nil;
+        if ([annotation.title isEqualToString:@"0"]) {
+            path = [[NSBundle mainBundle]
+                    pathForResource:@"39@2x"
+                    ofType:@"png"];
+        }
+        else {
+            path = [[NSBundle mainBundle]
+                    pathForResource:@"40@2x"
+                    ofType:@"png"];
+        }
+        //            annotationView.canShowCallout = YES;
+        //设置自定义的图片作为annotation图标
+        annotationView.image = [UIImage imageWithContentsOfFile:path];
+        //设置图标的锚点为下边缘中心
+        //                annotationView.centerOffset = CGPointMake(0, -annotationView.image.size.height / 2);
+        return annotationView;
+
+//        //添加自定义annotation
+//        if ([annotation isEqual:[_annotations objectAtIndex:2]]) {
+//            CustomAnnotationView *annotationView = (CustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:customReuseIndentifier];
+//            if (annotationView == nil) {
+//                annotationView = [[CustomAnnotationView alloc]
+//                                  initWithAnnotation:annotation
+//                                  reuseIdentifier:customReuseIndentifier];
+//            }
+//            NSString *path = [[NSBundle mainBundle]
+//                              pathForResource:@"redflag"
+//                              ofType:@"png"];
+//            UIImage *image = [UIImage imageWithContentsOfFile:path];
+//            annotationView.image = image;
+//            annotationView.centerOffset = CGPointMake(image.size.width / 2, - image.size.height / 2);
+//            NSString *path1 = [[NSBundle mainBundle]
+//                               pathForResource:@"tiananmen"
+//                               ofType:@"png"];
+//            UIImage *image1 = [UIImage imageWithContentsOfFile:path1];
+//            [annotationView setCalloutImage:image1];
+//            [annotationView setCalloutBtnTitle:@"到这里去"
+//                                      forState:UIControlStateNormal];
+//            [annotationView addCalloutBtnTarget:self
+//                                         action:@selector(calloutButtonAction)
+//                               forControlEvents:UIControlEventTouchUpInside];
+//            return annotationView;
+//        }
+    }
+    return nil;
+}
+
+/*!
+ *  @brief  地图区域改变完成时会调用此接口
+ *
+ *  @param mapView  地图view
+ *  @param animated 是否采用动画
+ */
+- (void)mapView:(QMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    
+    if (self.coordinate.latitude) {
+        [UIView animateWithDuration:.25 animations:^{
+            self.pinView1.top = self.pinView1.top-15;
+        } completion:^(BOOL finished) {
+            
+            [UIView animateWithDuration:.25 animations:^{
+                self.pinView1.top = (kScreenHeight-kTopHeight-34)/2;
+                
+            }];
+        }];
+        self.coordinate = _mapView.centerCoordinate;
+        [self getArea];
+        
+        NSLog(@"latitude：%f,longitude：%f",    _mapView.centerCoordinate.latitude,_mapView.centerCoordinate.longitude);
+    }
+
+}
+
 #pragma mark - TencentLBSLocationManagerDelegate
 
 - (void)tencentLBSLocationManager:(TencentLBSLocationManager *)manager
@@ -592,14 +807,18 @@
     
     [self.locationManager stopUpdatingLocation];
 
-    self.location = location;
-    [self getTags];
+    self.coordinate = location.location.coordinate;
     
     NSLog(@"latitude：%f,longitude：%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
     [_mapView setCenterCoordinate:location.location.coordinate animated:YES];
     
-    [self.rightBtn setTitle:location.name forState:UIControlStateNormal];
+    [self getArea];
+
+    
+//    [self.rightBtn setTitle:location.name forState:UIControlStateNormal];
 }
+
+
 
 - (void)dealloc
 {

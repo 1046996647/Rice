@@ -50,8 +50,15 @@
 // 3.3    支付
 #define PayOrder  [NSString stringWithFormat:@"%@/api/Order/PayOrder",BaseUrl]
 
+// 2.1    用户所在区域
+#define GetArea  [NSString stringWithFormat:@"%@/api/HomePage/GetArea",BaseUrl]
+
+
 // 2.3    首页配送中订单
 #define GetSendingOrder  [NSString stringWithFormat:@"%@/api/HomePage/GetSendingOrder",BaseUrl]
+
+// 2.4    获取周围骑手
+#define GetRiders  [NSString stringWithFormat:@"%@/api/HomePage/GetRiders",BaseUrl]
 
 // 设置用户个人信息
 #define SetUserInfo  [NSString stringWithFormat:@"%@/api/user/SetUserInfo",BaseUrl]
@@ -71,19 +78,12 @@
 // 用户选择地址
 #define ChooseAddress  [NSString stringWithFormat:@"%@/api/UserAddress/ChooseAddress",BaseUrl]
 
+// 3.6    我的订单-进行中订单
+#define GetActiveOrder  [NSString stringWithFormat:@"%@/api/Order/GetActiveOrder",BaseUrl]
 
-//// 1.7    验证旧手机验证码
-//#define Check_phone  [NSString stringWithFormat:@"%@/User/check_phone",BaseUrl]
-//
-//// 1.8    确认修改手机
-//#define Alter_phone  [NSString stringWithFormat:@"%@/User/alter_phone",BaseUrl]
+// 3.7    获取单个订单信息
+#define GetOrderByOrderId  [NSString stringWithFormat:@"%@/api/Order/GetOrderByOrderId",BaseUrl]
 
-
-
-
-
-// 1.16    上传头像
-//#define Upload_company_logo  [NSString stringWithFormat:@"%@/User/upload_company_logo",BaseUrl]
 
 
 #endif /* UrlFile_h */

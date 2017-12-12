@@ -8,9 +8,12 @@
 
 #import "SendingOrderVC.h"
 #import "SendingOrderCell.h"
+#import "UnpayOrderVC.h"
 
 @interface SendingOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property (nonatomic,assign) BOOL isRefresh;
 
 @end
 
@@ -26,6 +29,23 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self headerRefresh];
+    }];
+    // 隐藏时间
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
+    [self getActiveOrder];
+}
+
+- (void)headerRefresh
+{
+    
+    [self getActiveOrder];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,9 +53,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 3.6    我的订单-进行中订单
+- (void)getActiveOrder
+{
+    if (!self.isRefresh) {
+        [SVProgressHUD show];
+        
+    }
+    
+    NSMutableDictionary *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetActiveOrder dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
+        
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        
+        id obj = responseObject[@"data"];
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in obj) {
+            PayMentModel *model = [PayMentModel yy_modelWithJSON:dic];
+
+            [arrM addObject:model];
+
+        }
+        self.dataArr = arrM;
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    //    return _dataArr.count;
-    return 2;
+    
+    return _dataArr.count;
+//    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -53,9 +108,13 @@
                                        reuseIdentifier:cell_id];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
-        
+        cell.block = ^(PayMentModel *model) {
+            [_dataArr removeObject:model];
+            [_tableView reloadData];
+            
+        };
     }
-    
+    cell.model = _dataArr[indexPath.row];
     
     return cell;
 }
@@ -64,6 +123,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    PayMentModel *model = self.dataArr[indexPath.row];
+
+    UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
+    vc.title = @"详情";
+    vc.orderId = model.orderId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

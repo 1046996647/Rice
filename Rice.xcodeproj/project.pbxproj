@@ -41,6 +41,8 @@
 		F75BA4B71FBED0D4009A55DF /* SendingOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */; };
 		F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */; };
 		F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4BC1FBED796009A55DF /* ViewController.m */; };
+		F76204291FDF72C100C81990 /* UnpayOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76204281FDF72C100C81990 /* UnpayOrderVC.m */; };
+		F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F762042C1FDF7AC600C81990 /* LZQTimerLabel.m */; };
 		F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */; };
 		F767CA2F1FBD244900C7518C /* InfoCache.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA121FBD244900C7518C /* InfoCache.m */; };
 		F767CA301FBD244900C7518C /* NSStringExt.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA141FBD244900C7518C /* NSStringExt.m */; };
@@ -114,6 +116,9 @@
 		F77CDB031FD1360100B0578B /* QMapKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F77CDAFF1FD1360100B0578B /* QMapKit.bundle */; };
 		F77CDB071FD1449900B0578B /* FoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77CDB061FD1449900B0578B /* FoodModel.m */; };
 		F77CDB0A1FD14A5800B0578B /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F77CDB091FD14A5800B0578B /* OrderModel.m */; };
+		F789C03D1FDE379C00EECEBC /* RiderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F789C03C1FDE379C00EECEBC /* RiderModel.m */; };
+		F789C0421FDE4C7100EECEBC /* 40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F789C03E1FDE4C7000EECEBC /* 40@2x.png */; };
+		F789C0441FDE4C7100EECEBC /* 39@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F789C0401FDE4C7000EECEBC /* 39@2x.png */; };
 		F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */; };
 		F7E1B6611FC6973B0063EAA6 /* TYCyclePagerView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65D1FC6973B0063EAA6 /* TYCyclePagerView.m */; };
 		F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F7E1B65F1FC6973B0063EAA6 /* TYPageControl.m */; };
@@ -205,6 +210,10 @@
 		F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderCell.m; sourceTree = "<group>"; };
 		F75BA4BB1FBED796009A55DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F75BA4BC1FBED796009A55DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F76204271FDF72C100C81990 /* UnpayOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnpayOrderVC.h; sourceTree = "<group>"; };
+		F76204281FDF72C100C81990 /* UnpayOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnpayOrderVC.m; sourceTree = "<group>"; };
+		F762042B1FDF7AC600C81990 /* LZQTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZQTimerLabel.h; sourceTree = "<group>"; };
+		F762042C1FDF7AC600C81990 /* LZQTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZQTimerLabel.m; sourceTree = "<group>"; };
 		F762CF6E1FCFA17F00D87B31 /* UrlFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlFile.h; sourceTree = "<group>"; };
 		F767CA0D1FBD244900C7518C /* AFNetworking_RequestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking_RequestData.h; sourceTree = "<group>"; };
 		F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworking_RequestData.m; sourceTree = "<group>"; };
@@ -342,6 +351,10 @@
 		F77CDB061FD1449900B0578B /* FoodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FoodModel.m; sourceTree = "<group>"; };
 		F77CDB081FD14A5800B0578B /* OrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
 		F77CDB091FD14A5800B0578B /* OrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
+		F789C03B1FDE379C00EECEBC /* RiderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RiderModel.h; sourceTree = "<group>"; };
+		F789C03C1FDE379C00EECEBC /* RiderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RiderModel.m; sourceTree = "<group>"; };
+		F789C03E1FDE4C7000EECEBC /* 40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "40@2x.png"; sourceTree = "<group>"; };
+		F789C0401FDE4C7000EECEBC /* 39@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "39@2x.png"; sourceTree = "<group>"; };
 		F7E1B65A1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerTransformLayout.h; sourceTree = "<group>"; };
 		F7E1B65B1FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYCyclePagerTransformLayout.m; sourceTree = "<group>"; };
 		F7E1B65C1FC6973B0063EAA6 /* TYCyclePagerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYCyclePagerView.h; sourceTree = "<group>"; };
@@ -480,6 +493,8 @@
 				F77CDB061FD1449900B0578B /* FoodModel.m */,
 				F77CDB081FD14A5800B0578B /* OrderModel.h */,
 				F77CDB091FD14A5800B0578B /* OrderModel.m */,
+				F789C03B1FDE379C00EECEBC /* RiderModel.h */,
+				F789C03C1FDE379C00EECEBC /* RiderModel.m */,
 				F77CDB041FD1363F00B0578B /* 地图 */,
 				F767CA8B1FBD24F600C7518C /* 登录注册 */,
 				F75BA4801FBEB8BC009A55DF /* 我的订单 */,
@@ -579,6 +594,8 @@
 				F7680A7B1FCD568600EBC932 /* EvaluateVC.m */,
 				F744300B1FCE7D3600B92863 /* PaymentOrderVC.h */,
 				F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */,
+				F76204271FDF72C100C81990 /* UnpayOrderVC.h */,
+				F76204281FDF72C100C81990 /* UnpayOrderVC.m */,
 				F74430111FCE98A800B92863 /* MarkVC.h */,
 				F74430121FCE98A800B92863 /* MarkVC.m */,
 			);
@@ -708,6 +725,15 @@
 			path = CSLeftSlideControllerTwo;
 			sourceTree = "<group>";
 		};
+		F762042A1FDF7AC000C81990 /* LZQTimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				F762042B1FDF7AC600C81990 /* LZQTimerLabel.h */,
+				F762042C1FDF7AC600C81990 /* LZQTimerLabel.m */,
+			);
+			path = LZQTimerLabel;
+			sourceTree = "<group>";
+		};
 		F767CA0B1FBD244900C7518C /* Thirdparty */ = {
 			isa = PBXGroup;
 			children = (
@@ -808,6 +834,7 @@
 		F767CA3B1FBD249C00C7518C /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F762042A1FDF7AC000C81990 /* LZQTimerLabel */,
 				F7680A391FCD07A300EBC932 /* BRPickerView */,
 				F7E1B6591FC6973B0063EAA6 /* TYCyclePagerView */,
 				F74B8FE71FC668D0004B1A19 /* SGAdvertScrollView */,
@@ -1009,6 +1036,8 @@
 				F77CDAFC1FD1360100B0578B /* tiananmen.png */,
 				F77CDAFE1FD1360100B0578B /* redflag.png */,
 				F77CDAFD1FD1360100B0578B /* tencent.png */,
+				F789C0401FDE4C7000EECEBC /* 39@2x.png */,
+				F789C03E1FDE4C7000EECEBC /* 40@2x.png */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1147,9 +1176,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F789C0421FDE4C7100EECEBC /* 40@2x.png in Resources */,
 				F77CDB001FD1360100B0578B /* tiananmen.png in Resources */,
 				F75232E31FBC15BD002D4AF9 /* LaunchScreen.storyboard in Resources */,
 				F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */,
+				F789C0441FDE4C7100EECEBC /* 39@2x.png in Resources */,
 				F77CDB011FD1360100B0578B /* tencent.png in Resources */,
 				F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */,
 				F77CDB031FD1360100B0578B /* QMapKit.bundle in Resources */,
@@ -1254,6 +1285,7 @@
 				F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */,
 				F75232E61FBC15BD002D4AF9 /* main.m in Sources */,
 				F767CA311FBD244900C7518C /* CountDownServer.m in Sources */,
+				F76204291FDF72C100C81990 /* UnpayOrderVC.m in Sources */,
 				F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */,
 				F75BA48C1FBEB9A3009A55DF /* ServiceVC.m in Sources */,
 				F7680A5E1FCD131A00EBC932 /* ReceiveAddressCell.m in Sources */,
@@ -1276,11 +1308,13 @@
 				F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
 				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
+				F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */,
 				F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */,
 				F767CA351FBD244900C7518C /* UIColor+Expend.m in Sources */,
 				F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
 				F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */,
+				F789C03D1FDE379C00EECEBC /* RiderModel.m in Sources */,
 				F74430071FCE5A0500B92863 /* BookView.m in Sources */,
 				F7680A351FCCFF2000EBC932 /* PersonalCenterVC.m in Sources */,
 				F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */,

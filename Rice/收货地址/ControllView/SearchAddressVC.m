@@ -87,9 +87,8 @@
 //    _mapView.showsUserLocation = YES;// 默认是NO
 
     
-    
-    [self configLocationManager];
-    [self startUpdatingLocation];
+//    [self configLocationManager];
+//    [self startUpdatingLocation];
 
     
     // 去掉logo
