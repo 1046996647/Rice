@@ -30,6 +30,9 @@
     CSLeftSlideControllerTwo *LeftSlideController = [[CSLeftSlideControllerTwo alloc] initWithLeftViewController:leftVC MainViewController:mainNav];
     [self addChildViewController:LeftSlideController];
     [self.view addSubview:LeftSlideController.view];
+    
+
+
 }
 
 - (void)didReceiveMemoryWarning {

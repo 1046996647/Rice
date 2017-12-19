@@ -57,6 +57,7 @@
     [baseView addSubview:_addTF];
     _addTF.delegate = self;
     _addTF.returnKeyType = UIReturnKeySearch;
+    [_addTF addTarget:self action:@selector(valueChangeAction:) forControlEvents:UIControlEventEditingChanged];
     
     
 //    // 右上角按钮
@@ -110,7 +111,7 @@
     
     QMSPoiData *poiInfo = self.dataArr[indexPath.row];
     if (self.block) {
-        self.block(poiInfo.title);
+        self.block(poiInfo);
     }
     [self.navigationController popViewControllerAnimated:YES];
     
@@ -136,6 +137,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)valueChangeAction:(UITextField *)tf
+{
+    QMSPoiSearchOption *poiSearchOption = [[QMSPoiSearchOption alloc] init];
+    //    //地区检索
+    [poiSearchOption setBoundaryByRegionWithCityName:self.city autoExtend:NO];
+    //周边检索
+    //    [poiSearchOption setBoundaryByNearbyWithCenterCoordinate:self.lBSLocation.location.coordinate radius:1000];
+    //矩形检索
+    //[poiSearchOption setBoundaryByRectangleWithleftBottomCoordinate:
+    //CLLocationCoordinate2DMake(39, 116) rightTopCoordinate:
+    //CLLocationCoordinate2DMake(40, 117)];
+    //设置检索分类
+    //    [poiSearchOption setFilter:@"category=美食"];
+    [poiSearchOption setKeyword:tf.text];
+    [self.searcher searchWithPoiSearchOption:poiSearchOption];
+}
+
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -151,7 +169,7 @@
     
     QMSPoiSearchOption *poiSearchOption = [[QMSPoiSearchOption alloc] init];
 //    //地区检索
-    [poiSearchOption setBoundaryByRegionWithCityName:self.lBSLocation.city autoExtend:NO];
+    [poiSearchOption setBoundaryByRegionWithCityName:self.city autoExtend:NO];
     //周边检索
 //    [poiSearchOption setBoundaryByNearbyWithCenterCoordinate:self.lBSLocation.location.coordinate radius:1000];
     //矩形检索

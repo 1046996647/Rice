@@ -26,6 +26,8 @@
 
 @property(nonatomic,strong) NSString *payType;
 @property(nonatomic,strong) UIButton *lastBtn;
+@property(nonatomic,strong) NSTimer *timer;
+@property(nonatomic,strong) UIButton *payBtn;
 
 
 // 备注
@@ -154,9 +156,10 @@
     self.marklab1 = marklab1;
     marklab1.numberOfLines = 0;
     
-    if (self.payMentModel.useCoupon.boolValue) {
+    if (self.payMentModel.remarks.length > 0) {
         markView.height = markWhiteView.bottom;
-        
+        marklab1.text = self.payMentModel.remarks;
+        markBtn.hidden = YES;
     }
     else {
         markView.hidden = YES;
@@ -227,15 +230,49 @@
     
     
     // !!!!确认支付
-    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.payMoney] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
+    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[self ll_timeWithSecond:self.payMentModel.restSeconds] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
     [self.view addSubview:payBtn];
     [payBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
+    self.payBtn = payBtn;
     
     if (self.payMentModel.status.integerValue != 0) {
         payBtn.hidden = YES;
         
     }
+    else {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
+        //将定时器加入NSRunLoop，保证滑动表时，UI依然刷新
+        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    }
+    
 
+
+}
+
+- (void)timerRun:(NSTimer *)timer {
+    
+    if (self.payMentModel.restSeconds > 0) {
+        
+        [self.payBtn setTitle:[self ll_timeWithSecond:self.payMentModel.restSeconds] forState:UIControlStateNormal];
+        self.payMentModel.restSeconds -= 1;
+    }
+    else {
+        if (_timer) {
+            [_timer invalidate];
+            _timer = nil;
+        }
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+
+//将秒数转换为字符串格式
+- (NSString *)ll_timeWithSecond:(NSInteger)second
+{
+    NSString *time;
+    time = [NSString stringWithFormat:@"(%02ld分%02ld秒)￥%@确认支付",second/60,second%60,self.payMentModel.priceAll.payMoney];
+    
+    return time;
 }
 
 - (void)payAction
@@ -444,7 +481,7 @@
             
         }
         
-        if (indexPath.row == 1) {
+        if (indexPath.row == [self.dataArr[indexPath.section] count]-1) {
             cell.line.hidden = YES;
         }
         else {

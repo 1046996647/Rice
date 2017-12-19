@@ -8,6 +8,11 @@
 
 #import "BaseViewController.h"
 
+typedef void(^EvaluateBlock)(void);
+
 @interface EvaluateVC : BaseViewController
+@property(nonatomic,strong) NSString *orderId;
+@property(nonatomic,copy) EvaluateBlock block;
+
 
 @end

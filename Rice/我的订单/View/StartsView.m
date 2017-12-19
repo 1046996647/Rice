@@ -50,8 +50,8 @@
 
 - (void)addSwipeGesture
 {
-    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
-    [self.panView addGestureRecognizer:panGesture];
+//    UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGesture:)];
+//    [self.panView addGestureRecognizer:panGesture];
     
     UITapGestureRecognizer *tapPan = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     [self.panView addGestureRecognizer:tapPan];
@@ -91,16 +91,18 @@
 {
     UITapGestureRecognizer *pan = sender;
         CGPoint point = [pan locationInView:self];
-        [self.StartsBtns enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            UIButton *btn = obj;
-            if (btn.frame.origin.x<point.x) {
-                btn.enabled = NO;
-            }else
-            {
-                btn.enabled = YES;
-            }
-        }];
-   
+    [self.StartsBtns enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIButton *btn = obj;
+        if (btn.frame.origin.x<point.x) {
+            btn.enabled = NO;
+        }else
+        {
+            btn.enabled = YES;
+        }
+    }];
+    if (self.block) {
+        self.block(self.StartsBtns);
+    }
 
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

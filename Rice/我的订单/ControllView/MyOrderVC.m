@@ -50,7 +50,7 @@
     lala.isIndicatorsAnimals = YES;
     lala.itemTextFontSize = 14;
     lala.isChildScollEnabled = YES;
-    //    lala.selectedSegmentIndex = 2;
+    lala.selectedSegmentIndex = self.selectedSegmentIndex;
     lala.indicatorStyles = MJCIndicatorItemTextStyle;
     [lala intoTitlesArray:titlesArr hostController:self];
     [self.view addSubview:lala];

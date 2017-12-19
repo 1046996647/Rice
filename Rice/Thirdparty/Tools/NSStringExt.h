@@ -45,4 +45,6 @@
 // 字典或数组转json格式字符串：
 + (NSString*)JSONString:(id)obj;
 
++ (NSString *)getIPAddress:(BOOL)preferIPv4;
+
 @end

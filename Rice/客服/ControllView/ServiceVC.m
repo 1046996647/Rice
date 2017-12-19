@@ -41,7 +41,29 @@
     UIButton *viewBtn = [UIButton buttonWithframe:rightView.bounds text:@"发送" font:SystemFont(17) textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
     [rightView addSubview:viewBtn];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
-//    [viewBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+    [viewBtn addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)saveAction
+{
+    [self.view endEditing:YES];
+    
+    if (self.tv.text.length == 0) {
+        [self.view makeToast:@"请填写内容"];
+        return;
+    }
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [paramDic  setValue:self.tv.text forKey:@"suggestion"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:Suggest dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

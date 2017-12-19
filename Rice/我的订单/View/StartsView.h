@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+typedef void(^StartsViewBlock)(NSMutableArray *StartsBtns);
+
 /**
  评价星星图
  **/
@@ -14,5 +17,8 @@
 
 @property (strong, nonatomic) NSMutableArray *StartsBtns;
 @property (strong, nonatomic)  UIView *panView;
+@property(nonatomic,copy) StartsViewBlock block;
+
+
 - (void)addSwipeGesture;
 @end

@@ -10,7 +10,7 @@
 
 @class PriceAllModel, UserAddressModel, PayMentModel, FoodModel1;
 
-// status：0未支付1待抢单2派送中
+// status：0未支付1待抢单2派送中 3已送达 5取消订单  7已评价
 @interface PayMentModel : NSObject
 
 
@@ -21,8 +21,15 @@
 @property(nonatomic,strong) NSString *coupon;
 @property(nonatomic,strong) NSString *useBalance;
 @property(nonatomic,strong) NSString *useCoupon;
+@property(nonatomic,assign) BOOL isUseBalance;
+@property(nonatomic,assign) BOOL isUseCoupon;
 @property(nonatomic,strong) NSString *orderId;
 @property(nonatomic,strong) NSString *status;
+@property(nonatomic,strong) NSString *remarks;
+@property(nonatomic,strong) NSString *sumPrice;
+@property(nonatomic,strong) NSString *riderPhone;
+@property(nonatomic,strong) NSString *riderName;
+
 @property(nonatomic,assign) NSInteger restSeconds;
 
 
@@ -31,12 +38,17 @@
 //
 @interface FoodModel1 : NSObject
 
+@property(nonatomic,strong) NSString *foodComment;
+@property(nonatomic,strong) NSString *foodStars;
+
+
 @property(nonatomic,strong) NSString *amount;
 @property(nonatomic,strong) NSString *foodId;
 @property(nonatomic,strong) NSString *foodName;
+@property(nonatomic,strong) NSString *foodImg;
 @property(nonatomic,strong) NSString *name;
 @property(nonatomic,strong) NSString *isMain;
-@property(nonatomic,strong) NSString *price;
+@property(nonatomic,strong) NSString *foodPrice;
 
 
 @end

@@ -27,7 +27,7 @@
     if (self.model) {
         self.dataArr = @[@{@"leftTitle":@"  姓名：",@"rightTitle":@"请填写收货人的姓名",@"text":self.model.name,@"key":@"name"},
                          @{@"leftTitle":@"  电话：",@"rightTitle":@"请填写收货手机号码",@"text":self.model.phone,@"key":@"phone"},
-                         @{@"leftTitle":@"  收货地址：",@"rightTitle":@"请选择收货地址",@"text":self.model.address,@"key":@"address"},
+                         @{@"leftTitle":@"  收货地址：",@"rightTitle":@"请选择收货地址",@"text":self.model.address,@"lat":self.model.lat,@"lng":self.model.lng,@"key":@"address"},
                          @{@"leftTitle":@"  门牌号：",@"rightTitle":@"请填写楼牌号",@"text":self.model.detail,@"key":@"detail"}
                          ];
     }

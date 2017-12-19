@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PayMentModel.h"
 
 @interface HistoryOrderCell : UITableViewCell
 
@@ -18,5 +19,6 @@
 @property(nonatomic,strong) UILabel *moneyLab;
 @property(nonatomic,strong) UIButton *confirmBtn;
 @property(nonatomic,strong) UIButton *evaluateBtn;
+@property(nonatomic,strong) PayMentModel *model;
 
 @end

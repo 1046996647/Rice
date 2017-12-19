@@ -19,6 +19,12 @@
 
 @implementation SendingOrderVC
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
@@ -40,6 +46,11 @@
     self.tableView.mj_header = header;
     
     [self getActiveOrder];
+    
+    //订单状态更新通知事件
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(headerRefresh) name:@"kSendingOrderNotification" object:nil];
+
 }
 
 - (void)headerRefresh
@@ -112,6 +123,9 @@
             [_dataArr removeObject:model];
             [_tableView reloadData];
             
+            // 取消的订单
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kSendingOrderNotification" object:nil];
+
         };
     }
     cell.model = _dataArr[indexPath.row];
@@ -126,7 +140,7 @@
     PayMentModel *model = self.dataArr[indexPath.row];
 
     UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
-    vc.title = @"详情";
+    vc.title = @"进行中订单详情";
     vc.orderId = model.orderId;
     [self.navigationController pushViewController:vc animated:YES];
 }

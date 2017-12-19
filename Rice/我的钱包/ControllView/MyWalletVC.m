@@ -7,12 +7,19 @@
 //
 
 #import "MyWalletVC.h"
+#import "PayMentModel.h"
 
 @interface MyWalletVC ()
 
 @property(nonatomic,strong) UIImageView *baseImg;
 @property(nonatomic,strong) UIView *liJinView;
 @property(nonatomic,strong) UIView *yuEView;
+
+
+@property(nonatomic,strong) UILabel *label;
+@property(nonatomic,strong) UILabel *moneyLab;
+@property(nonatomic,strong) PayMentModel *model;
+
 
 
 @end
@@ -29,10 +36,12 @@
     
     UILabel *label = [UILabel labelWithframe:CGRectMake(0, 20, kScreenWidth, 17) text:@"我的礼金券(元)" font:[UIFont systemFontOfSize:12] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
     [baseView addSubview:label];
+    self.label = label;
     
-    UILabel *moneyLab = [UILabel labelWithframe:CGRectMake(0, label.bottom, kScreenWidth, 56) text:@"180.00" font:[UIFont systemFontOfSize:40] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
+    // 180.00
+    UILabel *moneyLab = [UILabel labelWithframe:CGRectMake(0, label.bottom, kScreenWidth, 56) text:@"" font:[UIFont systemFontOfSize:40] textAlignment:NSTextAlignmentCenter textColor:@"#333333"];
     [baseView addSubview:moneyLab];
-    
+    self.moneyLab = moneyLab;
 
     UIImageView *baseImg = [UIImageView imgViewWithframe:CGRectMake((kScreenWidth-98)/2, moneyLab.bottom+31, 98, 32) icon:@"liJIn"];
     [baseView addSubview:baseImg];
@@ -97,11 +106,30 @@
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 67, 22) text:@"收支明细" font:SystemFont(16) textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
 //    [viewBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:viewBtn];
+    
+    [self getWallet];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getWallet
+{
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetWallet dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        id obj = responseObject[@"data"];
+        _model = [PayMentModel yy_modelWithJSON:obj];
+        self.moneyLab.text = _model.coupon;
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 - (void)saoAction
@@ -117,11 +145,18 @@
         self.baseImg.image = [UIImage imageNamed:@"liJIn"];
         self.liJinView.hidden = NO;
         self.yuEView.hidden = YES;
+        self.label.text = @"我的礼金券(元)";
+        self.moneyLab.text = _model.coupon;
+
     }
     else {
         self.baseImg.image = [UIImage imageNamed:@"yuE"];
         self.liJinView.hidden = YES;
         self.yuEView.hidden = NO;
+        self.label.text = @"我的余额(元)";
+        self.moneyLab.text = _model.balance;
+
+
     }
 }
 

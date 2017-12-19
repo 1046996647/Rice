@@ -17,6 +17,7 @@ typedef void(^SearchAddressBlock)(NSString *text,NSString *lat,NSString *lng);
 
 @property(nonatomic,copy) SearchAddressBlock block;
 @property (nonatomic, strong) TencentLBSLocation *lBSLocation;
-
+@property (nonatomic, assign) double lat;
+@property (nonatomic, assign) double lng;
 
 @end

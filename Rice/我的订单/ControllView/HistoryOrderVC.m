@@ -9,13 +9,22 @@
 #import "HistoryOrderVC.h"
 #import "HistoryOrderCell.h"
 #import "HistoryOrderDetailVC.h"
+#import "UnpayOrderVC.h"
 
 @interface HistoryOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray *dataArr;
+@property(nonatomic,assign) NSInteger pageNO;
+@property (nonatomic,assign) BOOL isRefresh;
 @end
 
 @implementation HistoryOrderVC
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,6 +35,53 @@
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    // 下拉刷新
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        
+        [self headerRefresh];
+
+        
+    }];
+    // 隐藏时间
+    header.lastUpdatedTimeLabel.hidden = YES;
+    self.tableView.mj_header = header;
+    
+    // 上拉刷新
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        
+        if (self.dataArr.count > 0) {
+            // 搜索职位
+            [self getHistoryOrder];
+        }
+        
+    }];
+    
+    self.pageNO = 1;
+    self.dataArr = [NSMutableArray array];
+    [self getHistoryOrder];
+    
+    //完成订单状态更新通知事件
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(headerRefresh) name:@"kHistoryOrderNotification" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_tableView reloadData];
+}
+
+- (void)headerRefresh
+{
+    
+    self.pageNO = 1;
+    if (self.dataArr.count > 0) {
+        [self.dataArr removeAllObjects];
+        
+    }
+    [self getHistoryOrder];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,9 +89,56 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 3.6    我的订单-进行中订单
+- (void)getHistoryOrder
+{
+    if (!self.isRefresh) {
+        [SVProgressHUD show];
+        
+    }
+    
+    NSMutableDictionary *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    [paramDic setValue:@(self.pageNO) forKey:@"pageIndex"];
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetHistoryOrder dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
+        
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        
+        id obj = responseObject[@"data"];
+        if ([obj count]) {
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (NSDictionary *dic in obj) {
+                PayMentModel *model = [PayMentModel yy_modelWithJSON:dic];
+                
+                [arrM addObject:model];
+
+            }
+            [self.dataArr addObjectsFromArray:arrM];
+            self.pageNO++;
+        }
+
+        else {
+            
+            // 拿到当前的上拉刷新控件，变为没有更多数据的状态
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }
+
+        [_tableView reloadData];
+        
+    } failure:^(NSError *error) {
+        self.isRefresh = YES;
+        [SVProgressHUD dismiss];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return _dataArr.count;
-    return 2;
+    return _dataArr.count;
+//    return 2;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -55,7 +158,12 @@
         cell.backgroundColor = [UIColor clearColor];
 
     }
-    
+    if (self.dataArr.count > 0) {
+
+        cell.model = _dataArr[indexPath.row];
+
+    }
+
     
     return cell;
 }
@@ -64,10 +172,12 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    HistoryOrderDetailVC *vc = [[HistoryOrderDetailVC alloc] init];
-    vc.title = @"历史订单详情";
-    [self.navigationController pushViewController:vc animated:YES];
+    PayMentModel *model = self.dataArr[indexPath.row];
     
+    UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
+    vc.title = @"历史订单详情";
+    vc.orderId = model.orderId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

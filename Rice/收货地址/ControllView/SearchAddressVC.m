@@ -11,9 +11,11 @@
 #import <TencentLBS/TencentLBS.h>
 #import "NearbyAddressCell.h"
 #import "SearchResultVC.h"
+#import "QMapSearchKit/QMapSearchKit.h"
 
 
-@interface SearchAddressVC ()<QMapViewDelegate,TencentLBSLocationManagerDelegate,UITableViewDelegate,UITableViewDataSource>
+
+@interface SearchAddressVC ()<QMapViewDelegate,TencentLBSLocationManagerDelegate,QMSSearchDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UITableView *tableView;
 @property(nonatomic,strong) UITextField *addTF;
@@ -25,6 +27,10 @@
 @property (nonatomic, strong) QMapView *mapView;
 @property (readwrite, nonatomic, strong) TencentLBSLocationManager *locationManager;
 @property (nonatomic, strong) TencentLBSLocation *location;
+@property (nonatomic, strong) UIImageView *pinView1;
+@property (nonatomic, strong) QMSSearcher *mapSearcher;
+@property (nonatomic, strong) QMSReverseGeoCodeSearchResult *reGeoResult;
+
 
 @end
 
@@ -85,11 +91,6 @@
     [self.view addSubview:self.mapView];
     [_mapView setZoomLevel:15.01];
 //    _mapView.showsUserLocation = YES;// 默认是NO
-
-    
-//    [self configLocationManager];
-//    [self startUpdatingLocation];
-
     
     // 去掉logo
     for (UIView *view in _mapView.subviews) {
@@ -97,6 +98,25 @@
             [view removeFromSuperview];
             break;
         }
+    }
+    
+    // 大头针
+    UIImageView *pinView1 = [UIImageView imgViewWithframe:CGRectMake(0, (300*scaleWidth-34)/2, kScreenWidth, 34) icon:@"14"];
+    pinView1.contentMode = UIViewContentModeScaleAspectFit;
+    //    pinView1.backgroundColor = [UIColor redColor];
+    [_mapView addSubview:pinView1];
+    self.pinView1 = pinView1;
+
+    self.mapSearcher = [[QMSSearcher alloc] initWithDelegate:self];
+
+    
+    
+    if (self.lat) {
+        [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(self.lat, self.lng)];
+    }
+    else {
+        [self configLocationManager];
+        [self startUpdatingLocation];
     }
     
     // 定位图片
@@ -135,8 +155,8 @@
     if (self.block) {
         if (self.addTF.text) {
        
-            NSString *lat = [NSString stringWithFormat:@"%f",self.location.location.coordinate.latitude];
-            NSString *lng = [NSString stringWithFormat:@"%f",self.location.location.coordinate.longitude];
+            NSString *lat = [NSString stringWithFormat:@"%f",self.lat];
+            NSString *lng = [NSString stringWithFormat:@"%f",self.lng];
             self.block(self.addTF.text,lat,lng);
         }
     }
@@ -146,11 +166,12 @@
 - (void)addAction
 {
     SearchResultVC *vc = [[SearchResultVC alloc] init];
-    vc.lBSLocation = self.location;
+    vc.city = self.addBtn.currentTitle;
     [self.navigationController pushViewController:vc animated:YES];
-    vc.block = ^(NSString *text) {
+    vc.block = ^(QMSPoiData *poiInfo) {
         
-        self.addTF.text = text;
+        self.addTF.text = poiInfo.title;
+        [_mapView setCenterCoordinate:poiInfo.location];
     };
 }
 
@@ -175,6 +196,68 @@
 
 - (void)startUpdatingLocation {
     [self.locationManager startUpdatingLocation];
+}
+#pragma mark - mapViewDelegate
+/*!
+ *  @brief  地图区域改变完成时会调用此接口
+ *
+ *  @param mapView  地图view
+ *  @param animated 是否采用动画
+ */
+- (void)mapView:(QMapView *)mapView regionDidChangeAnimated:(BOOL)animated
+{
+    
+    [UIView animateWithDuration:.25 animations:^{
+        self.pinView1.top = self.pinView1.top-15;
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:.25 animations:^{
+            self.pinView1.top = (300*scaleWidth-34)/2;
+            
+        }];
+    }];
+    //        self.coordinate = _mapView.centerCoordinate;
+    
+    NSLog(@"latitude：%f,longitude：%f",    _mapView.centerCoordinate.latitude,_mapView.centerCoordinate.longitude);
+    self.lat = _mapView.centerCoordinate.latitude;
+    self.lng = _mapView.centerCoordinate.longitude;
+
+    
+    //配置搜索参数
+    QMSReverseGeoCodeSearchOption *reGeoSearchOption = [[QMSReverseGeoCodeSearchOption alloc] init];
+    [reGeoSearchOption setLocationWithCenterCoordinate:_mapView.centerCoordinate];
+    [reGeoSearchOption setGet_poi:YES];
+    [self.mapSearcher searchWithReverseGeoCodeSearchOption:reGeoSearchOption];
+    
+}
+
+#pragma mark - QMSSearch Delegate
+
+- (void)searchWithSearchOption:(QMSSearchOption *)searchOption didFailWithError:(NSError *)error
+{
+    NSLog(@"error:%@", error);
+}
+
+- (void)searchWithReverseGeoCodeSearchOption:(QMSReverseGeoCodeSearchOption *)reverseGeoCodeSearchOption didReceiveResult:(QMSReverseGeoCodeSearchResult *)reverseGeoCodeSearchResult
+{
+
+//    NSLog(@"reverseGeoCodeSearchResult:%@", reverseGeoCodeSearchResult);
+    NSMutableArray *arrM = [NSMutableArray array];
+    for (QMSReGeoCodePoi *poiInfo in reverseGeoCodeSearchResult.poisArray) {
+        [arrM addObject:poiInfo];
+    }
+    self.dataArr = arrM;
+    [_tableView reloadData];
+    
+    
+    // 定位
+    [self.addBtn setTitle:reverseGeoCodeSearchResult.ad_info.city forState:UIControlStateNormal];
+    if (arrM.count > 0) {
+        QMSReGeoCodePoi *poiInfo = arrM[0];
+        self.addTF.text = poiInfo.title;
+    }
+
+
 }
 
 #pragma mark - TencentLBSLocationManagerDelegate
@@ -210,20 +293,22 @@
     
     [self.locationManager stopUpdatingLocation];
     
-    // 定位
-    [self.addBtn setTitle:location.city forState:UIControlStateNormal];
-    NSMutableArray *arrM = [NSMutableArray array];
-    for (TencentLBSPoi *poiInfo in location.poiList) {
-        [arrM addObject:poiInfo];
-    }
-    self.dataArr = arrM;
-    [_tableView reloadData];
+//    _addTF.text = location.name;
+
+    
+//    NSMutableArray *arrM = [NSMutableArray array];
+//    for (TencentLBSPoi *poiInfo in location.poiList) {
+//        [arrM addObject:poiInfo];
+//    }
+//    self.dataArr = arrM;
+//    [_tableView reloadData];
     
     self.location = location;
-//    [self getTags];
     
     NSLog(@"latitude：%f,longitude：%f",location.location.coordinate.latitude, location.location.coordinate.longitude);
+
     [_mapView setCenterCoordinate:location.location.coordinate animated:YES];
+
     
 }
 
@@ -241,8 +326,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    TencentLBSPoi *poiInfo = self.dataArr[indexPath.row];
-    self.addTF.text = poiInfo.name;
+    QMSReGeoCodePoi *poiInfo = self.dataArr[indexPath.row];
+    self.addTF.text = poiInfo.title;
     
     
 }
@@ -256,10 +341,12 @@
         cell = [[NearbyAddressCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
         
     }
-    TencentLBSPoi *poiInfo = self.dataArr[indexPath.row];
-    cell.textLab.text = poiInfo.name;
+//    TencentLBSPoi *poiInfo = self.dataArr[indexPath.row];
+//    cell.textLab.text = poiInfo.t;
+//    cell.detailLab.text = poiInfo.address;
+    QMSReGeoCodePoi *poiInfo = self.dataArr[indexPath.row];
+    cell.textLab.text = poiInfo.title;
     cell.detailLab.text = poiInfo.address;
-    
     return cell;
 }
 

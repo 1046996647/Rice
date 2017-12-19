@@ -10,4 +10,7 @@
 
 @interface MyOrderVC : BaseViewController
 
+@property (nonatomic,assign) NSInteger selectedSegmentIndex;
+
+
 @end

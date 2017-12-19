@@ -55,6 +55,8 @@
 {
     SearchAddressVC *vc = [[SearchAddressVC alloc] init];
     vc.title = @"新增地址";
+    vc.lat = _model.lat.doubleValue;
+    vc.lng = _model.lng.doubleValue;
     [self.viewController.navigationController pushViewController:vc animated:YES];
     vc.block = ^(NSString *text,NSString *lat,NSString *lng) {
         _model.text = text;

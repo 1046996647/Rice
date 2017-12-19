@@ -22,11 +22,11 @@
         _imgView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imgView];
         
-        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 17, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 30, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_countLab];
         
         
-        _stateLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-72-20, 20, 72, 20) text:@"等待配送中" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#8B572A"];
+        _stateLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-72-20, 20, 72, 20) text:@"等待配送中" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#D0021B"];
         [self.contentView addSubview:_stateLab];
         
         _timeLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-135-13, _nameLab.bottom+22, 135, 35) text:@"预定时间：2017-11-15\n9:30-10:00" font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#333333"];

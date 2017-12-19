@@ -91,14 +91,6 @@
       "idiom" : "ios-marketing",
       "size" : "1024x1024",
       "scale" : "1x"
-    },
-    {
-      "filename" : "appicon@2x.png",
-      "unassigned" : true
-    },
-    {
-      "filename" : "appicon@3x.png",
-      "unassigned" : true
     }
   ],
   "info" : {

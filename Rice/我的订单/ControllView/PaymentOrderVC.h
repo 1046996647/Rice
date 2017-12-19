@@ -8,9 +8,12 @@
 
 #import "BaseViewController.h"
 
+typedef void(^PaymentOrderBlock)(void);
+
 @interface PaymentOrderVC : BaseViewController
 
 @property(nonatomic,strong) NSMutableDictionary *param;
+@property(nonatomic,copy) PaymentOrderBlock block;
 
 
 @end

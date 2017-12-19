@@ -16,6 +16,7 @@
 #import "ServiceVC.h"
 #import "SettingVC.h"
 #import "NavigationController.h"
+#import "PersonalCenterVC.h"
 
 @interface CSLeftSlideControllerTwo () <LeftViewControllerDelegate>
 
@@ -199,6 +200,12 @@
         vc.title = @"设置";
         [nav pushViewController:vc animated:YES];
     }
+    if (row == 5) {
+        PersonalCenterVC *vc = [[PersonalCenterVC alloc] init];
+        vc.title = @"个人信息";
+        [nav pushViewController:vc animated:YES];
+    }
+
 }
 
 @end

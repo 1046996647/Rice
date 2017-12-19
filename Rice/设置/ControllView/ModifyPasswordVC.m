@@ -24,7 +24,7 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:@"#F8E249"];
     
-    // 验证码
+    // 当前密码
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 19, 42)];
     
     _phone = [UITextField textFieldWithframe:CGRectMake(34, 10, kScreenWidth-34*2, leftView.height) placeholder:@"请输入当前密码" font:nil leftView:leftView backgroundColor:@"#FFEB93"];
@@ -35,6 +35,7 @@
     [self.view addSubview:_phone];
     [_phone setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_phone setValue:[UIColor colorWithHexString:@"#DDBA7F"] forKeyPath:@"_placeholderLabel.textColor"];
+    _phone.secureTextEntry = YES;
     
     // 密码
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 19, leftView.height)];
@@ -64,7 +65,7 @@
     loginBtn.layer.cornerRadius = 7;
     loginBtn.layer.masksToBounds = YES;
     [self.view addSubview:loginBtn];
-    //    [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+    [loginBtn addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,14 +73,36 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
+- (void)registerAction
+{
+    [self.view endEditing:YES];
+    
+    if (self.phone.text.length == 0||
+        self.password.text.length == 0||
+        self.okPwd.text.length == 0) {
+        [self.view makeToast:@"您还有内容未填写完整"];
+        return;
+    }
+    
+    if (![self.password.text isEqualToString:self.okPwd.text]) {
+        [self.view makeToast:@"密码不一致"];
+        return;
+        
+    }
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:self.phone.text forKey:@"password"];
+    [paramDic  setValue:self.password.text forKey:@"newPassword"];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+    [AFNetworking_RequestData requestMethodPOSTUrl:ReSetPwd dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
-*/
 
 @end

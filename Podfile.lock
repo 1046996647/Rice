@@ -14,12 +14,27 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - IQKeyboardManager (4.0.9)
-  - MJRefresh (3.1.12)
-  - SDWebImage (4.0.0):
-    - SDWebImage/Core (= 4.0.0)
-  - SDWebImage/Core (4.0.0)
-  - SVProgressHUD (2.1.2)
+  - IQKeyboardManager (5.0.7)
+  - MJRefresh (3.1.15.1)
+  - SDWebImage (4.2.2):
+    - SDWebImage/Core (= 4.2.2)
+  - SDWebImage/Core (4.2.2)
+  - SVProgressHUD (2.2.2)
+  - UMengUShare/Core (6.4.7):
+    - UMengUShare/Network
+  - UMengUShare/Network (6.4.7)
+  - UMengUShare/Social/QQ (6.4.7):
+    - UMengUShare/Core
+    - UMengUShare/Social/ReducedQQ
+  - UMengUShare/Social/ReducedQQ (6.4.7):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedWeChat (6.4.7):
+    - UMengUShare/Core
+  - UMengUShare/Social/WeChat (6.4.7):
+    - UMengUShare/Core
+    - UMengUShare/Social/ReducedWeChat
+  - UMengUShare/UI (6.4.7):
+    - UMengUShare/Core
   - YYModel (1.0.4)
 
 DEPENDENCIES:
@@ -28,16 +43,20 @@ DEPENDENCIES:
   - MJRefresh
   - SDWebImage
   - SVProgressHUD
+  - UMengUShare/Social/QQ
+  - UMengUShare/Social/WeChat
+  - UMengUShare/UI
   - YYModel
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
-  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
-  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  SVProgressHUD: c404a55d78acbeb7ebb78b76d3faf986475a6994
+  IQKeyboardManager: 0bfa4607d39924116b5c0c8b55b5d789288b5cba
+  MJRefresh: 5f8552bc25ca8751c010f621c1098dbdaacbccd6
+  SDWebImage: 89a9d32cd520bbb46eb14e541d5109b3564af198
+  SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
+  UMengUShare: 5055d0e01c844379e173bdca0840fc9fa9297d88
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 27d53a0525601144bd58a9dac746ceda5b9e1e3d
+PODFILE CHECKSUM: 8a499405fb50ccec15ddd8f30ab5db2b9d9b39fa
 
 COCOAPODS: 1.4.0.beta.1

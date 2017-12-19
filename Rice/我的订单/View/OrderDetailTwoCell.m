@@ -49,7 +49,7 @@
 {
     _model = model;
     _nameLab.text = model.foodName;
-    _countLab.text = model.amount;
+    _countLab.text = [NSString stringWithFormat:@"X%@",model.amount];
 }
 
 

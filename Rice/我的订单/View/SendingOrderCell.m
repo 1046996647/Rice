@@ -22,7 +22,7 @@
         _imgView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imgView];
         
-        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 17, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 30, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_countLab];
         
         
@@ -35,6 +35,7 @@
         _evaluateBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
         _evaluateBtn.layer.borderWidth = 1;
         [self.contentView addSubview:_evaluateBtn];
+        [_evaluateBtn addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
         
         _payBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-65-20, _stateLab.bottom+25, 65, 26) text:@"确认付款" font:_stateLab.font textColor:@"#333333" backgroundColor:@"#FFE690" normal:@"Rectangle 14" selected:nil];
         _payBtn.layer.cornerRadius = 5;
@@ -42,6 +43,7 @@
         _payBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
         _payBtn.layer.borderWidth = 1;
         [self.contentView addSubview:_payBtn];
+        _payBtn.userInteractionEnabled = NO;
         
         _timeLab = [UILabel labelWithframe:CGRectMake(_payBtn.left-10-100, _payBtn.center.y-10, 100, 20) text:@"" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentRight textColor:@"#D0021B"];
         [self.contentView addSubview:_timeLab];
@@ -52,6 +54,8 @@
         _confirmBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
         _confirmBtn.layer.borderWidth = 1;
         [self.contentView addSubview:_confirmBtn];
+        [_confirmBtn addTarget:self action:@selector(cuiDanAction) forControlEvents:UIControlEventTouchUpInside];
+
         
         _moneyLab = [UILabel labelWithframe:CGRectMake(_nameLab.left, _nameLab.bottom+26, _confirmBtn.left-_nameLab.left, 21) text:@"￥14.8" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_moneyLab];
@@ -70,13 +74,41 @@
     return self;
 }
 
+- (void)cuiDanAction
+{
+    //    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",_model.tele];
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel:%@",self.model.riderPhone];
+    UIWebView *callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+}
+- (void)cancelAction
+{
+    
+    NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+    
+    [paraDic setValue:self.model.orderId forKey:@"orderId"];
+    [AFNetworking_RequestData requestMethodPOSTUrl:UserCancelOrder dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.viewController.view makeToast:@"取消成功"];
+        if (self.block) {
+            self.block(self.model);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+}
+
 - (void)setModel:(PayMentModel *)model
 {
     _model = model;
     
     FoodModel1 *foodModel = [model.listFoods firstObject];
     _nameLab.text = foodModel.foodName;
-    _moneyLab.text = [NSString stringWithFormat:@"￥%@",foodModel.price];
+    _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.sumPrice];
      _countLab.text = [NSString stringWithFormat:@"X%@",foodModel.amount];
     
     

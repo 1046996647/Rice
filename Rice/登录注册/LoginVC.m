@@ -10,7 +10,8 @@
 #import "NSStringExt.h"
 #import "RegisterVC.h"
 #import "RegexTool.h"
-
+#import "PhoneBindingVC.h"
+#import <UMSocialCore/UMSocialCore.h>
 
 #define kCountDownForVerifyCode @"CountDownForVerifyCode"
 
@@ -39,6 +40,10 @@
 
 @implementation LoginVC
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad
 {
@@ -177,11 +182,14 @@
     
     UIButton *wechatBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth/2-40-31, wayView.bottom+25*scaleWidth, 40, 40) text:@"" font:[UIFont systemFontOfSize:16] textColor:@"#CD9435" backgroundColor:@"" normal:@"8" selected:nil];
     [self.view addSubview:wechatBtn];
-//    [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+    [wechatBtn addTarget:self action:@selector(thirdpartLoginAction:) forControlEvents:UIControlEventTouchUpInside];
+    wechatBtn.tag = 0;
+
     
     UIButton *qqBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth/2+31, wechatBtn.top, wechatBtn.width, wechatBtn.width) text:@"" font:[UIFont systemFontOfSize:16] textColor:@"#CD9435" backgroundColor:@"" normal:@"7" selected:nil];
     [self.view addSubview:qqBtn];
-    //    [loginBtn addTarget:self action:@selector(loginAction) forControlEvents:UIControlEventTouchUpInside];
+    [qqBtn addTarget:self action:@selector(thirdpartLoginAction:) forControlEvents:UIControlEventTouchUpInside];
+    qqBtn.tag = 1;
     
     //倒计时通知事件
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -190,6 +198,79 @@
     //登录通知事件
     NSNotificationCenter *LoginCenter = [NSNotificationCenter defaultCenter];
     [LoginCenter addObserver:self selector:@selector(kLoginAction) name:@"kLoginNotification" object:nil];
+}
+
+
+
+
+- (void)getUserInfoForPlatform:(UMSocialPlatformType)platformType
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:platformType currentViewController:self completion:^(id result, NSError *error) {
+        
+        UMSocialUserInfoResponse *resp = result;
+        
+        // 第三方登录数据(为空表示平台未提供)
+        // 授权数据
+        NSLog(@" uid: %@", resp.uid);
+        NSLog(@" openid: %@", resp.openid);
+        NSLog(@" accessToken: %@", resp.accessToken);
+        NSLog(@" refreshToken: %@", resp.refreshToken);
+        NSLog(@" expiration: %@", resp.expiration);
+        
+        // 用户数据
+        NSLog(@" name: %@", resp.name);
+        NSLog(@" iconurl: %@", resp.iconurl);
+        NSLog(@" gender: %@", resp.unionGender);
+        
+        // 第三方平台SDK原始数据
+        NSLog(@" originalResponse: %@", resp.originalResponse);
+        
+        NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+        
+        if (platformType == UMSocialPlatformType_QQ) {
+            [paramDic  setValue:resp.uid forKey:@"qq"];
+            [paramDic  setValue:@"QQ" forKey:@"LoginMode"];
+
+        }
+        else {
+            [paramDic  setValue:resp.uid forKey:@"wechat"];
+            [paramDic  setValue:@"WeChat" forKey:@"LoginMode"];
+        }
+        [paramDic  setValue:[InfoCache unarchiveObjectWithFile:@"pushToken"] forKey:@"deviceToken"];
+        [paramDic  setValue:@"ios" forKey:@"deviceType"];
+
+
+        [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+            
+            PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
+            [InfoCache archiveObject:model toFile:Person];
+            
+            if (model.phone.length == 0) {// 未绑定手机
+                
+                PhoneBindingVC *vc = [[PhoneBindingVC alloc] init];
+                vc.title = @"绑定手机";
+                vc.platformType = platformType;
+                vc.uid = resp.uid;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else {
+                // 用户信息通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+//                // 回调订单
+//                if (self.block) {
+//                    self.block();
+//                }
+            }
+
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -287,6 +368,9 @@
 
     }
 
+    [paramDic  setValue:[InfoCache unarchiveObjectWithFile:@"pushToken"] forKey:@"deviceToken"];
+    [paramDic  setValue:@"ios" forKey:@"deviceType"];
+
     
     [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
@@ -301,15 +385,26 @@
         
         [self.navigationController popToRootViewControllerAnimated:YES];
         
-        // 回调订单
-        if (self.block) {
-            self.block();
-        }
+//        // 回调订单
+//        if (self.block) {
+//            self.block();
+//        }
         
         
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (void)thirdpartLoginAction:(UIButton *)btn
+{
+    if (btn.tag == 0) {
+        [self getUserInfoForPlatform:UMSocialPlatformType_WechatSession];
+
+    }
+    if (btn.tag == 1) {
+        [self getUserInfoForPlatform:UMSocialPlatformType_QQ];
+    }
 }
 
 - (void)changeAction:(UIButton *)btn

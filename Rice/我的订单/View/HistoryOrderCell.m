@@ -23,7 +23,7 @@
         _imgView.contentMode = UIViewContentModeScaleAspectFit;
         [self.contentView addSubview:_imgView];
         
-        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 17, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+        _countLab = [UILabel labelWithframe:CGRectMake(_imgView.right+28, 20, 30, 20) text:@"X1" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
         [self.contentView addSubview:_countLab];
         
 
@@ -62,7 +62,49 @@
 {
     EvaluateVC *vc = [[EvaluateVC alloc] init];
     vc.title = @"评价";
+    vc.orderId = _model.orderId;
     [self.viewController.navigationController pushViewController:vc animated:YES];
+    vc.block = ^{
+        _model.status = @"7";
+    };
+}
+- (void)setModel:(PayMentModel *)model
+{
+    _model = model;
+    
+    FoodModel1 *foodModel = [model.listFoods firstObject];
+    _nameLab.text = foodModel.foodName;
+    _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.sumPrice];
+    _countLab.text = [NSString stringWithFormat:@"X%@",foodModel.amount];
+    
+    // 3已送达 5取消订单  7已评价
+    if (model.status.integerValue == 3 ||
+        model.status.integerValue == 7) {
+        _stateLab.text = @"订单已完成";
+        
+        if (model.status.integerValue == 7) {
+            _evaluateBtn.hidden = YES;
+
+        }
+        else {
+            _evaluateBtn.hidden = NO;
+
+        }
+        
+    }
+    else if (model.status.integerValue == 5) {
+        _stateLab.text = @"订单已取消";
+        _evaluateBtn.hidden = YES;
+        
+    }
+//    else {
+//        _stateLab.text = @"订单配送中";
+//        _evaluateBtn.hidden = NO;
+//        _confirmBtn.hidden = NO;
+//        _payBtn.hidden = YES;
+//        _timeLab.hidden = YES;
+//
+//    }
 }
 
 @end

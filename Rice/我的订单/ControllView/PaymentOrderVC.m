@@ -13,7 +13,10 @@
 #import "UILabel+WLAttributedString.h"
 #import "MarkVC.h"
 #import "NSStringExt.h"
+#import "NSStringExt.h"
 #import "PayMentModel.h"
+#import <AlipaySDK/AlipaySDK.h>
+
 
 @interface PaymentOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -46,8 +49,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
+    NSString *ipStr = [NSString getIPAddress:YES];
 
-    [self placeOrder];
+
+    [self toPayPage:ToPayPage];
 }
 
 - (void)initView
@@ -82,19 +87,24 @@
     
     UILabel *yuElab1 = [UILabel labelWithframe:CGRectMake(yuElab.left, yuElab.bottom+17, 300, 20) text:@"余额：￥20.00" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [yuEView addSubview:yuElab1];
-    [yuElab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:@"￥20.00"];
     
     
-    UIButton *yuEBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 4" selected:@"Group 3-1"];
+    UIButton *yuEBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 3-1" selected:@"Group 4"];
     [yuEView addSubview:yuEBtn];
-    
+    [yuEBtn addTarget:self action:@selector(yuEAction) forControlEvents:UIControlEventTouchUpInside];
+
 
     if (self.payMentModel.balance.boolValue) {
         yuEView.height = yuEWhiteView.bottom;
+        yuElab1.text = [NSString stringWithFormat:@"余额：￥%@",self.payMentModel.balance];
+        [yuElab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:[NSString stringWithFormat:@"￥%@",self.payMentModel.balance]];
+        
+        yuEBtn.selected = self.payMentModel.isUseBalance;
+
     }
     else {
         yuEView.hidden = YES;
-        yuEView.bottom = 0;
+//        yuEView.bottom = 0;
 
     }
     
@@ -115,17 +125,21 @@
     [liJinlab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:@"￥12.80"];
     
     
-    UIButton *liJinBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 4" selected:@"Group 3-1"];
+    UIButton *liJinBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 3-1" selected:@"Group 4"];
     [liJinView addSubview:liJinBtn];
-    
+    [liJinBtn addTarget:self action:@selector(liJinAction) forControlEvents:UIControlEventTouchUpInside];
+
 
     if (self.payMentModel.coupon.boolValue) {
         liJinView.height = liJinWhiteView.bottom;
-
+        liJinlab1.text = [NSString stringWithFormat:@"礼金券可抵扣：￥%@",self.payMentModel.coupon];
+        [liJinlab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:[NSString stringWithFormat:@"￥%@",self.payMentModel.coupon]];
+        
+        liJinBtn.selected = self.payMentModel.isUseBalance;
     }
     else {
         liJinView.hidden = YES;
-        liJinView.bottom = 0;
+//        liJinView.bottom = 0;
     }
     
     // 备注
@@ -208,11 +222,40 @@
     footerView.height = payView.bottom;
     _tableView.tableFooterView = footerView;
     
+
     
     // !!!!确认支付
-    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.payMoney] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
+    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.price] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
     [self.view addSubview:payBtn];
     [payBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+
+- (void)yuEAction
+{
+    if (self.payMentModel.isUseBalance) {
+        [self.param setValue:@"0" forKey:@"isUseBalance"];
+        
+    }
+    else {
+        [self.param setValue:@"1" forKey:@"isUseBalance"];
+        
+    }
+    [self modifyOrder];
+}
+
+- (void)liJinAction
+{
+    if (self.payMentModel.isUseCoupon) {
+        [self.param setValue:@"0" forKey:@"isUseBalance"];
+        
+    }
+    else {
+        [self.param setValue:@"1" forKey:@"isUseBalance"];
+        
+    }
+    [self modifyOrder];
 }
 
 - (void)payAction
@@ -240,10 +283,10 @@
 }
 
 // 2.2    订单生成
-- (void)placeOrder
+- (void)toPayPage:(NSString *)urlStr
 {
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:PlaceOrder dic:self.param showHUD:NO response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:self.param showHUD:NO response:NO Succed:^(id responseObject) {
         
         [_tableView removeFromSuperview];
         
@@ -291,33 +334,17 @@
         
     }
     
-    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+//    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     NSString *jsonStr = [NSString JSONString:arrM];
-    [paramDic setValue:jsonStr forKey:@"listFoods"];
+    [self.param setValue:jsonStr forKey:@"listFoods"];
     
-    if (self.payMentModel.balance.integerValue > 0) {
-        [paramDic setValue:@"1" forKey:@"isUseBalance"];
-
-    }
-    else {
-        [paramDic setValue:@"0" forKey:@"isUseBalance"];
-
-    }
-    if (self.payMentModel.coupon.integerValue > 0) {
-        [paramDic setValue:@"1" forKey:@"isUseCoupon"];
-        
-    }
-    else {
-        [paramDic setValue:@"0" forKey:@"isUseCoupon"];
-        
-    }
     
-    self.param = paramDic;
+//    self.param = paramDic;
     
-    [self placeOrder];
+    [self toPayPage:PlaceOrder];
     
-    NSLog(@"paramDic:%@",paramDic);
+    NSLog(@"paramDic:%@",self.param);
 }
 
 // 3.2    创建未支付订单
@@ -332,42 +359,43 @@
 
     }
     
-    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     NSString *jsonStr = [NSString JSONString:arrM];
-    [paramDic setValue:jsonStr forKey:@"listFoods"];
+    [self.param setValue:jsonStr forKey:@"listFoods"];
     
-    [paramDic setValue:self.payMentModel.userAddress.addressId forKey:@"addressId"];
-    [paramDic setValue:self.payType forKey:@"payType"];
-    [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
+    [self.param setValue:self.payMentModel.userAddress.addressId forKey:@"addressId"];
+    [self.param setValue:self.payType forKey:@"payType"];
+    [self.param setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
     
     if (self.payMentModel.balance.integerValue > 0) {
-        [paramDic setValue:@"1" forKey:@"isUseBalance"];
+        [self.param setValue:@"1" forKey:@"isUseBalance"];
         
     }
     else {
-        [paramDic setValue:@"0" forKey:@"isUseBalance"];
+        [self.param setValue:@"0" forKey:@"isUseBalance"];
         
     }
     if (self.payMentModel.coupon.integerValue > 0) {
-        [paramDic setValue:@"1" forKey:@"isUseCoupon"];
+        [self.param setValue:@"1" forKey:@"isUseCoupon"];
         
     }
     else {
-        [paramDic setValue:@"0" forKey:@"isUseCoupon"];
+        [self.param setValue:@"0" forKey:@"isUseCoupon"];
         
     }
 
     if (![self.marklab1.text isEqualToString:@"口味、偏好等要求"]) {
-        [paramDic setValue:self.marklab1.text forKey:@"remarks"];
+        [self.param setValue:self.marklab1.text forKey:@"remarks"];
 
     }
     
-    self.param = paramDic;
+//    self.param = paramDic;
     
-    NSLog(@"paramDic:%@",paramDic);
+//    NSLog(@"paramDic:%@",paramDic);
     
     [AFNetworking_RequestData requestMethodPOSTUrl:CreateOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
+        
+
         
         self.orderId = responseObject[@"data"][@"orderId"];
         
@@ -383,6 +411,10 @@
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
         
+        // 刷新首页点过餐的数据
+        if (self.block) {
+            self.block();
+        }
         
     } failure:^(NSError *error) {
         
@@ -396,22 +428,41 @@
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
 //    [paramDic setValue:self.payMentModel.priceAll.useBalance forKey:@"useBalance"];
 //    [paramDic setValue:self.payMentModel.priceAll.useCoupon forKey:@"useCoupon"];
-    
+
     [paramDic setValue:self.orderId forKey:@"orderId"];
     [paramDic setValue:self.payType forKey:@"payType"];
     [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
-    
+
     self.param = paramDic;
-    
+
     NSLog(@"paramDic:%@",paramDic);
-    
+
     [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
-        
+
         [self.navigationController popViewControllerAnimated:YES];
-        
+
     } failure:^(NSError *error) {
-        
+
     }];
+    
+//    [AFNetworking_RequestData requestMethodPOSTUrl:@"http://106.14.218.31:61/api/test1/alipaytest" dic:nil showHUD:YES response:NO Succed:^(id responseObject) {
+//
+//        NSString *orderString = responseObject[@"data"][@"payStr"];
+//
+//        [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"Rice" callback:^(NSDictionary *resultDic) {
+//            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+//                //9000为支付成功
+//
+//                NSLog(@"支付成功");
+//                [self.navigationController popViewControllerAnimated:YES];
+//
+//            }
+//        }];
+//
+//
+//    } failure:^(NSError *error) {
+//
+//    }];
 }
 
 - (void)markAction
@@ -535,6 +586,24 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
             cell.block = ^(FoodModel1 *model) {
+                
+                if (self.payMentModel.isUseBalance) {
+                    [self.param setValue:@"1" forKey:@"isUseBalance"];
+                    
+                }
+                else {
+                    [self.param setValue:@"0" forKey:@"isUseBalance"];
+                    
+                }
+                if (self.payMentModel.isUseCoupon) {
+                    [self.param setValue:@"1" forKey:@"isUseCoupon"];
+                    
+                }
+                else {
+                    [self.param setValue:@"0" forKey:@"isUseCoupon"];
+                    
+                }
+                
                 [self modifyOrder];
             };
             

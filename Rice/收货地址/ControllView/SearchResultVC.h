@@ -8,9 +8,10 @@
 
 #import "BaseViewController.h"
 #import <TencentLBS/TencentLBS.h>
+#import <QMapSearchKit/QMapSearchKit.h>
 
 
-typedef void(^SearchResultBlock)(NSString *text);
+typedef void(^SearchResultBlock)(QMSPoiData *poiInfo);
 
 
 @interface SearchResultVC : BaseViewController
