@@ -83,6 +83,9 @@
     _userAddressModel = userAddressModel;
     
     if (userAddressModel) {
+        
+        self.baseView.userInteractionEnabled = YES;
+
         _addBtn.hidden = YES;
         _moneyLab.hidden = YES;
         

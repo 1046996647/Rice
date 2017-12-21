@@ -83,9 +83,9 @@
     
     _countLab.frame = CGRectMake(_addBtn.left-28, _addBtn.top, 28, 28);
     
-    _delBtn.frame = CGRectMake(_countLab.left-28, _addBtn.top, 22, 22);
+    _delBtn.frame = CGRectMake(_countLab.left-22, _addBtn.top, 22, 22);
     
-    _nameLab.frame = CGRectMake(21, 7, _countLab.left-21-10, 21);
+    _nameLab.frame = CGRectMake(21, 7, _delBtn.left-21-10, 21);
     
     _line.frame = CGRectMake(22, self.height-1, self.width-44, 1);
     

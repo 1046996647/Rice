@@ -14,11 +14,13 @@
 
 @interface MyOrderVC ()
 
+@property (nonatomic, strong) MJCSegmentInterface *lala;
 
 
 @end
 
 @implementation MyOrderVC
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,6 +57,7 @@
     [lala intoTitlesArray:titlesArr hostController:self];
     [self.view addSubview:lala];
     [lala intoChildControllerArray:vcarrr];
+    self.lala = lala;
 }
 
 - (void)didReceiveMemoryWarning {

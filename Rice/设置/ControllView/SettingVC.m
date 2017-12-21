@@ -11,6 +11,7 @@
 #import "PersonalCenterVC.h"
 #import "CountBindingVC.h"
 #import "ModifyPasswordVC.h"
+#import "LoginVC.h"
 
 @interface SettingVC () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -64,8 +65,14 @@
 - (void)exitAction:(UIButton *)btn
 {
     [InfoCache archiveObject:nil toFile:Person];
-    [self.navigationController popToRootViewControllerAnimated:YES];
-
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    
+    LoginVC *vc = [[LoginVC alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    //退出登录或下未支付订单通知事件
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kExitOrOrderNotification" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

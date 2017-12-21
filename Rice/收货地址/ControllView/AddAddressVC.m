@@ -8,6 +8,8 @@
 
 #import "AddAddressVC.h"
 #import "AddAddressCell.h"
+#import "RegexTool.h"
+
 
 @interface AddAddressVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -85,6 +87,15 @@
         if (model.text.length == 0) {
             [self.view makeToast:@"请完善地址信息"];
             return;
+        }
+        
+        if ([model.leftTitle isEqualToString:@"  电话："]) {
+            
+            if (![RegexTool checkPhone:model.text]) {
+                [self.view makeToast:@"无效的手机号"];
+                return;
+            }
+
         }
         
         [paramDic setValue:model.text forKey:model.key];

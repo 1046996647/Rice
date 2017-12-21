@@ -43,9 +43,9 @@ DEPENDENCIES:
   - MJRefresh
   - SDWebImage
   - SVProgressHUD
-  - UMengUShare/Social/QQ
-  - UMengUShare/Social/WeChat
-  - UMengUShare/UI
+  - UMengUShare/Social/QQ (~> 6.4.6)
+  - UMengUShare/Social/WeChat (~> 6.4.6)
+  - UMengUShare/UI (~> 6.4.6)
   - YYModel
 
 SPEC CHECKSUMS:
@@ -57,6 +57,6 @@ SPEC CHECKSUMS:
   UMengUShare: 5055d0e01c844379e173bdca0840fc9fa9297d88
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 8a499405fb50ccec15ddd8f30ab5db2b9d9b39fa
+PODFILE CHECKSUM: e083810fb599220b59094ae328b4925659a5ee90
 
 COCOAPODS: 1.4.0.beta.1

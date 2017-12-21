@@ -58,13 +58,15 @@
     [self configUSharePlatforms];
 
     [self confitUShareSettings];
+    
+//    [UMSocialGlobal shareInstance].isClearCacheWhenGetUserInfo = YES;
 
 
     // 友盟推送
     [UMessage startWithAppkey:USHARE_DEMO_APPKEY launchOptions:launchOptions];
     //注册通知，如果要使用category的自定义策略，可以参考demo中的代码。
     [UMessage registerForRemoteNotifications];
-    
+
     if (@available(iOS 10.0, *)) {
         //iOS10必须加下面这段代码。
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
@@ -81,11 +83,10 @@
         }];
     }
 
-    
+
     //打开日志，方便调试
     [UMessage setLogEnabled:YES];
     
-
     
     return YES;
 }
@@ -142,35 +143,35 @@
     return result;
 }
 
-// NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-{
-    if ([url.host isEqualToString:@"safepay"]) {
-        // 支付跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
-        }];
-        
-        // 授权跳转支付宝钱包进行支付，处理支付结果
-        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-            NSLog(@"result = %@",resultDic);
-            // 解析 auth code
-            NSString *result = resultDic[@"result"];
-            NSString *authCode = nil;
-            if (result.length>0) {
-                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
-                for (NSString *subResult in resultArr) {
-                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
-                        authCode = [subResult substringFromIndex:10];
-                        break;
-                    }
-                }
-            }
-            NSLog(@"授权结果 authCode = %@", authCode?:@"");
-        }];
-    }
-    return YES;
-}
+//// NOTE: 9.0以后使用新API接口(加这个方法友盟会出问题)
+//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+//{
+//    if ([url.host isEqualToString:@"safepay"]) {
+//        // 支付跳转支付宝钱包进行支付，处理支付结果
+//        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+//            NSLog(@"result = %@",resultDic);
+//        }];
+//        
+//        // 授权跳转支付宝钱包进行支付，处理支付结果
+//        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+//            NSLog(@"result = %@",resultDic);
+//            // 解析 auth code
+//            NSString *result = resultDic[@"result"];
+//            NSString *authCode = nil;
+//            if (result.length>0) {
+//                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+//                for (NSString *subResult in resultArr) {
+//                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+//                        authCode = [subResult substringFromIndex:10];
+//                        break;
+//                    }
+//                }
+//            }
+//            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+//        }];
+//    }
+//    return YES;
+//}
 
 // ------------推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

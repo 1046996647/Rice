@@ -8,6 +8,7 @@
 
 #import "RegisterVC.h"
 #import "RegexTool.h"
+#import "UserProtocolVC.h"
 
 //#define kCountDownForVerifyCodeRegister @"CountDownForVerifyCode"
 #define kCountDownForVerifyCodeRegister @"kCountDownForVerifyCodeRegister"
@@ -94,6 +95,8 @@
     [self.view addSubview:_validate];
     [_validate setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_validate setValue:[UIColor colorWithHexString:@"#DDBA7F"] forKeyPath:@"_placeholderLabel.textColor"];
+    _validate.keyboardType = UIKeyboardTypeNumberPad;
+
 
     // 密码
     leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30+5, leftView.height)];
@@ -176,6 +179,8 @@
         UIButton *registerBtn = [UIButton buttonWithframe:CGRectMake(agreeLabel.right, agreeLabel.top, 74, agreeLabel.height) text:@"《用户协议》" font:[UIFont systemFontOfSize:12] textColor:@"#CD9435" backgroundColor:nil normal:nil selected:nil];
         [self.view addSubview:registerBtn];
         bottom = registerBtn.bottom;
+        [registerBtn addTarget:self action:@selector(protocolAction) forControlEvents:UIControlEventTouchUpInside];
+
     }
     else {
         bottom = _okPwd.bottom+55-28;
@@ -192,6 +197,13 @@
     [center addObserver:self selector:@selector(countDownUpdate:) name:@"CountDownUpdate" object:nil];
     
 
+}
+
+- (void)protocolAction
+{
+    UserProtocolVC *vc = [[UserProtocolVC alloc] init];
+    vc.title = @"用户协议";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)viewAction:(UIButton *)btn

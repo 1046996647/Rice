@@ -288,9 +288,7 @@
     NSData *data = [UIImage imageOrientation:img];
 
     [self uploadImage:data];
-    
-    
-    
+
 }
 
 //取消后调用

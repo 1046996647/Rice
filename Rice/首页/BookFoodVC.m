@@ -10,9 +10,11 @@
 #import "MJCSegmentInterface.h"
 #import "BookCell.h"
 
+#import<WebKit/WebKit.h>
 
 @interface BookFoodVC ()<MJCSegmentDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) WKWebView *webView;
 
 
 @end
@@ -24,7 +26,7 @@
     // Do any additional setup after loading the view.
     
     NSArray *titlesArr = @[@"普通商品",@"一周中餐",@"一周晚餐",@"附加品"];
-    
+
     //以下是我的控件中的代码
     MJCSegmentInterface *lala = [[MJCSegmentInterface alloc]init];
     lala.titleBarStyles = MJCTitlesScrollStyle;
@@ -52,13 +54,19 @@
     lala.layer.shadowOffset = CGSizeMake(0,.5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     lala.layer.shadowOpacity = 1;//阴影透明度，默认0
     //    self.xiaDanBtn.layer.shadowRadius = 2;//阴影半径，默认3
-    
+
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, lala.bottom, kScreenWidth, kScreenHeight-kTopHeight-lala.bottom) style:UITableViewStylePlain];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    _tableView.backgroundColor = [UIColor redColor];
+    
+//    WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.baidu.com"]]];
+//    [self.view addSubview:webView];
+//    self.webView = webView;
+    
 }
 
 - (void)didReceiveMemoryWarning {

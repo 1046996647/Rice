@@ -53,7 +53,8 @@
     [footerView addSubview:_horsemanImg];
 
 
-    _horsemanName = [UILabel labelWithframe:CGRectMake(_horsemanImg.right+12, _horsemanImg.center.y-10, kScreenWidth-10-(_horsemanImg.right+12), 21) text:@"骑手：蔡晓明" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
+    // 骑手：蔡晓明
+    _horsemanName = [UILabel labelWithframe:CGRectMake(_horsemanImg.right+12, _horsemanImg.center.y-10, kScreenWidth-10-(_horsemanImg.right+12), 21) text:@"" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [footerView addSubview:_horsemanName];
 
     _horsemanEva = [UILabel labelWithframe:CGRectMake(64, _horsemanImg.bottom+14, 34, 21) text:@"评分" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
@@ -93,6 +94,8 @@
     _tableView.tableFooterView = footerView;
     
     [self toCommentPage];
+    
+    
 }
 
 - (void)upAction
@@ -138,6 +141,8 @@
         
         id obj = responseObject[@"data"];
         PayMentModel *model = [PayMentModel yy_modelWithJSON:obj];
+        
+        _horsemanName.text = [NSString stringWithFormat:@"骑手：%@",model.riderName];
 
         for (FoodModel1 *foodModel in model.listFoods) {
             foodModel.foodComment = @"";

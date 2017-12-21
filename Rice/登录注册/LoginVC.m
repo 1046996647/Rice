@@ -11,6 +11,7 @@
 #import "RegisterVC.h"
 #import "RegexTool.h"
 #import "PhoneBindingVC.h"
+#import "SetPasswordVC.h"
 #import <UMSocialCore/UMSocialCore.h>
 
 #define kCountDownForVerifyCode @"CountDownForVerifyCode"
@@ -159,6 +160,8 @@
     _password.rightViewMode = UITextFieldViewModeAlways;
     [_password setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_password setValue:[UIColor colorWithHexString:@"#DDBA7F"] forKeyPath:@"_placeholderLabel.textColor"];
+//    _password.keyboardType = UIKeyboardTypeNumberPad;
+
     
     UIButton *registerBtn = [UIButton buttonWithframe:CGRectMake(_password.right-50-5, _password.bottom+10, 50, 14) text:@"立即注册" font:[UIFont systemFontOfSize:12] textColor:@"#8B572A" backgroundColor:nil normal:nil selected:nil];
     [self.view addSubview:registerBtn];
@@ -241,28 +244,34 @@
 
 
         [AFNetworking_RequestData requestMethodPOSTUrl:Login dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
-            
+ 
             PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
-            [InfoCache archiveObject:model toFile:Person];
-            
+
             if (model.phone.length == 0) {// 未绑定手机
                 
                 PhoneBindingVC *vc = [[PhoneBindingVC alloc] init];
                 vc.title = @"绑定手机";
                 vc.platformType = platformType;
                 vc.uid = resp.uid;
+                vc.model = model;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+            else if (!model.hasPwd) {// 未绑定手机
+                
+                SetPasswordVC *vc = [[SetPasswordVC alloc] init];
+                vc.title = @"设置密码";
+                vc.model = model;
                 [self.navigationController pushViewController:vc animated:YES];
             }
             else {
+                
+                [InfoCache archiveObject:model toFile:Person];
+                
                 // 用户信息通知
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
                 
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
-//                // 回调订单
-//                if (self.block) {
-//                    self.block();
-//                }
             }
 
             
@@ -378,17 +387,23 @@
 
         
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
-        [InfoCache archiveObject:model toFile:Person];
         
-        // 用户信息通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
-        
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-//        // 回调订单
-//        if (self.block) {
-//            self.block();
-//        }
+        if (model.hasPwd) {
+            
+            [InfoCache archiveObject:model toFile:Person];
+            
+            // 用户信息通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        else {
+            
+            SetPasswordVC *vc = [[SetPasswordVC alloc] init];
+            vc.title = @"设置密码";
+            vc.model = model;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         
         
     } failure:^(NSError *error) {

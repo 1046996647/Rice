@@ -12,6 +12,7 @@
 
 @property(nonatomic,assign) NSInteger platformType;
 @property (nonatomic, copy) NSString  *uid;
+@property(nonatomic,strong) PersonModel *model;
 
 
 @end

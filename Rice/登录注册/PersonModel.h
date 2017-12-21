@@ -27,6 +27,7 @@
 @property(nonatomic,strong) NSString *headImg;
 @property(nonatomic,strong) NSString *birthday;
 @property(nonatomic,strong) NSString *coupon;
+@property(nonatomic,assign) BOOL hasPwd;
 
 
 

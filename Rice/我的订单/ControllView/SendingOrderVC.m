@@ -19,11 +19,7 @@
 
 @implementation SendingOrderVC
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
+
 
 - (void)viewDidLoad {
     
@@ -47,11 +43,26 @@
     
     [self getActiveOrder];
     
+
+
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     //订单状态更新通知事件
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(headerRefresh) name:@"kSendingOrderNotification" object:nil];
-
 }
+
 
 - (void)headerRefresh
 {

@@ -20,11 +20,11 @@
 
 @implementation HistoryOrderVC
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
+//- (void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,16 +61,27 @@
     self.dataArr = [NSMutableArray array];
     [self getHistoryOrder];
     
-    //完成订单状态更新通知事件
-    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    [center addObserver:self selector:@selector(headerRefresh) name:@"kHistoryOrderNotification" object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [_tableView reloadData];
+    
+    //完成订单状态更新通知事件
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(headerRefresh) name:@"kHistoryOrderNotification" object:nil];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
 
 - (void)headerRefresh
 {

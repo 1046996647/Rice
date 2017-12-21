@@ -7,6 +7,7 @@
 //
 
 #import "TYCyclePagerViewCell.h"
+#import "LoginVC.h"
 
 @interface TYCyclePagerViewCell ()
 @property (nonatomic, weak) UILabel *label;
@@ -83,6 +84,13 @@
 
 - (void)btnAction:(UIButton *)btn
 {
+    PersonModel *personModel = [InfoCache unarchiveObjectWithFile:Person];
+    if (!personModel) {
+        LoginVC *vc = [[LoginVC alloc] init];
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+        return;
+    }
+    
     NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
     
     [paraDic setValue:self.model.foodId forKey:@"foodId"];

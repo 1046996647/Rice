@@ -21,12 +21,15 @@
 #import "NSStringExt.h"
 #import "RiderModel.h"
 #import "BookFoodVC.h"
+#import "YBPopupMenu.h"
+
 #import <QMapKit/QMapKit.h>
 #import <TencentLBS/TencentLBS.h>
 //#import "CAAnimation+HCAnimation.h"
 
+// 需求：区域-》标签-》菜品-》骑手(携带该菜品的)
 
-@interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate,QMapViewDelegate,TencentLBSLocationManagerDelegate>
+@interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate,QMapViewDelegate,TencentLBSLocationManagerDelegate,YBPopupMenuDelegate>
 
 @property (strong, nonatomic) SGAdvertScrollView *advertScrollViewTop;
 @property (nonatomic, strong) TYCyclePagerView *pagerView;
@@ -135,7 +138,7 @@
     self.title = @"饭的";
 //    self.view.backgroundColor =  [UIColor redColor];
 
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 23, 23)];
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     UIButton *leftBtn = [UIButton buttonWithframe:leftView.bounds text:nil font:nil textColor:nil backgroundColor:nil normal:@"42" selected:@""];
     [leftView addSubview:leftBtn];
     [leftBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
@@ -147,7 +150,7 @@
     [rightView addSubview:rightBtn];
     rightBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     rightBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
-    [rightBtn addTarget:self action:@selector(addressAction) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn addTarget:self action:@selector(addressAction:) forControlEvents:UIControlEventTouchUpInside];
     self.rightBtn = rightBtn;
     rightBtn.titleLabel.lineBreakMode =  NSLineBreakByTruncatingTail;
     
@@ -236,7 +239,21 @@
     //完成订单通知事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishOrder:) name:@"kFinishOrderNotification" object:nil];
     
+    //退出登录或下未支付订单通知事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(exitOrOrder) name:@"kExitOrOrderNotification" object:nil];
+    
 //    [self.view addSubview:self.evaluteView];
+}
+
+//退出登录或下未支付订单通知事件
+- (void)exitOrOrder
+{
+    for (FoodModel *model in self.foodArrs) {
+        model.amount = @"0";
+    }
+    [_pagerView reloadData];
+    self.totalPrice = 0;
+    [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%@     下单",@"0.00"] forState:UIControlStateNormal];
 }
 
 // 完成订单通知事件
@@ -326,13 +343,27 @@
         [self getSendingOrder];
         
     }
+    else {
+        self.bookView.dic = nil;
+
+    }
 }
 
-- (void)addressAction
+- (void)addressAction:(id)sender
 {
 //    SearchAddressVC *vc = [[SearchAddressVC alloc] init];
 //    vc.title = @"当前位置";
 //    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (self.areas.count > 0) {
+        
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (NSDictionary *dic in self.areas) {
+            [arrM addObject:dic[@"areaName"]];
+        }
+        [YBPopupMenu showRelyOnView:sender titles:arrM icons:nil menuWidth:120 delegate:self];
+
+    }
 }
 
 // 定时方法
@@ -394,9 +425,13 @@
                 [self.rightBtn setTitle:self.areaDic[@"areaName"] forState:UIControlStateNormal];
                 
                 
+                
                 [self getTags];
             }
             else {
+                
+                [_mapView removeAnnotations:_annotations];
+                [_mapView removeAnnotations:_annotations1];
                 
                 [self.view makeToast:@"不在服务区范围内"];
                 self.lala.hidden = YES;
@@ -445,6 +480,49 @@
         self.tagArrs = arr;
         if ([arr isKindOfClass:[NSArray class]]) {
             
+            if (arr.count > 0) {
+                self.lala.hidden = NO;
+                
+                self.baseImg.hidden = NO;
+                self.foodBtn.hidden = NO;
+                self.orderBtn.hidden = NO;
+                
+                if (self.tag == 1) {
+                    self.bookView.hidden = NO;
+                    
+                }
+                else {
+                    self.pagerView.hidden = NO;
+                    self.bookBtn.hidden = NO;
+                    self.xiaDanBtn.hidden = NO;
+                }
+            }
+            else {// 无数据
+                
+                [_mapView removeAnnotations:_annotations];
+                [_mapView removeAnnotations:_annotations1];
+
+                [self.view makeToast:@"该区域无菜品"];
+                
+                self.lala.hidden = YES;
+                self.pagerView.hidden = YES;
+                
+                self.baseImg.hidden = YES;
+                self.foodBtn.hidden = YES;
+                self.orderBtn.hidden = YES;
+                
+                if (self.tag == 1) {
+                    self.bookView.hidden = YES;
+                    
+                }
+                else {
+                    self.pagerView.hidden = YES;
+                    self.bookBtn.hidden = YES;
+                    self.xiaDanBtn.hidden = YES;
+                }
+            }
+
+            /////////////////////
             if (arr.count < 4) {
                 self.lala.hidden = YES;
                 self.adView.top = 25;
@@ -469,6 +547,7 @@
 
         }
         
+        
     } failure:^(NSError *error) {
         
     }];
@@ -487,11 +566,11 @@
 
     [AFNetworking_RequestData requestMethodPOSTUrl:GetFoods dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
         
-        NSArray *arr = responseObject[@"data"][@"foods"];
-        if ([arr isKindOfClass:[NSArray class]]) {
+        id obj = responseObject[@"data"];
+        if ([obj isKindOfClass:[NSDictionary class]]) {
 
             NSMutableArray *foodArr = [NSMutableArray array];
-            for (NSDictionary *dic in arr) {
+            for (NSDictionary *dic in obj[@"foods"]) {
                 FoodModel *model = [FoodModel yy_modelWithJSON:dic];
                 [foodArr addObject:model];
 
@@ -506,12 +585,16 @@
             FoodModel *model1 = [self.foodArrs firstObject];
             self.model1 = model1;
             [self getRiders:model1.foodId];
+            
+            NSString *money = obj[@"money"];
+            self.totalPrice = money.floatValue;
+            [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%@     下单",money] forState:UIControlStateNormal];
 
         }
-        
-        NSString *money = responseObject[@"data"][@"money"];
-        self.totalPrice = money.floatValue;
-        [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%@     下单",money] forState:UIControlStateNormal];
+        else {
+            
+        }
+
         
     } failure:^(NSError *error) {
         
@@ -655,21 +738,8 @@
 
     }
     
-//    NSMutableArray *arrM = [NSMutableArray array];
-//    for (FoodModel *model in self.selectedArr) {
-//        if (model.amount.integerValue > 0) {
-//            NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.amount,@"amount", nil];
-//            [arrM addObject:paramDic];
-//        }
-//
-//    }
     
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-//    [paramDic setValue:@"1" forKey:@"isUseBalance"];
-//    [paramDic setValue:@"1" forKey:@"isUseCoupon"];
-//
-//    NSString *jsonStr = [NSString JSONString:arrM];
-//    [paramDic setValue:jsonStr forKey:@"listFoods"];
     [paramDic  setValue:self.areaDic[@"areaId"] forKey:@"areaId"];
 
     
@@ -679,15 +749,7 @@
     vc.title = @"支付订单";
     vc.param = paramDic;
     [self.navigationController pushViewController:vc animated:YES];
-    vc.block = ^{
-        for (FoodModel *model in self.foodArrs) {
-            model.amount = @"0";
-        }
-        [_pagerView reloadData];
-        self.totalPrice = 0;
-        [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%@     下单",@"0.00"] forState:UIControlStateNormal];
 
-    };
 }
 
 - (void)leftAction
@@ -719,14 +781,7 @@
     FoodModel *model = self.foodArrs[index];
     cell.model = model;
     cell.block = ^(FoodModel *model,NSString *money) {
-        
-        PersonModel *personModel = [InfoCache unarchiveObjectWithFile:Person];
-        if (!personModel) {
-            LoginVC *vc = [[LoginVC alloc] init];
-            [self.navigationController pushViewController:vc animated:YES];
-            return;
-        }
-
+    
         self.totalPrice = money.floatValue;
         [self.xiaDanBtn setTitle:[NSString stringWithFormat:@"￥%@     下单",money] forState:UIControlStateNormal];
         
@@ -770,6 +825,16 @@
     
 //    DetailViewController *nextVC = [[DetailViewController alloc] init];
 //    [self.navigationController pushViewController:nextVC animated:YES];
+}
+
+#pragma mark - YBPopupMenuDelegate
+- (void)ybPopupMenuDidSelectedAtIndex:(NSInteger)index ybPopupMenu:(YBPopupMenu *)ybPopupMenu
+{
+//    NSLog(@"点击了 %@ 选项",TITLES[index]);
+    self.areaDic = self.areas[index];
+    [self.rightBtn setTitle:self.areaDic[@"areaName"] forState:UIControlStateNormal];
+
+    [self getTags];
 }
 
 // ----------------地图定位-------------------

@@ -10,10 +10,10 @@
 #define UrlFile_h
 
 // 服务器
-//#define BaseUrl  @"http://106.14.218.31:61"
+#define BaseUrl  @"http://106.14.218.31:61"
 
 // 调试
-#define BaseUrl  @"http://192.168.2.21:61"
+//#define BaseUrl  @"http://192.168.2.21:61"
 
 
 // 注册
@@ -24,6 +24,9 @@
 
 // 登录
 #define Login  [NSString stringWithFormat:@"%@/api/User/Login",BaseUrl]
+
+// 1.4    设置密码
+#define SetPassword  [NSString stringWithFormat:@"%@/api/User/SetPassword",BaseUrl]
 
 // 第三方登录绑定手机号
 #define BindPhone  [NSString stringWithFormat:@"%@/api/User/BindPhone",BaseUrl]

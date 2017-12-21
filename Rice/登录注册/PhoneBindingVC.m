@@ -8,6 +8,7 @@
 
 #import "PhoneBindingVC.h"
 #import "RegexTool.h"
+#import "SetPasswordVC.h"
 #import <UMSocialCore/UMSocialCore.h>
 
 
@@ -94,7 +95,8 @@
     [self.view addSubview:_validate];
     [_validate setValue:[UIFont systemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];// 设置这里时searchTF.font也要设置不然会偏上
     [_validate setValue:[UIColor colorWithHexString:@"#DDBA7F"] forKeyPath:@"_placeholderLabel.textColor"];
-    
+    _validate.keyboardType = UIKeyboardTypeNumberPad;
+
     
     UIButton *registerBtn = [UIButton buttonWithframe:CGRectMake(_validate.left, _validate.bottom+28, _phone.width, _phone.height) text:@"确  定" font:[UIFont systemFontOfSize:16] textColor:@"#CD9435" backgroundColor:@"#FFF0B0" normal:nil selected:nil];
     registerBtn.layer.cornerRadius = 7;
@@ -169,12 +171,11 @@
     [AFNetworking_RequestData requestMethodPOSTUrl:BindPhone dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         PersonModel *model = [PersonModel yy_modelWithJSON:responseObject[@"data"]];
-        [InfoCache archiveObject:model toFile:Person];
         
-        // 用户信息通知
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
-        
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        SetPasswordVC *vc = [[SetPasswordVC alloc] init];
+        vc.title = @"设置密码";
+        vc.model = model;
+        [self.navigationController pushViewController:vc animated:YES];
         
     } failure:^(NSError *error) {
         

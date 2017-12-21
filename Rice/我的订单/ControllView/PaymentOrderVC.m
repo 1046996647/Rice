@@ -223,17 +223,21 @@
     _tableView.tableFooterView = footerView;
     
 
-    
     // !!!!确认支付
-    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.price] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
+    UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.payMoney] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
     [self.view addSubview:payBtn];
     [payBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.payMentModel.priceAll.payMoney.integerValue == 0) {
+        [payBtn setTitle:@"确认支付" forState:UIControlStateNormal];
+    }
     
 }
 
 
 - (void)yuEAction
 {
+    
     if (self.payMentModel.isUseBalance) {
         [self.param setValue:@"0" forKey:@"isUseBalance"];
         
@@ -270,6 +274,7 @@
 
 - (void)payWayAction:(UIButton *)btn
 {
+    
     self.lastBtn.selected = NO;
     btn.selected = YES;
     if (btn.tag == 0) {
@@ -352,13 +357,12 @@
 {
     NSMutableArray *arrM = [NSMutableArray array];
     for (FoodModel1 *model in self.selectedArr) {
-        if (model.amount > 0) {
+        if (model.amount.integerValue > 0) {
             NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.amount,@"amount", nil];
             [arrM addObject:paramDic];
         }
 
     }
-    
     
     NSString *jsonStr = [NSString JSONString:arrM];
     [self.param setValue:jsonStr forKey:@"listFoods"];
@@ -411,10 +415,9 @@
         [alertController addAction:cancelAction];
         [self presentViewController:alertController animated:YES completion:nil];
         
-        // 刷新首页点过餐的数据
-        if (self.block) {
-            self.block();
-        }
+        //退出登录或下未支付订单通知事件
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kExitOrOrderNotification" object:nil];
+
         
     } failure:^(NSError *error) {
         

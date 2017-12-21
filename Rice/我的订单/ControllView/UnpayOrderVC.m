@@ -270,7 +270,14 @@
 - (NSString *)ll_timeWithSecond:(NSInteger)second
 {
     NSString *time;
-    time = [NSString stringWithFormat:@"(%02ld分%02ld秒)￥%@确认支付",second/60,second%60,self.payMentModel.priceAll.payMoney];
+    
+    if (self.payMentModel.priceAll.payMoney.integerValue == 0) {
+        time = [NSString stringWithFormat:@"(%02ld分%02ld秒)确认支付",second/60,second%60];
+    }
+    else {
+        time = [NSString stringWithFormat:@"(%02ld分%02ld秒)￥%@确认支付",second/60,second%60,self.payMentModel.priceAll.payMoney];
+
+    }
     
     return time;
 }

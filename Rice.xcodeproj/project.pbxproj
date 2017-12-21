@@ -18,6 +18,9 @@
 		F7163B521FE7B9A700095A5B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7163B511FE7B99E00095A5B /* UIKit.framework */; };
 		F7163B541FE7B9C800095A5B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7163B531FE7B9C000095A5B /* CFNetwork.framework */; };
 		F7163B561FE7B9E700095A5B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7163B551FE7B9D600095A5B /* CoreMotion.framework */; };
+		F73132881FEA4629001C4F61 /* YBPopupMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = F73132831FEA4629001C4F61 /* YBPopupMenu.m */; };
+		F73132891FEA4629001C4F61 /* YBPopupMenuPath.m in Sources */ = {isa = PBXBuildFile; fileRef = F73132851FEA4629001C4F61 /* YBPopupMenuPath.m */; };
+		F731328A1FEA4629001C4F61 /* YBRectConst.m in Sources */ = {isa = PBXBuildFile; fileRef = F73132871FEA4629001C4F61 /* YBRectConst.m */; };
 		F74430071FCE5A0500B92863 /* BookView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430061FCE5A0500B92863 /* BookView.m */; };
 		F744300A1FCE784F00B92863 /* BookFoodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F74430091FCE784F00B92863 /* BookFoodVC.m */; };
 		F744300D1FCE7D3600B92863 /* PaymentOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */; };
@@ -30,6 +33,8 @@
 		F749A79C1FD6846F0091F3C9 /* QMapSearchKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F749A79B1FD6846E0091F3C9 /* QMapSearchKit.framework */; };
 		F74B8FEA1FC668D0004B1A19 /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */; };
 		F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F74FE9911FD8DBBE004C3199 /* PayMentModel.m */; };
+		F751650F1FEB7E4600B91450 /* UserProtocolVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F751650E1FEB7E4600B91450 /* UserProtocolVC.m */; };
+		F75165121FEB83FA00B91450 /* SetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75165111FEB83FA00B91450 /* SetPasswordVC.m */; };
 		F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232D71FBC15BD002D4AF9 /* AppDelegate.m */; };
 		F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F75232DC1FBC15BD002D4AF9 /* Main.storyboard */; };
 		F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F75232DF1FBC15BD002D4AF9 /* Assets.xcassets */; };
@@ -177,6 +182,12 @@
 		F7163B511FE7B99E00095A5B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F7163B531FE7B9C000095A5B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		F7163B551FE7B9D600095A5B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		F73132821FEA4629001C4F61 /* YBPopupMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenu.h; sourceTree = "<group>"; };
+		F73132831FEA4629001C4F61 /* YBPopupMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenu.m; sourceTree = "<group>"; };
+		F73132841FEA4629001C4F61 /* YBPopupMenuPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBPopupMenuPath.h; sourceTree = "<group>"; };
+		F73132851FEA4629001C4F61 /* YBPopupMenuPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBPopupMenuPath.m; sourceTree = "<group>"; };
+		F73132861FEA4629001C4F61 /* YBRectConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBRectConst.h; sourceTree = "<group>"; };
+		F73132871FEA4629001C4F61 /* YBRectConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBRectConst.m; sourceTree = "<group>"; };
 		F74430051FCE5A0500B92863 /* BookView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookView.h; sourceTree = "<group>"; };
 		F74430061FCE5A0500B92863 /* BookView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookView.m; sourceTree = "<group>"; };
 		F74430081FCE784F00B92863 /* BookFoodVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookFoodVC.h; sourceTree = "<group>"; };
@@ -199,6 +210,10 @@
 		F74B8FE91FC668D0004B1A19 /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		F74FE9901FD8DBBE004C3199 /* PayMentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayMentModel.h; sourceTree = "<group>"; };
 		F74FE9911FD8DBBE004C3199 /* PayMentModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayMentModel.m; sourceTree = "<group>"; };
+		F751650D1FEB7E4600B91450 /* UserProtocolVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserProtocolVC.h; sourceTree = "<group>"; };
+		F751650E1FEB7E4600B91450 /* UserProtocolVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserProtocolVC.m; sourceTree = "<group>"; };
+		F75165101FEB83FA00B91450 /* SetPasswordVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetPasswordVC.h; sourceTree = "<group>"; };
+		F75165111FEB83FA00B91450 /* SetPasswordVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetPasswordVC.m; sourceTree = "<group>"; };
 		F75232D31FBC15BD002D4AF9 /* Rice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F75232D61FBC15BD002D4AF9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F75232D71FBC15BD002D4AF9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -492,6 +507,19 @@
 				E426CAE0D19C0522817BB9E6 /* Pods-Rice.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F73132811FEA4629001C4F61 /* YBPopupMenu */ = {
+			isa = PBXGroup;
+			children = (
+				F73132821FEA4629001C4F61 /* YBPopupMenu.h */,
+				F73132831FEA4629001C4F61 /* YBPopupMenu.m */,
+				F73132841FEA4629001C4F61 /* YBPopupMenuPath.h */,
+				F73132851FEA4629001C4F61 /* YBPopupMenuPath.m */,
+				F73132861FEA4629001C4F61 /* YBRectConst.h */,
+				F73132871FEA4629001C4F61 /* YBRectConst.m */,
+			);
+			path = YBPopupMenu;
 			sourceTree = "<group>";
 		};
 		F74B8FE71FC668D0004B1A19 /* SGAdvertScrollView */ = {
@@ -909,6 +937,7 @@
 		F767CA3B1FBD249C00C7518C /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F73132811FEA4629001C4F61 /* YBPopupMenu */,
 				F7588A6D1FE3B1E300F4AAC2 /* ZAlertView */,
 				F762042A1FDF7AC000C81990 /* LZQTimerLabel */,
 				F7680A391FCD07A300EBC932 /* BRPickerView */,
@@ -1008,6 +1037,10 @@
 				F767CAA01FBD264700C7518C /* PersonModel.m */,
 				F7577F391FE11696007DF7F0 /* PhoneBindingVC.h */,
 				F7577F3A1FE11696007DF7F0 /* PhoneBindingVC.m */,
+				F751650D1FEB7E4600B91450 /* UserProtocolVC.h */,
+				F751650E1FEB7E4600B91450 /* UserProtocolVC.m */,
+				F75165101FEB83FA00B91450 /* SetPasswordVC.h */,
+				F75165111FEB83FA00B91450 /* SetPasswordVC.m */,
 				F762CF6E1FCFA17F00D87B31 /* UrlFile.h */,
 			);
 			path = "登录注册";
@@ -1377,6 +1410,7 @@
 			files = (
 				F7680A381FCCFF5B00EBC932 /* InfoChangeController.m in Sources */,
 				F7680A4D1FCD07A300EBC932 /* BRAddressPickerView.m in Sources */,
+				F75165121FEB83FA00B91450 /* SetPasswordVC.m in Sources */,
 				F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */,
 				F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */,
 				F77CDB0A1FD14A5800B0578B /* OrderModel.m in Sources */,
@@ -1419,6 +1453,7 @@
 				F767CA3A1FBD244900C7518C /* ZXPUnicode.m in Sources */,
 				F767CA811FBD249C00C7518C /* UIColor+MJCClassExtension.m in Sources */,
 				F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */,
+				F73132881FEA4629001C4F61 /* YBPopupMenu.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
 				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
 				F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */,
@@ -1436,6 +1471,8 @@
 				F7680A611FCD2AB800EBC932 /* AddAddressVC.m in Sources */,
 				F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */,
 				F7680A4F1FCD07A300EBC932 /* BaseView.m in Sources */,
+				F751650F1FEB7E4600B91450 /* UserProtocolVC.m in Sources */,
+				F731328A1FEA4629001C4F61 /* YBRectConst.m in Sources */,
 				F75BA4A71FBEBB78009A55DF /* BookOrderVC.m in Sources */,
 				F74430101FCE8BCF00B92863 /* OrderDetailTwoCell1.m in Sources */,
 				F74430131FCE98A800B92863 /* MarkVC.m in Sources */,
@@ -1468,6 +1505,7 @@
 				F75BA4AA1FBEBD45009A55DF /* HistoryOrderCell.m in Sources */,
 				F7680A581FCD0CC800EBC932 /* ModifyPasswordVC.m in Sources */,
 				F767CA8F1FBD258F00C7518C /* LoginVC.m in Sources */,
+				F73132891FEA4629001C4F61 /* YBPopupMenuPath.m in Sources */,
 				F75BA4891FBEB95E009A55DF /* MyWalletVC.m in Sources */,
 				F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */,
 				F767CA921FBD25A300C7518C /* RegisterVC.m in Sources */,
