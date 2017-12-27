@@ -15,8 +15,11 @@
 #import "NSStringExt.h"
 #import "NSStringExt.h"
 #import "PayMentModel.h"
+#import "PayModel.h"
 #import <AlipaySDK/AlipaySDK.h>
-
+#import "WXApi.h"
+#import "WXApiObject.h"
+#import "UnpayOrderVC.h"
 
 @interface PaymentOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -27,6 +30,7 @@
 @property(nonatomic,strong) UIView *footerView;
 @property(nonatomic,strong) PayMentModel *payMentModel;
 @property(nonatomic,strong) NSString *orderId;
+@property(nonatomic,strong) OrderHeaderView *headerView;
 
 @property(nonatomic,strong) NSString *payType;
 @property(nonatomic,strong) UIButton *lastBtn;
@@ -45,21 +49,37 @@
 
 @implementation PaymentOrderVC
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    NSString *ipStr = [NSString getIPAddress:YES];
+//    NSString *ipStr = [NSString getIPAddress:YES];
 
 
     [self toPayPage:ToPayPage];
+    
+    //支付取消通知事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(payCancel) name:@"kPayCancelNotification" object:nil];
+    
+    //支付成功通知事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess) name:@"kPaySuccessNotification" object:nil];
 }
+
+
 
 - (void)initView
 {
     // 头视图
     OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
     headerView.userAddressModel = self.payMentModel.userAddress;
+    self.headerView = headerView;
     
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-45) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -228,8 +248,10 @@
     [self.view addSubview:payBtn];
     [payBtn addTarget:self action:@selector(payAction) forControlEvents:UIControlEventTouchUpInside];
     
+    // 余额足够
     if (self.payMentModel.priceAll.payMoney.integerValue == 0) {
         [payBtn setTitle:@"确认支付" forState:UIControlStateNormal];
+        self.payType = @"";
     }
     
 }
@@ -241,10 +263,18 @@
     if (self.payMentModel.isUseBalance) {
         [self.param setValue:@"0" forKey:@"isUseBalance"];
         
+        if (self.lastBtn.tag == 0) {
+            self.payType = @"wxpay";
+        }
+        else {
+            self.payType = @"alipay";
+            
+        }
+        
     }
     else {
         [self.param setValue:@"1" forKey:@"isUseBalance"];
-        
+        self.payType = @"";
     }
     [self modifyOrder];
 }
@@ -264,7 +294,7 @@
 
 - (void)payAction
 {
-    if (!self.payMentModel.userAddress) {
+    if (!self.headerView.userAddressModel) {
         [self.view makeToast:@"请添加地址"];
         return;
     }
@@ -400,20 +430,9 @@
     [AFNetworking_RequestData requestMethodPOSTUrl:CreateOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
         
 
-        
         self.orderId = responseObject[@"data"][@"orderId"];
         
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定支付" message:nil preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"支付" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            [self payOrder];
-            
-        }];
-        [alertController addAction:okAction];
-        [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:YES completion:nil];
+        [self payOrder];
         
         //退出登录或下未支付订单通知事件
         [[NSNotificationCenter defaultCenter] postNotificationName:@"kExitOrOrderNotification" object:nil];
@@ -429,43 +448,100 @@
 {
     
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-//    [paramDic setValue:self.payMentModel.priceAll.useBalance forKey:@"useBalance"];
-//    [paramDic setValue:self.payMentModel.priceAll.useCoupon forKey:@"useCoupon"];
 
     [paramDic setValue:self.orderId forKey:@"orderId"];
-    [paramDic setValue:self.payType forKey:@"payType"];
-    [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
 
-    self.param = paramDic;
+//    self.param = paramDic;
+    if ([self.payType isEqualToString:@"wxpay"]) {
+        [paramDic setValue:self.payType forKey:@"payType"];
+        [paramDic setValue:[NSString getIPAddress:YES] forKey:@"spbill_create_ip"];
+        [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
+    }
+    else if ([self.payType isEqualToString:@"alipay"]) {
+        [paramDic setValue:self.payType forKey:@"payType"];
+        [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
+    }
+    else {
+        [paramDic setValue:@"" forKey:@"payType"];
+
+    }
 
     NSLog(@"paramDic:%@",paramDic);
 
-    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder2 dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
 
-        [self.navigationController popViewControllerAnimated:YES];
+        PayModel *model = [PayModel yy_modelWithJSON:responseObject[@"data"]];
+        if ([model.payType isEqualToString:@"wxpay"]) {
+
+            //需要创建这个支付对象
+            PayReq *req = [[PayReq alloc] init];
+            //应用id
+            req.openID = model.appid;
+            
+            // 商家商户号
+            req.partnerId = model.mch_id;
+            
+            // 预支付订单这个是后台跟微信服务器交互后，微信服务器传给你们服务器的，你们服务器再传给你
+            req.prepayId = model.prepay_id;//self.orderWithWX.prepayid;
+            
+            // 根据财付通文档填写的数据和签名
+            //这个比较特殊，是固定的，只能是即req.package = Sign=WXPay
+            req.package = @"Sign=WXPay";
+            
+            // 随机编码，为了防止重复的，在后台生成
+            req.nonceStr = model.nonce_str;//self.orderWithWX.noncestr;
+            
+            // 这个是时间戳，也是在后台生成的，为了验证支付的
+            int timesta = [model.timestamp intValue];
+            UInt32 timestamp = (UInt32)timesta;
+            req.timeStamp = timestamp;
+            
+            // 这个签名也是后台做的
+            req.sign = model.sign;//self.orderWithWX.sign;
+            
+            //发送请求到微信，等待微信返回onResp
+            [WXApi sendReq:req];
+
+            
+        }
+        else if ([model.payType isEqualToString:@"alipay"]) {
+            
+            [[AlipaySDK defaultService] payOrder:model.payStr fromScheme:@"Rice" callback:^(NSDictionary *resultDic) {
+//                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+//                    //9000为支付成功
+//
+//                    NSLog(@"支付成功");
+//                    [self.navigationController popViewControllerAnimated:YES];
+//
+//                }
+            }];
+        }
+        else {
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+
+        }
 
     } failure:^(NSError *error) {
 
     }];
     
-//    [AFNetworking_RequestData requestMethodPOSTUrl:@"http://106.14.218.31:61/api/test1/alipaytest" dic:nil showHUD:YES response:NO Succed:^(id responseObject) {
-//
-//        NSString *orderString = responseObject[@"data"][@"payStr"];
-//
-//        [[AlipaySDK defaultService] payOrder:orderString fromScheme:@"Rice" callback:^(NSDictionary *resultDic) {
-//            if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
-//                //9000为支付成功
-//
-//                NSLog(@"支付成功");
-//                [self.navigationController popViewControllerAnimated:YES];
-//
-//            }
-//        }];
-//
-//
-//    } failure:^(NSError *error) {
-//
-//    }];
+}
+
+- (void)payCancel
+{
+    UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
+    vc.title = @"进行中订单详情";
+    vc.orderId = self.orderId;
+    vc.mark = 1;
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
+
+- (void)paySuccess
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 - (void)markAction

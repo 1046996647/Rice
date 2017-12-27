@@ -9,7 +9,7 @@
 #ifndef UrlFile_h
 #define UrlFile_h
 
-// 服务器
+// 服务器(推送要用服务器ip)
 #define BaseUrl  @"http://106.14.218.31:61"
 
 // 调试
@@ -25,7 +25,7 @@
 // 登录
 #define Login  [NSString stringWithFormat:@"%@/api/User/Login",BaseUrl]
 
-// 1.4    设置密码
+// 1.4    设置登录密码
 #define SetPassword  [NSString stringWithFormat:@"%@/api/User/SetPassword",BaseUrl]
 
 // 第三方登录绑定手机号
@@ -67,7 +67,16 @@
 #define CreateOrder  [NSString stringWithFormat:@"%@/api/Order/CreateOrder",BaseUrl]
 
 // 3.3    支付
-#define PayOrder  [NSString stringWithFormat:@"%@/api/Order/PayOrder",BaseUrl]
+#define PayOrder2  [NSString stringWithFormat:@"%@/api/Order/PayOrder2",BaseUrl]
+
+// 3.3    充值
+#define Charge  [NSString stringWithFormat:@"%@/api/user/Charge",BaseUrl]
+
+// 4.6    提现
+#define TakeCash  [NSString stringWithFormat:@"%@/api/user/TakeCash",BaseUrl]
+
+// 4.5    查看收支明细
+#define GetPayRecord  [NSString stringWithFormat:@"%@/api/user/GetPayRecord",BaseUrl]
 
 // 2.1    用户所在区域
 #define GetArea  [NSString stringWithFormat:@"%@/api/HomePage/GetArea",BaseUrl]

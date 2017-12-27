@@ -11,15 +11,30 @@
 #import "SendingOrderVC.h"
 #import "HistoryOrderVC.h"
 #import "BookOrderVC.h"
+#import "OYCountDownManager.h"
+
 
 @interface MyOrderVC ()
 
 @property (nonatomic, strong) MJCSegmentInterface *lala;
+@property (nonatomic, strong) HistoryOrderVC *vc1;
 
 
 @end
 
 @implementation MyOrderVC
+
+- (void)dealloc
+{
+//    [self.lala removeFromSuperview];
+//    self.lala = nil;
+//    self.vc1 = nil;
+    
+    // 废除定时器
+    [kCountDownManager invalidate];
+    // 清空时间差
+    [kCountDownManager reload];
+}
 
 
 - (void)viewDidLoad {
@@ -27,6 +42,7 @@
     // Do any additional setup after loading the view.
     
     HistoryOrderVC *vc1 = [[HistoryOrderVC alloc] init];
+    self.vc1 = vc1;
     
     SendingOrderVC *vc2 = [[SendingOrderVC alloc] init];
     

@@ -11,6 +11,7 @@
 @interface UnpayOrderVC : BaseViewController
 
 @property(nonatomic,strong) NSString *orderId;
+@property(nonatomic,assign) NSInteger mark;
 
 
 @end

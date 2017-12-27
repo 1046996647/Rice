@@ -27,7 +27,7 @@
 #import <TencentLBS/TencentLBS.h>
 //#import "CAAnimation+HCAnimation.h"
 
-// 需求：区域-》标签-》菜品-》骑手(携带该菜品的)
+// 需求：区域->标签->菜品->骑手(携带该菜品的)
 
 @interface MainViewController ()<MJCSegmentDelegate,SGAdvertScrollViewDelegate,TYCyclePagerViewDataSource, TYCyclePagerViewDelegate,QMapViewDelegate,TencentLBSLocationManagerDelegate,YBPopupMenuDelegate>
 
@@ -369,6 +369,7 @@
 // 定时方法
 - (void)timerRun:(NSTimer *)timer {
     
+    NSLog(@"-------------------");
     if (self.tag == 0) {
         // 携带当前菜品的所有骑手位置
         if (self.model1.foodId) {
@@ -578,8 +579,8 @@
             self.foodArrs = foodArr;
             [_pagerView reloadData];
 
-            [_pagerView scrollToItemAtIndex:0 animate:NO];
-            
+            [_pagerView scrollToItemAtIndex:0 animate:YES];
+
             
             // 骑手数据
             FoodModel *model1 = [self.foodArrs firstObject];

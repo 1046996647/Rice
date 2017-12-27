@@ -19,8 +19,6 @@
 @property(nonatomic,strong) UserAddressModel *userAddress;
 @property(nonatomic,strong) NSString *balance;
 @property(nonatomic,strong) NSString *coupon;
-@property(nonatomic,strong) NSString *useBalance;
-@property(nonatomic,strong) NSString *useCoupon;
 @property(nonatomic,assign) BOOL isUseBalance;
 @property(nonatomic,assign) BOOL isUseCoupon;
 @property(nonatomic,strong) NSString *orderId;
@@ -32,6 +30,10 @@
 
 @property(nonatomic,assign) NSInteger restSeconds;
 
+/// 倒计时源
+@property (nonatomic, copy) NSString *countDownSource;
+
+//@property (nonatomic, assign) NSInteger count;
 
 @end
 
@@ -57,7 +59,8 @@
 
 @property(nonatomic,strong) NSString *payMoney;
 @property(nonatomic,strong) NSString *price;
-
+@property(nonatomic,strong) NSString *useBalance;
+@property(nonatomic,strong) NSString *useCoupon;
 
 
 @end

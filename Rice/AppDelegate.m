@@ -13,6 +13,9 @@
 #import <UMSocialCore/UMSocialCore.h>
 #import <AlipaySDK/AlipaySDK.h>
 
+#import "WXApi.h"
+#import "WXApiObject.h"
+
 // 友盟推送
 #import "UMessage.h"
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 100000
@@ -25,7 +28,7 @@
 #import "ZAlertViewManager.h"
 
 
-@interface AppDelegate ()<UNUserNotificationCenterDelegate>
+@interface AppDelegate ()<UNUserNotificationCenterDelegate,WXApiDelegate>
 
 @end
 
@@ -118,6 +121,9 @@
      [微信平台从U-Share 4/5升级说明]http://dev.umeng.com/social/ios/%E8%BF%9B%E9%98%B6%E6%96%87%E6%A1%A3#1_1
      */
     [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_WechatSession appKey:@"wxd8482615c33b8859" appSecret:@"9a2bd8b900170248fdd09b047c707dd8" redirectURL:nil];
+    
+//    [WXApi registerApp:@"wxd8482615c33b8859"];
+
     /*
      * 移除相应平台的分享，如微信收藏
      */
@@ -132,6 +138,69 @@
     
 }
 
+#pragma mark - 微信授权回调
+/*! @brief 收到一个来自微信的请求，第三方应用程序处理完后调用sendResp向微信发送结果
+ *
+ * 收到一个来自微信的请求，异步处理完成后必须调用sendResp发送处理结果给微信。
+ * 可能收到的请求有GetMessageFromWXReq、ShowMessageFromWXReq等。
+ * @param req 具体请求内容，是自动释放的
+ */
+-(void)onReq:(BaseReq*)req{
+    NSLog(@"onReq");
+}
+/*! @brief 发送一个sendReq后，收到微信的回应
+ *
+ * 收到一个来自微信的处理结果。调用一次sendReq后会收到onResp。
+ * 可能收到的处理结果有SendMessageToWXResp、SendAuthResp等。
+ * @param resp具体的回应内容，是自动释放的
+ */
+- (void)onResp:(BaseResp*)resp{
+    if([resp isKindOfClass:[SendMessageToWXResp class]]){//微信分享回调
+        SendMessageToWXResp *messageResp = (SendMessageToWXResp *)resp;
+        if (messageResp.errCode == -2) {
+            NSLog(@"用户取消分享");
+        }
+    }else if ([resp isKindOfClass:[SendAuthResp class]]){//微信登录回调
+        SendAuthResp *aresp = (SendAuthResp *)resp;
+        
+        /*
+         ErrCode ERR_OK = 0(用户同意)
+         ERR_AUTH_DENIED = -4（用户拒绝授权）
+         ERR_USER_CANCEL = -2（用户取消）
+         code    用户换取access_token的code，仅在ErrCode为0时有效
+         state   第三方程序发送时用来标识其请求的唯一性的标志，由第三方程序调用sendReq时传入，由微信终端回传，state字符串长度不能超过1K
+         lang    微信客户端当前语言
+         country 微信用户当前国家信息
+         */
+        
+        NSLog(@"aresp.errCode:%d",aresp.errCode);
+        
+        if (aresp.errCode== 0) {
+            NSLog(@"微信登录成功");
+        }else if (aresp.errCode == -2){
+            NSLog(@"用户取消登录");
+        }
+    }else if ([resp isKindOfClass:[PayResp class]]){//微信支付
+        PayResp *response = (PayResp *)resp;
+        NSLog(@"response.returnKey:%@",response.returnKey);
+        
+        if (response.errCode == WXSuccess) {
+            //服务器端查询支付通知或查询API返回的结果再提示成功
+            NSLog(@"微信支付成功");
+
+            //支付成功通知事件
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kPaySuccessNotification" object:nil];
+            
+        }else if (response.errCode == WXErrCodeUserCancel){
+            NSLog(@"用户取消支付");
+            //支付取消通知事件
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kPayCancelNotification" object:nil];
+        }else{//WXErrCodeCommon
+            NSLog(@"支付失败，retcode=%d",response.errCode);
+        }
+    }
+}
+
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -139,39 +208,56 @@
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
     if (!result) {
         // 其他如支付等SDK的回调
+        
+        if ([url.host isEqualToString:@"safepay"]) {
+            // 支付跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+                
+                NSString *code = resultDic[@"resultStatus"];
+                if (code.integerValue == 6001) {
+                    // memo = "用户中途取消";
+                    //支付取消通知事件
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kPayCancelNotification" object:nil];
+                }
+                if (code.integerValue == 9000) {
+                    //支付成功通知事件
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"kPaySuccessNotification" object:nil];
+                }
+                
+            }];
+    
+            // 授权跳转支付宝钱包进行支付，处理支付结果
+            [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+                NSLog(@"result = %@",resultDic);
+                // 解析 auth code
+                NSString *result = resultDic[@"result"];
+                NSString *authCode = nil;
+                if (result.length>0) {
+                    NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                    for (NSString *subResult in resultArr) {
+                        if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                            authCode = [subResult substringFromIndex:10];
+                            break;
+                        }
+                    }
+                }
+                NSLog(@"授权结果 authCode = %@", authCode?:@"");
+            }];
+        }
+        else {
+            [WXApi handleOpenURL:url delegate:self];
+        }
     }
     return result;
 }
 
-//// NOTE: 9.0以后使用新API接口(加这个方法友盟会出问题)
-//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-//{
-//    if ([url.host isEqualToString:@"safepay"]) {
-//        // 支付跳转支付宝钱包进行支付，处理支付结果
-//        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
-//            NSLog(@"result = %@",resultDic);
-//        }];
-//        
-//        // 授权跳转支付宝钱包进行支付，处理支付结果
-//        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
-//            NSLog(@"result = %@",resultDic);
-//            // 解析 auth code
-//            NSString *result = resultDic[@"result"];
-//            NSString *authCode = nil;
-//            if (result.length>0) {
-//                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
-//                for (NSString *subResult in resultArr) {
-//                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
-//                        authCode = [subResult substringFromIndex:10];
-//                        break;
-//                    }
-//                }
-//            }
-//            NSLog(@"授权结果 authCode = %@", authCode?:@"");
-//        }];
-//    }
-//    return YES;
+////iOS9.0之后回调API接口
+//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+//
+//    return [WXApi handleOpenURL:url delegate:self];
 //}
+
 
 // ------------推送
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

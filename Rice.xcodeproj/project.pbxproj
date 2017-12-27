@@ -65,6 +65,8 @@
 		F75D43BA1FE24B2A00FD40A8 /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75D43B91FE24B2A00FD40A8 /* BookCell.m */; };
 		F75D43BE1FE26FDC00FD40A8 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F75D43BC1FE26FDC00FD40A8 /* libUMessage_Sdk_1.5.0a.a */; };
 		F75D43C01FE2700900FD40A8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F75D43BF1FE26FF700FD40A8 /* UserNotifications.framework */; };
+		F76019DB1FF08ED50050EEA2 /* OYCountDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F76019DA1FF08ED40050EEA2 /* OYCountDownManager.m */; };
+		F76019DE1FF0D8AC0050EEA2 /* PayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F76019DD1FF0D8AC0050EEA2 /* PayModel.m */; };
 		F76204291FDF72C100C81990 /* UnpayOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F76204281FDF72C100C81990 /* UnpayOrderVC.m */; };
 		F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = F762042C1FDF7AC600C81990 /* LZQTimerLabel.m */; };
 		F767CA2E1FBD244900C7518C /* AFNetworking_RequestData.m in Sources */ = {isa = PBXBuildFile; fileRef = F767CA0E1FBD244900C7518C /* AFNetworking_RequestData.m */; };
@@ -125,6 +127,11 @@
 		F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A781FCD505300EBC932 /* BookHeaderView.m */; };
 		F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7B1FCD568600EBC932 /* EvaluateVC.m */; };
 		F7680A811FCD5F1A00EBC932 /* StartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7F1FCD5F1A00EBC932 /* StartsView.m */; };
+		F771A41D1FF1EC70008EF6AC /* BalancePaymentDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A41C1FF1EC70008EF6AC /* BalancePaymentDetailVC.m */; };
+		F771A4201FF1ECE6008EF6AC /* BalancePaymentDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A41F1FF1ECE6008EF6AC /* BalancePaymentDetailCell.m */; };
+		F771A4231FF1F5B3008EF6AC /* WithdrawDepositVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4221FF1F5B3008EF6AC /* WithdrawDepositVC.m */; };
+		F771A4261FF21AD5008EF6AC /* RechargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4251FF21AD5008EF6AC /* RechargeVC.m */; };
+		F771A4291FF22834008EF6AC /* PayRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4281FF22834008EF6AC /* PayRecordModel.m */; };
 		F77CDADF1FD10B5300B0578B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */; };
 		F77CDAE11FD10B5D00B0578B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE01FD10B5D00B0578B /* libz.tbd */; };
 		F77CDAEF1FD1195100B0578B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE41FD10B8800B0578B /* CoreLocation.framework */; };
@@ -272,6 +279,10 @@
 		F75D43BD1FE26FDC00FD40A8 /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		F75D43BF1FE26FF700FD40A8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		F75D43C11FE2703000FD40A8 /* Rice.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Rice.entitlements; sourceTree = "<group>"; };
+		F76019D91FF08ED40050EEA2 /* OYCountDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OYCountDownManager.h; sourceTree = "<group>"; };
+		F76019DA1FF08ED40050EEA2 /* OYCountDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OYCountDownManager.m; sourceTree = "<group>"; };
+		F76019DC1FF0D8AC0050EEA2 /* PayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayModel.h; sourceTree = "<group>"; };
+		F76019DD1FF0D8AC0050EEA2 /* PayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayModel.m; sourceTree = "<group>"; };
 		F76204271FDF72C100C81990 /* UnpayOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UnpayOrderVC.h; sourceTree = "<group>"; };
 		F76204281FDF72C100C81990 /* UnpayOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UnpayOrderVC.m; sourceTree = "<group>"; };
 		F762042B1FDF7AC600C81990 /* LZQTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZQTimerLabel.h; sourceTree = "<group>"; };
@@ -396,6 +407,16 @@
 		F7680A7B1FCD568600EBC932 /* EvaluateVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EvaluateVC.m; sourceTree = "<group>"; };
 		F7680A7E1FCD5F1A00EBC932 /* StartsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartsView.h; sourceTree = "<group>"; };
 		F7680A7F1FCD5F1A00EBC932 /* StartsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartsView.m; sourceTree = "<group>"; };
+		F771A41B1FF1EC70008EF6AC /* BalancePaymentDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalancePaymentDetailVC.h; sourceTree = "<group>"; };
+		F771A41C1FF1EC70008EF6AC /* BalancePaymentDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalancePaymentDetailVC.m; sourceTree = "<group>"; };
+		F771A41E1FF1ECE6008EF6AC /* BalancePaymentDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BalancePaymentDetailCell.h; sourceTree = "<group>"; };
+		F771A41F1FF1ECE6008EF6AC /* BalancePaymentDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BalancePaymentDetailCell.m; sourceTree = "<group>"; };
+		F771A4211FF1F5B3008EF6AC /* WithdrawDepositVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WithdrawDepositVC.h; sourceTree = "<group>"; };
+		F771A4221FF1F5B3008EF6AC /* WithdrawDepositVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WithdrawDepositVC.m; sourceTree = "<group>"; };
+		F771A4241FF21AD5008EF6AC /* RechargeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeVC.h; sourceTree = "<group>"; };
+		F771A4251FF21AD5008EF6AC /* RechargeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeVC.m; sourceTree = "<group>"; };
+		F771A4271FF22834008EF6AC /* PayRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayRecordModel.h; sourceTree = "<group>"; };
+		F771A4281FF22834008EF6AC /* PayRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayRecordModel.m; sourceTree = "<group>"; };
 		F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F77CDAE01FD10B5D00B0578B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F77CDAE21FD10B6600B0578B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -638,6 +659,8 @@
 			children = (
 				F74FE9901FD8DBBE004C3199 /* PayMentModel.h */,
 				F74FE9911FD8DBBE004C3199 /* PayMentModel.m */,
+				F76019DC1FF0D8AC0050EEA2 /* PayModel.h */,
+				F76019DD1FF0D8AC0050EEA2 /* PayModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,6 +780,8 @@
 		F75BA4991FBEBA27009A55DF /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F771A4271FF22834008EF6AC /* PayRecordModel.h */,
+				F771A4281FF22834008EF6AC /* PayRecordModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -764,6 +789,8 @@
 		F75BA49A1FBEBA27009A55DF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				F771A41E1FF1ECE6008EF6AC /* BalancePaymentDetailCell.h */,
+				F771A41F1FF1ECE6008EF6AC /* BalancePaymentDetailCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -773,6 +800,12 @@
 			children = (
 				F75BA4871FBEB95E009A55DF /* MyWalletVC.h */,
 				F75BA4881FBEB95E009A55DF /* MyWalletVC.m */,
+				F771A41B1FF1EC70008EF6AC /* BalancePaymentDetailVC.h */,
+				F771A41C1FF1EC70008EF6AC /* BalancePaymentDetailVC.m */,
+				F771A4211FF1F5B3008EF6AC /* WithdrawDepositVC.h */,
+				F771A4221FF1F5B3008EF6AC /* WithdrawDepositVC.m */,
+				F771A4241FF21AD5008EF6AC /* RechargeVC.h */,
+				F771A4251FF21AD5008EF6AC /* RechargeVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -826,6 +859,15 @@
 				F75D43BD1FE26FDC00FD40A8 /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.5.0a;
+			sourceTree = "<group>";
+		};
+		F76019D81FF08ED40050EEA2 /* OYCountDownManager */ = {
+			isa = PBXGroup;
+			children = (
+				F76019D91FF08ED40050EEA2 /* OYCountDownManager.h */,
+				F76019DA1FF08ED40050EEA2 /* OYCountDownManager.m */,
+			);
+			path = OYCountDownManager;
 			sourceTree = "<group>";
 		};
 		F762042A1FDF7AC000C81990 /* LZQTimerLabel */ = {
@@ -937,6 +979,7 @@
 		F767CA3B1FBD249C00C7518C /* CustomClass */ = {
 			isa = PBXGroup;
 			children = (
+				F76019D81FF08ED40050EEA2 /* OYCountDownManager */,
 				F73132811FEA4629001C4F61 /* YBPopupMenu */,
 				F7588A6D1FE3B1E300F4AAC2 /* ZAlertView */,
 				F762042A1FDF7AC000C81990 /* LZQTimerLabel */,
@@ -1456,8 +1499,10 @@
 				F73132881FEA4629001C4F61 /* YBPopupMenu.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
 				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
+				F771A4201FF1ECE6008EF6AC /* BalancePaymentDetailCell.m in Sources */,
 				F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */,
 				F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */,
+				F76019DE1FF0D8AC0050EEA2 /* PayModel.m in Sources */,
 				F767CA351FBD244900C7518C /* UIColor+Expend.m in Sources */,
 				F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
@@ -1479,8 +1524,10 @@
 				F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */,
 				F7E1B6651FC6978A0063EAA6 /* TYCyclePagerViewCell.m in Sources */,
 				F75BA47F1FBE7B3A009A55DF /* LeftViewCell.m in Sources */,
+				F771A4291FF22834008EF6AC /* PayRecordModel.m in Sources */,
 				F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */,
 				F744300A1FCE784F00B92863 /* BookFoodVC.m in Sources */,
+				F76019DB1FF08ED50050EEA2 /* OYCountDownManager.m in Sources */,
 				F767CA831FBD249C00C7518C /* UIView+MJCClassExtension.m in Sources */,
 				F7E1B6621FC6973B0063EAA6 /* TYPageControl.m in Sources */,
 				F7577F3B1FE11696007DF7F0 /* PhoneBindingVC.m in Sources */,
@@ -1494,8 +1541,11 @@
 				F75BA4A11FBEBA64009A55DF /* HistoryOrderVC.m in Sources */,
 				F75BA4861FBEB945009A55DF /* ReceiveAddressVC.m in Sources */,
 				F767CA7E1FBD249C00C7518C /* MJCCommonTools.m in Sources */,
+				F771A41D1FF1EC70008EF6AC /* BalancePaymentDetailVC.m in Sources */,
 				F75232D81FBC15BD002D4AF9 /* AppDelegate.m in Sources */,
 				F767CA841FBD249C00C7518C /* MJCSegmentInterface.m in Sources */,
+				F771A4231FF1F5B3008EF6AC /* WithdrawDepositVC.m in Sources */,
+				F771A4261FF21AD5008EF6AC /* RechargeVC.m in Sources */,
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
 				F749A78F1FD64E450091F3C9 /* SearchAddressVC.m in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #import "SendingOrderCell.h"
+#import "OYCountDownManager.h"
 
 @implementation SendingOrderCell
 
@@ -64,9 +65,8 @@
         _line.backgroundColor = [UIColor colorWithHexString:@"#DDBA7F"];
         [self.contentView addSubview:_line];
         
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
-        //将定时器加入NSRunLoop，保证滑动表时，UI依然刷新
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        // 监听通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(countDownNotification) name:OYCountDownNotification object:nil];
         
     }
     
@@ -119,6 +119,9 @@
         _payBtn.hidden = NO;
         _timeLab.hidden = NO;
         _timeLab.text = [self ll_timeWithSecond:model.restSeconds];
+        
+        // 手动刷新数据
+        [self countDownNotification];
 
     }
     else if (model.status.integerValue == 1) {
@@ -139,26 +142,31 @@
     }
 }
 
-- (void)timerRun:(NSTimer *)timer {
+#pragma mark - 倒计时通知回调
+- (void)countDownNotification {
     
     if (_model.status.integerValue == 0) {
-
-        if (_model.restSeconds > 0) {
-            _timeLab.text = [self ll_timeWithSecond:_model.restSeconds];
-            _model.restSeconds -= 1;
+        
+        NSInteger timeInterval;
+        if (_model.countDownSource) {
+            timeInterval = [kCountDownManager timeIntervalWithIdentifier:_model.countDownSource];
+        }else {
+            timeInterval = kCountDownManager.timeInterval;
+        }
+        NSInteger countDown = _model.restSeconds - timeInterval;
+        
+        if (countDown > 0) {
+            _timeLab.text = [self ll_timeWithSecond:countDown];
         }
         else {
-            if (_timer) {
-                [_timer invalidate];
-                _timer = nil;
-            }
+
             if (self.block) {
                 self.block(self.model);
             }
         }
     }
-    
 }
+
 
 //将秒数转换为字符串格式
 - (NSString *)ll_timeWithSecond:(NSInteger)second
@@ -169,19 +177,9 @@
     return time;
 }
 
-//重写父类方法，保证定时器被销毁
-- (void)removeFromSuperview {
-    if (_timer) {
-        [_timer invalidate];
-        _timer = nil;
-    }
-    [super removeFromSuperview];
-}
 
-- (void)dealloc
-{
-    NSLog(@"cell释放");
-
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 

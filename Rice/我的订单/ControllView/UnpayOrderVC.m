@@ -14,6 +14,14 @@
 #import "MarkVC.h"
 #import "NSStringExt.h"
 #import "PayMentModel.h"
+#import "OYCountDownManager.h"
+#import "PayModel.h"
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"
+#import "WXApiObject.h"
+
+NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
+
 
 @interface UnpayOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -43,12 +51,22 @@
 
 @implementation UnpayOrderVC
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [kCountDownManager removeAllSource];
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     
     [self getOrderByOrderId];
+    
+
 }
 
 - (void)initView
@@ -85,15 +103,22 @@
     
     UILabel *yuElab1 = [UILabel labelWithframe:CGRectMake(yuElab.left, yuElab.bottom+17, 300, 20) text:@"余额：￥20.00" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#333333"];
     [yuEView addSubview:yuElab1];
-    [yuElab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:@"￥20.00"];
     
     
     UIButton *yuEBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 4" selected:@"Group 3-1"];
     [yuEView addSubview:yuEBtn];
     
     
-    if (self.payMentModel.useBalance.boolValue) {
+    if (self.payMentModel.priceAll.useBalance.boolValue) {
         yuEView.height = yuEWhiteView.bottom;
+        yuEBtn.hidden = YES;
+        
+        yuElab1.text = @"余额";
+        
+        UILabel *useBalanceLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-120-14, 0, 120, yuEWhiteView.height) text:[NSString stringWithFormat:@"￥-%@",self.payMentModel.priceAll.useBalance] font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+        [yuEWhiteView addSubview:useBalanceLab];
+        [useBalanceLab wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:[NSString stringWithFormat:@"-%@",self.payMentModel.priceAll.useBalance]];
+
     }
     else {
         yuEView.hidden = YES;
@@ -122,9 +147,14 @@
     [liJinView addSubview:liJinBtn];
     
     
-    if (self.payMentModel.useCoupon.boolValue) {
+    if (self.payMentModel.priceAll.useCoupon.boolValue) {
         liJinView.height = liJinWhiteView.bottom;
-        
+        liJinBtn.hidden = YES;
+        liJinlab1.text = @"礼金券可抵扣";
+
+        UILabel *useCouponLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-120-14, 0, 120, liJinWhiteView.height) text:[NSString stringWithFormat:@"￥-%@",self.payMentModel.priceAll.useCoupon] font:[UIFont systemFontOfSize:13] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
+        [liJinWhiteView addSubview:useCouponLab];
+        [useCouponLab wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:[NSString stringWithFormat:@"-%@",self.payMentModel.priceAll.useCoupon]];
     }
     else {
         liJinView.hidden = YES;
@@ -240,30 +270,52 @@
         
     }
     else {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerRun:) userInfo:nil repeats:YES];
-        //将定时器加入NSRunLoop，保证滑动表时，UI依然刷新
-        [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        
+        // 余额足够
+        if (self.payMentModel.priceAll.payMoney.integerValue == 0) {
+            self.payType = @"";
+        }
+        
+        
+        //支付成功通知事件
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(paySuccess) name:@"kPaySuccessNotification" object:nil];
+        
+        // 监听通知
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(countDownNotification) name:OYCountDownNotification object:nil];
+        
+        // 启动倒计时管理
+        [kCountDownManager start];
+        
+        self.payMentModel.countDownSource = OYMultipleTableSource1;
+        // 增加倒计时源
+        [kCountDownManager addSourceWithIdentifier:OYMultipleTableSource1];
     }
     
 
 
 }
 
-- (void)timerRun:(NSTimer *)timer {
+
+#pragma mark - 倒计时通知回调
+- (void)countDownNotification {
     
-    if (self.payMentModel.restSeconds > 0) {
+    NSInteger timeInterval;
+    if (self.payMentModel.countDownSource) {
+        timeInterval = [kCountDownManager timeIntervalWithIdentifier:self.payMentModel.countDownSource];
+    }else {
+        timeInterval = kCountDownManager.timeInterval;
+    }
+    NSInteger countDown = self.payMentModel.restSeconds - timeInterval;
+    
+    if (countDown > 0) {
         
-        [self.payBtn setTitle:[self ll_timeWithSecond:self.payMentModel.restSeconds] forState:UIControlStateNormal];
-        self.payMentModel.restSeconds -= 1;
+        [self.payBtn setTitle:[self ll_timeWithSecond:countDown] forState:UIControlStateNormal];
+        
     }
     else {
-        if (_timer) {
-            [_timer invalidate];
-            _timer = nil;
-        }
         [self.navigationController popViewControllerAnimated:YES];
+
     }
-    
 }
 
 //将秒数转换为字符串格式
@@ -285,17 +337,8 @@
 - (void)payAction
 {
 
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"确定支付" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"支付" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        [self payOrder];
-        
-    }];
-    [alertController addAction:okAction];
-    [alertController addAction:cancelAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self payOrder];
+
 }
 
 // 3.3    支付
@@ -303,23 +346,98 @@
 {
     
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-    //    [paramDic setValue:self.payMentModel.priceAll.useBalance forKey:@"useBalance"];
-    //    [paramDic setValue:self.payMentModel.priceAll.useCoupon forKey:@"useCoupon"];
     
     [paramDic setValue:self.orderId forKey:@"orderId"];
-    [paramDic setValue:self.payType forKey:@"payType"];
     [paramDic setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
     
+    //    self.param = paramDic;
+    if ([self.payType isEqualToString:@"wxpay"]) {
+        [paramDic setValue:self.payType forKey:@"payType"];
+        [paramDic setValue:[NSString getIPAddress:YES] forKey:@"spbill_create_ip"];
+        
+    }
+    else if ([self.payType isEqualToString:@"alipay"]) {
+        [paramDic setValue:self.payType forKey:@"payType"];
+        
+    }
+    else {
+        [paramDic setValue:@"" forKey:@"payType"];
+        
+    }
     
     NSLog(@"paramDic:%@",paramDic);
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder2 dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
-        [self.navigationController popViewControllerAnimated:YES];
+        PayModel *model = [PayModel yy_modelWithJSON:responseObject[@"data"]];
+        if ([model.payType isEqualToString:@"wxpay"]) {
+            
+            //需要创建这个支付对象
+            PayReq *req = [[PayReq alloc] init];
+            //应用id
+            req.openID = model.appid;
+            
+            // 商家商户号
+            req.partnerId = model.mch_id;
+            
+            // 预支付订单这个是后台跟微信服务器交互后，微信服务器传给你们服务器的，你们服务器再传给你
+            req.prepayId = model.prepay_id;//self.orderWithWX.prepayid;
+            
+            // 根据财付通文档填写的数据和签名
+            //这个比较特殊，是固定的，只能是即req.package = Sign=WXPay
+            req.package = @"Sign=WXPay";
+            
+            // 随机编码，为了防止重复的，在后台生成
+            req.nonceStr = model.nonce_str;//self.orderWithWX.noncestr;
+            
+            // 这个是时间戳，也是在后台生成的，为了验证支付的
+            int timesta = [model.timestamp intValue];
+            UInt32 timestamp = (UInt32)timesta;
+            req.timeStamp = timestamp;
+            
+            // 这个签名也是后台做的
+            req.sign = model.sign;//self.orderWithWX.sign;
+            
+            //发送请求到微信，等待微信返回onResp
+            [WXApi sendReq:req];
+            
+            
+        }
+        else if ([model.payType isEqualToString:@"alipay"]) {
+            
+            [[AlipaySDK defaultService] payOrder:model.payStr fromScheme:@"Rice" callback:^(NSDictionary *resultDic) {
+                //                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                //                    //9000为支付成功
+                //
+                //                    NSLog(@"支付成功");
+                //                    [self.navigationController popViewControllerAnimated:YES];
+                //
+                //                }
+            }];
+        }
+        else {
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        }
         
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (void)paySuccess
+{
+    if (self.mark == 0) {
+        
+        //进行中订单状态更新通知事件
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center postNotificationName:@"kSendingOrderNotification" object:nil];
+        
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }
+    
 }
 
 - (void)payWayAction:(UIButton *)btn
@@ -507,7 +625,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+// 重写back
+- (void)back{
+    if (self.mark == 1) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
 
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+
+    }
+}
 
 @end
 

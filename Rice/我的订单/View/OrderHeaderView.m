@@ -75,6 +75,7 @@
     vc.block = ^(UserAddressModel *model) {
 
         self.userAddressModel = model;
+
     };
 }
 

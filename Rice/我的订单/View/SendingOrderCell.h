@@ -30,4 +30,5 @@ typedef void(^SendingOrderBlock)(PayMentModel *model);
 @property(nonatomic,copy) SendingOrderBlock block;
 
 
+
 @end

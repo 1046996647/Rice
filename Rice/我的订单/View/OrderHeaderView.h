@@ -19,6 +19,7 @@
 @property(nonatomic,strong) UIImageView *addressImg;
 @property(nonatomic,strong) UIImageView *imgView;
 @property(nonatomic,strong) UserAddressModel *userAddressModel;
+@property(nonatomic,strong) PayMentModel *payMentModel;
 
 @property(nonatomic,strong) UIButton *addBtn;
 

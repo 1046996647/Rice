@@ -38,8 +38,6 @@
     _imgView.frame = CGRectMake(self.width-9-12, 0, 9, self.height);
     _line.frame = CGRectMake(21, self.height-1, self.width-21*2, 1);
     
-    
-
 }
 
 - (void)dealloc {

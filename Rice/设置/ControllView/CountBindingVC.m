@@ -219,7 +219,7 @@
             [paramDic  setValue:@"WeChat" forKey:@"BindMode"];
         }
         
-        [AFNetworking_RequestData requestMethodPOSTUrl:BuildContact dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        [AFNetworking_RequestData requestMethodPOSTUrl:BuildContact dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
             
             if (platformType == UMSocialPlatformType_QQ) {
                 [self.dataArr replaceObjectAtIndex:1 withObject:@"已绑定"];

@@ -9,6 +9,8 @@
 #import "SendingOrderVC.h"
 #import "SendingOrderCell.h"
 #import "UnpayOrderVC.h"
+#import "OYCountDownManager.h"
+
 
 @interface SendingOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -44,6 +46,8 @@
     [self getActiveOrder];
     
 
+    // 启动倒计时管理
+    [kCountDownManager start];
 
 }
 
@@ -58,10 +62,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //订单状态更新通知事件
+    
+    //进行中订单状态更新通知事件
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(headerRefresh) name:@"kSendingOrderNotification" object:nil];
+    
 }
+
 
 
 - (void)headerRefresh
@@ -83,13 +90,18 @@
         
     }
     
+    
     NSMutableDictionary *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
     
     [AFNetworking_RequestData requestMethodPOSTUrl:GetActiveOrder dic:paramDic showHUD:NO response:YES Succed:^(id responseObject) {
         
+        
         self.isRefresh = YES;
         [SVProgressHUD dismiss];
         [self.tableView.mj_header endRefreshing];
+        
+        // 调用reload
+        [kCountDownManager reload];
         
         id obj = responseObject[@"data"];
         NSMutableArray *arrM = [NSMutableArray array];
@@ -139,7 +151,11 @@
 
         };
     }
-    cell.model = _dataArr[indexPath.row];
+
+    PayMentModel *model = _dataArr[indexPath.row];
+
+    cell.model = model;
+
     
     return cell;
 }

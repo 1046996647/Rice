@@ -8,6 +8,10 @@
 
 #import "MyWalletVC.h"
 #import "PayMentModel.h"
+#import "BalancePaymentDetailVC.h"
+#import "WithdrawDepositVC.h"
+#import "RechargeVC.h"
+
 
 @interface MyWalletVC ()
 
@@ -19,12 +23,19 @@
 @property(nonatomic,strong) UILabel *label;
 @property(nonatomic,strong) UILabel *moneyLab;
 @property(nonatomic,strong) PayMentModel *model;
+@property(nonatomic,assign) NSInteger tag;
 
 
 
 @end
 
 @implementation MyWalletVC
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+        
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,10 +102,14 @@
     // 提现
     UIButton *tiXianBtn = [UIButton buttonWithframe:CGRectMake(0, 0, kScreenWidth/2, 50) text:@"提现" font:[UIFont systemFontOfSize:15] textColor:@"#666666" backgroundColor:@"#FFFFFF" normal:@"" selected:nil];
     [yuEView addSubview:tiXianBtn];
+    [tiXianBtn addTarget:self action:@selector(tiXianAction) forControlEvents:UIControlEventTouchUpInside];
+
 
     // 充值
     UIButton *chongZhiBtn = [UIButton buttonWithframe:CGRectMake(tiXianBtn.right, 0, kScreenWidth/2, 50) text:@"充值" font:[UIFont systemFontOfSize:15] textColor:@"#666666" backgroundColor:@"#FFFFFF" normal:@"" selected:nil];
     [yuEView addSubview:chongZhiBtn];
+    [chongZhiBtn addTarget:self action:@selector(chongZhiAction) forControlEvents:UIControlEventTouchUpInside];
+
 
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(tiXianBtn.width-.5, 10, .5, 30)];
     line.backgroundColor = colorWithHexStr(@"#E5E5E5");
@@ -104,10 +119,13 @@
 
 
     UIButton *viewBtn = [UIButton buttonWithframe:CGRectMake(0, 0, 67, 22) text:@"收支明细" font:SystemFont(16) textColor:@"#333333" backgroundColor:nil normal:nil selected:nil];
-//    [viewBtn addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
+    [viewBtn addTarget:self action:@selector(btnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:viewBtn];
     
     [self getWallet];
+    
+    //充值或提现成功通知事件
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chargeOrDepositSuccess) name:@"kchargeOrDepositSuccessNotification" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,16 +133,51 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)chargeOrDepositSuccess
+{
+    [self getWallet];
+
+}
+
+- (void)chongZhiAction
+{
+    RechargeVC *vc = [[RechargeVC alloc] init];
+    vc.title = @"充值";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)tiXianAction
+{
+    WithdrawDepositVC *vc = [[WithdrawDepositVC alloc] init];
+    vc.title = @"提现";
+    vc.yuE = self.model.balance;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)btnAction
+{
+    BalancePaymentDetailVC *vc = [[BalancePaymentDetailVC alloc] init];
+    vc.title = @"收支明细";
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)getWallet
 {
     NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
-    
     
     [AFNetworking_RequestData requestMethodPOSTUrl:GetWallet dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         id obj = responseObject[@"data"];
         _model = [PayMentModel yy_modelWithJSON:obj];
-        self.moneyLab.text = _model.coupon;
+        
+        if (self.tag == 0) {
+            self.moneyLab.text = _model.coupon;
+
+        }
+        else {
+            self.moneyLab.text = _model.balance;
+
+        }
         
     } failure:^(NSError *error) {
         
@@ -139,7 +192,7 @@
 
 - (void)selectedAction:(UIButton *)btn
 {
-    
+    self.tag = btn.tag;
     if (btn.tag == 0) {
 
         self.baseImg.image = [UIImage imageNamed:@"liJIn"];
@@ -159,14 +212,6 @@
 
     }
 }
-
-
-
-
-
-
-
-
 
 
 
