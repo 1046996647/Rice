@@ -10,10 +10,10 @@
 #define UrlFile_h
 
 // 服务器(推送要用服务器ip)
-#define BaseUrl  @"http://106.14.218.31:61"
+//#define BaseUrl  @"http://106.14.218.31:61"
 
 // 调试
-//#define BaseUrl  @"http://192.168.2.21:61"
+#define BaseUrl  @"http://192.168.2.21:61"
 
 
 // 注册
@@ -56,18 +56,36 @@
 // 2.5    保存首页点过的菜
 #define SetTempFoods  [NSString stringWithFormat:@"%@/api/HomePage/SetTempFoods",BaseUrl]
 
+// 2.9    获取预定菜品的标签
+#define GetReserveTags  [NSString stringWithFormat:@"%@/api/HomePage/GetReserveTags",BaseUrl]
+
+// 2.10    根据标签获取预定菜品
+#define GetReserveFoods  [NSString stringWithFormat:@"%@/api/HomePage/GetReserveFoods",BaseUrl]
+
 // 2.2    修改订单
 #define PlaceOrder  [NSString stringWithFormat:@"%@/api/Order/PlaceOrder",BaseUrl]
 
 // 2.7    下单
 #define ToPayPage  [NSString stringWithFormat:@"%@/api/HomePage/ToPayPage",BaseUrl]
 
+// 4.1    预定菜单页进入支付页
+#define ToReservePayPage  [NSString stringWithFormat:@"%@/api/HomePage/ToReservePayPage",BaseUrl]
+
+// 2.2    修改预定订单
+#define PlaceReserveOrder  [NSString stringWithFormat:@"%@/api/order/PlaceReserveOrder",BaseUrl]
+
 
 // 3.2    创建未支付订单
 #define CreateOrder  [NSString stringWithFormat:@"%@/api/Order/CreateOrder",BaseUrl]
 
+// 4.3    创建未支付预定单
+#define CreateReserveOrder  [NSString stringWithFormat:@"%@/api/Order/CreateReserveOrder",BaseUrl]
+
 // 3.3    支付
 #define PayOrder2  [NSString stringWithFormat:@"%@/api/Order/PayOrder2",BaseUrl]
+
+// 4.4    预订单支付
+#define PayReserveOrder  [NSString stringWithFormat:@"%@/api/Order/PayReserveOrder",BaseUrl]
 
 // 3.3    充值
 #define Charge  [NSString stringWithFormat:@"%@/api/user/Charge",BaseUrl]
@@ -115,6 +133,9 @@
 // 3.6    进行中订单
 #define GetActiveOrder  [NSString stringWithFormat:@"%@/api/Order/GetActiveOrder",BaseUrl]
 
+// 3.8    我的订单-预定订单
+#define GetReserveOrder  [NSString stringWithFormat:@"%@/api/Order/GetReserveOrder",BaseUrl]
+
 // 2.8    进入评价页
 #define ToCommentPage  [NSString stringWithFormat:@"%@/api/HomePage/ToCommentPage",BaseUrl]
 
@@ -124,6 +145,9 @@
 
 // 3.4    取消订单
 #define UserCancelOrder  [NSString stringWithFormat:@"%@/api/Order/UserCancelOrder",BaseUrl]
+
+// 3.11    通知回收 可回收订单
+#define RequestRecovery  [NSString stringWithFormat:@"%@/api/Order/RequestRecovery",BaseUrl]
 
 // 3.6    我的订单-历史订单
 #define GetHistoryOrder  [NSString stringWithFormat:@"%@/api/Order/GetHistoryOrder",BaseUrl]

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "PayMentModel.h"
 
+typedef void(^HistoryOrderCellBlock)(void);
+
 @interface HistoryOrderCell : UITableViewCell
 
 @property(nonatomic,strong) UIImageView *imgView;
@@ -20,5 +22,8 @@
 @property(nonatomic,strong) UIButton *confirmBtn;
 @property(nonatomic,strong) UIButton *evaluateBtn;
 @property(nonatomic,strong) PayMentModel *model;
+
+@property(nonatomic,copy) HistoryOrderCellBlock block;
+
 
 @end

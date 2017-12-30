@@ -14,6 +14,7 @@ typedef void(^LoginBlock)(void);
 @interface LoginVC : BaseViewController
 
 @property(nonatomic,copy) LoginBlock block;
+@property (nonatomic, assign) NSInteger level;// 跳转层次
 
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FoodModel.h"
+
 
 @interface BookCell : UITableViewCell
 
@@ -21,5 +23,8 @@
 @property(nonatomic,strong) UIButton *delBtn;
 @property(nonatomic,strong) UIButton *addBtn;
 @property(nonatomic,strong) UIButton *xiaDanBtn;
+
+@property(nonatomic,strong) FoodModel *model;
+
 
 @end

@@ -167,7 +167,7 @@
     PayMentModel *model = self.dataArr[indexPath.row];
 
     UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
-    vc.title = @"进行中订单详情";
+    vc.title = @"支付订单";
     vc.orderId = model.orderId;
     [self.navigationController pushViewController:vc animated:YES];
 }

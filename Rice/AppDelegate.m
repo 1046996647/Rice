@@ -34,6 +34,10 @@
 
 @implementation AppDelegate
 
++ (AppDelegate *)share
+{
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -200,6 +204,7 @@
         }
     }
 }
+
 
 // 支持所有iOS系统
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation

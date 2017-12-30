@@ -34,6 +34,8 @@
     [kCountDownManager invalidate];
     // 清空时间差
     [kCountDownManager reload];
+    
+    [kCountDownManager removeAllSource];
 }
 
 

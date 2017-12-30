@@ -40,13 +40,13 @@
         _imgView.contentMode = UIViewContentModeScaleAspectFill;
         [self.baseView addSubview:_imgView];
 
-        _moneyLab = [UILabel labelWithframe:CGRectMake(_addresLab.left, _imgView.bottom, kScreenWidth-21-10, 17) text:@"可回收餐具押金：￥10 （押金已退回）" font:SystemFont(14) textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
+        _moneyLab = [UILabel labelWithframe:CGRectMake(_addresLab.left, _imgView.bottom+3, kScreenWidth-21-10, 17) text:@"可回收餐具押金：￥10 (餐具回收后，押金自动退回到余额。)" font:SystemFont(12) textAlignment:NSTextAlignmentLeft textColor:@"#666666"];
         [self.baseView addSubview:_moneyLab];
         
         [_moneyLab wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:@"（押金已退回）"];
 
         
-        self.baseView.height = _moneyLab.bottom+4;
+        self.baseView.height = _moneyLab.bottom+10;
         self.height = self.baseView.height;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addAction)];
@@ -83,12 +83,20 @@
 {
     _userAddressModel = userAddressModel;
     
+    if (self.payMentModel.deposit.floatValue > 0) {
+        _moneyLab.text = [NSString stringWithFormat:@"可回收餐具押金：￥%@ (餐具回收后，押金自动退回到余额。)",self.payMentModel.deposit];
+        [_moneyLab wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:@"(餐具回收后，押金自动退回到余额。)"];
+    }
+    else {
+        _moneyLab.hidden = YES;
+        
+    }
+    
     if (userAddressModel) {
         
         self.baseView.userInteractionEnabled = YES;
 
         _addBtn.hidden = YES;
-        _moneyLab.hidden = YES;
         
         _addresLab.hidden = NO;
         _nameLab.hidden = NO;
@@ -102,7 +110,6 @@
     else {
         
         self.baseView.userInteractionEnabled = NO;
-        _moneyLab.hidden = YES;
         _addresLab.hidden = YES;
         _nameLab.hidden = YES;
         _addressImg.hidden = YES;

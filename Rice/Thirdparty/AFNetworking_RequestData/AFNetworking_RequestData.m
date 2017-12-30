@@ -10,6 +10,8 @@
 #import "AFNetworking_RequestData.h"
 #import "LoginVC.h"
 #import "NavigationController.h"
+#import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AFNetworking_RequestData
 
@@ -98,6 +100,9 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 //            [dic  setValue:siteId forKey:@"siteId"];
 //
 //        }
+        
+        NSLog(@"paramDic:%@",dic);
+
 
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -109,37 +114,37 @@ static const NSUInteger kDefaultTimeoutInterval = 20;
 //                [SVProgressHUD dismiss];
 //            }
             
+            
             [SVProgressHUD dismiss];
 
             NSNumber *code = [responseObject objectForKey:@"httpcode"];
             if (500 == [code integerValue] || 400 == [code integerValue]) {
                 
-//                if (3 == [code integerValue]) {
-//                    
-//                    if ([[InfoCache getValueForKey:@"LoginedState"] integerValue]) {
-//                        
-//                        [[UIApplication sharedApplication].keyWindow makeToast:@"您已被挤下线!"];
-//                        
-//                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                            
-//                            LoginVC *loginVC = [[LoginVC alloc] init];
-//                            NavigationController *nav = [[NavigationController alloc] initWithRootViewController:loginVC];
-//                            
-//                            [UIApplication sharedApplication].keyWindow.rootViewController = nav;
-//                            
-//                            [InfoCache saveValue:@0 forKey:@"LoginedState"];
-//                        });
-//                        
-//                    }
-//                    
-//                    return ;
-//                }
-                
-                NSString *message = [responseObject objectForKey:@"message"];
-                
-                if (message.length > 0) {
-                    [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:message];
+                if (400 == [code integerValue]) {
+                    
+                    [InfoCache archiveObject:nil toFile:Person];
+                    
+                    [[UIApplication sharedApplication].keyWindow makeToast:@"账号异常，请重新登陆!"];
+                    
+                    AppDelegate *delegate = [AppDelegate share];
+                    ViewController *vc = (ViewController *)delegate.window.rootViewController;
+                    
+                    NavigationController *navVC = (NavigationController *)vc.mainNav;
 
+                    LoginVC *loginVC = [[LoginVC alloc] init];
+                    [navVC pushViewController:loginVC animated:YES];
+
+                    
+                    return ;
+                }
+                else {
+                    
+                    NSString *message = [responseObject objectForKey:@"message"];
+                    
+                    if (message.length > 0) {
+                        [[UIApplication sharedApplication].keyWindow.rootViewController.view makeToast:message];
+                        
+                    }
                 }
 
                 

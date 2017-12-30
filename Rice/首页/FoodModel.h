@@ -18,6 +18,8 @@
 @property(nonatomic,strong) NSString *foodName;
 @property(nonatomic,strong) NSString *foodPrice;
 @property(nonatomic,strong) NSString *foodTagId;
+@property(nonatomic,strong) NSString *secondTag;
+
 @property(nonatomic,strong) NSString *isCycle;
 
 @end

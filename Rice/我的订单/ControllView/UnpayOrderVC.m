@@ -8,6 +8,7 @@
 
 #import "UnpayOrderVC.h"
 #import "OrderHeaderView.h"
+#import "BookHeaderView.h"
 #import "OrderDetailOneCell.h"
 #import "OrderDetailTwoCell.h"
 #import "UILabel+WLAttributedString.h"
@@ -55,7 +56,7 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
-    [kCountDownManager removeAllSource];
+    [kCountDownManager removeSourceWithIdentifier:OYMultipleTableSource1];
 
 }
 
@@ -71,11 +72,6 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
 
 - (void)initView
 {
-    // 头视图
-    OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
-    headerView.userAddressModel = self.payMentModel.userAddress;
-    headerView.baseView.userInteractionEnabled = NO;
-    headerView.addressImg.hidden = YES;
     
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-45) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
@@ -83,7 +79,31 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    _tableView.tableHeaderView = headerView;
+    if (self.payMentModel.isActual) {
+        
+        // 头视图
+        OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+        headerView.userAddressModel = self.payMentModel.userAddress;
+        headerView.baseView.userInteractionEnabled = NO;
+        headerView.addressImg.hidden = YES;
+        _tableView.tableHeaderView = headerView;
+        
+    }
+    else {
+        
+        // 头视图
+        BookHeaderView *headerView = [[BookHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+        headerView.time = self.payMentModel.timeArea;
+        headerView.payMentModel = self.payMentModel;
+        headerView.userAddressModel = self.payMentModel.userAddress;
+        headerView.baseView.userInteractionEnabled = NO;
+        headerView.timeLab.userInteractionEnabled = NO;
+        headerView.addressImg.hidden = YES;
+        _tableView.tableHeaderView = headerView;
+        
+
+    }
+
     
     // -------尾视图--------
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
@@ -187,9 +207,22 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
     marklab1.numberOfLines = 0;
     
     if (self.payMentModel.remarks.length > 0) {
-        markView.height = markWhiteView.bottom;
-        marklab1.text = self.payMentModel.remarks;
+        
         markBtn.hidden = YES;
+
+        self.marklab1.text = self.payMentModel.remarks;
+        CGSize size = [NSString textHeight:self.marklab1.text font:self.marklab1.font width:self.marklab1.width];
+        if (size.height+20 > self.markWhiteView.height) {
+            
+            self.marklab1.height = size.height;
+            self.markWhiteView.height = 20+size.height;
+            self.markView.height = self.markWhiteView.bottom;
+            
+        }
+        else {
+            markView.height = markWhiteView.bottom;
+            
+        }
     }
     else {
         markView.hidden = YES;
@@ -365,9 +398,18 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
         
     }
     
-    NSLog(@"paramDic:%@",paramDic);
+    NSString *urlStr = nil;
+    if ([self.title isEqualToString:@"预定支付订单"]) {
+        
+        urlStr = PayReserveOrder;
+    }
+    else {
+        urlStr = PayOrder2;
+
+    }
     
-    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder2 dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:urlStr dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
         
         PayModel *model = [PayModel yy_modelWithJSON:responseObject[@"data"]];
         if ([model.payType isEqualToString:@"wxpay"]) {
@@ -635,6 +677,8 @@ NSString *const OYMultipleTableSource1 = @"OYMultipleTableSource1";
         [self.navigationController popViewControllerAnimated:YES];
 
     }
+//    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 @end

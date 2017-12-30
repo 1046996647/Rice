@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "NavigationController.h"
+//#import "NavigationController.h"
 #import "MainViewController.h"
 #import "CSLeftSlideControllerTwo.h"
 #import "LeftViewController.h"
@@ -23,6 +23,7 @@
     // Do any additional setup after loading the view.
     
     NavigationController *mainNav = [[NavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
+    self.mainNav = mainNav;
 
     LeftViewController *leftVC = [[LeftViewController alloc] init];
 

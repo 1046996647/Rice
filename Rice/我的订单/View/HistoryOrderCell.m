@@ -27,7 +27,7 @@
         [self.contentView addSubview:_countLab];
         
 
-        _stateLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-72-20, 20, 72, 20) text:@"订单已完成" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentLeft textColor:@"#999999"];
+        _stateLab = [UILabel labelWithframe:CGRectMake(kScreenWidth-102-20, 20, 102, 20) text:@"订单已完成" font:[UIFont systemFontOfSize:14] textAlignment:NSTextAlignmentRight textColor:@"#999999"];
         [self.contentView addSubview:_stateLab];
         
         _evaluateBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-65-20, _stateLab.bottom+25, 65, 26) text:@"评价" font:_stateLab.font textColor:@"#333333" backgroundColor:@"#FFE690" normal:@"" selected:nil];
@@ -36,7 +36,7 @@
         _evaluateBtn.layer.borderColor = [UIColor colorWithHexString:@"#CD9435"].CGColor;
         _evaluateBtn.layer.borderWidth = 1;
         [self.contentView addSubview:_evaluateBtn];
-        [_evaluateBtn addTarget:self action:@selector(evaluateAction) forControlEvents:UIControlEventTouchUpInside];
+        [_evaluateBtn addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
         
 //        _confirmBtn = [UIButton buttonWithframe:CGRectMake(_evaluateBtn.left-10-_evaluateBtn.width, _evaluateBtn.top, _evaluateBtn.width, 26) text:@"餐盒确认" font:_stateLab.font textColor:@"#333333" backgroundColor:@"#FFE690" normal:@"" selected:nil];
 //        _confirmBtn.layer.cornerRadius = 5;
@@ -58,15 +58,36 @@
     return self;
 }
 
-- (void)evaluateAction
+- (void)evaluateAction:(UIButton *)btn
 {
-    EvaluateVC *vc = [[EvaluateVC alloc] init];
-    vc.title = @"评价";
-    vc.orderId = _model.orderId;
-    [self.viewController.navigationController pushViewController:vc animated:YES];
-    vc.block = ^{
-        _model.status = @"7";
-    };
+    if ([btn.currentTitle isEqualToString:@"评价"]) {
+        EvaluateVC *vc = [[EvaluateVC alloc] init];
+        vc.title = btn.currentTitle;
+        vc.orderId = _model.orderId;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+        vc.block = ^{
+            _model.status = @"7";
+        };
+    }
+    else {
+        
+        NSMutableDictionary *paraDic = [NSMutableDictionary dictionary];
+        
+        [paraDic setValue:self.model.orderId forKey:@"orderId"];
+        [AFNetworking_RequestData requestMethodPOSTUrl:RequestRecovery dic:paraDic showHUD:YES response:NO Succed:^(id responseObject) {
+            
+            _model.status = @"9";
+            [self.viewController.view makeToast:@"已发送回收通知"];
+            if (self.block) {
+                self.block();
+            }
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+    }
+
 }
 - (void)setModel:(PayMentModel *)model
 {
@@ -97,14 +118,18 @@
         _evaluateBtn.hidden = YES;
         
     }
-//    else {
-//        _stateLab.text = @"订单配送中";
-//        _evaluateBtn.hidden = NO;
-//        _confirmBtn.hidden = NO;
-//        _payBtn.hidden = YES;
-//        _timeLab.hidden = YES;
-//
-//    }
+    else if (model.status.integerValue == 8)  {
+        _stateLab.text = @"餐具待回收";
+        
+        _evaluateBtn.hidden = NO;
+        [_evaluateBtn setTitle:@"通知回收" forState:UIControlStateNormal];
+      
+    }
+    else if (model.status.integerValue == 9)  {
+        _stateLab.text = @"已发送回收请求";
+        _evaluateBtn.hidden = YES;
+
+    }
 }
 
 @end

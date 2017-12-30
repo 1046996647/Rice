@@ -10,7 +10,7 @@
 
 @class PriceAllModel, UserAddressModel, PayMentModel, FoodModel1;
 
-// status：0未支付1待抢单2派送中 3已送达 5取消订单  7已评价
+// status：0未支付1待抢单2派送中 3已送达 5取消订单  7已评价 8待回收订单
 @interface PayMentModel : NSObject
 
 
@@ -21,14 +21,20 @@
 @property(nonatomic,strong) NSString *coupon;
 @property(nonatomic,assign) BOOL isUseBalance;
 @property(nonatomic,assign) BOOL isUseCoupon;
+@property(nonatomic,assign) BOOL isActual;
 @property(nonatomic,strong) NSString *orderId;
 @property(nonatomic,strong) NSString *status;
 @property(nonatomic,strong) NSString *remarks;
 @property(nonatomic,strong) NSString *sumPrice;
 @property(nonatomic,strong) NSString *riderPhone;
 @property(nonatomic,strong) NSString *riderName;
+@property(nonatomic,strong) NSString *deposit;
+@property(nonatomic,strong) NSString *timeArea;
+@property(nonatomic,strong) NSString *arriveTime;
 
 @property(nonatomic,assign) NSInteger restSeconds;
+
+
 
 /// 倒计时源
 @property (nonatomic, copy) NSString *countDownSource;

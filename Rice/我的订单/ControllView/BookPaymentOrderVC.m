@@ -6,7 +6,7 @@
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#import "PaymentOrderVC.h"
+#import "BookPaymentOrderVC.h"
 #import "OrderHeaderView.h"
 #import "BookHeaderView.h"
 #import "OrderDetailOneCell.h"
@@ -22,7 +22,7 @@
 #import "WXApiObject.h"
 #import "UnpayOrderVC.h"
 
-@interface PaymentOrderVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface BookPaymentOrderVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,strong) NSMutableArray *selectedArr;
@@ -51,7 +51,7 @@
 
 @end
 
-@implementation PaymentOrderVC
+@implementation BookPaymentOrderVC
 
 - (void)dealloc
 {
@@ -63,13 +63,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    //    NSString *ipStr = [NSString getIPAddress:YES];
+    
+    
+    [self toPayPage:ToReservePayPage];
 
-//    NSString *ipStr = [NSString getIPAddress:YES];
-
-
-    [self toPayPage:ToPayPage];
-
-//    [self initView];
+    //    [self initView];
     
     //支付取消通知事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(payCancel) name:@"kPayCancelNotification" object:nil];
@@ -82,8 +82,7 @@
 
 - (void)initView
 {
-
-
+    
     _tableView = [UITableView tableViewWithframe:CGRectMake(0, 0, kScreenWidth, kScreenHeight-kTopHeight-45) style:UITableViewStyleGrouped];
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -91,12 +90,15 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     // 头视图
-    OrderHeaderView *headerView = [[OrderHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    BookHeaderView *headerView = [[BookHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+    headerView.time = self.time;
     headerView.payMentModel = self.payMentModel;
     headerView.userAddressModel = self.payMentModel.userAddress;
-    self.headerView = headerView;
-    _tableView.tableHeaderView = self.headerView;
-    
+    self.headerView1 = headerView;
+    _tableView.tableHeaderView = self.headerView1;
+    headerView.block = ^(NSString *time) {
+        self.time = time;
+    };
     
     // -------尾视图--------
     UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
@@ -121,20 +123,20 @@
     UIButton *yuEBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 3-1" selected:@"Group 4"];
     [yuEView addSubview:yuEBtn];
     [yuEBtn addTarget:self action:@selector(yuEAction) forControlEvents:UIControlEventTouchUpInside];
-
-
+    
+    
     if (self.payMentModel.balance.boolValue) {
         yuEView.height = yuEWhiteView.bottom;
         yuElab1.text = [NSString stringWithFormat:@"余额：￥%@",self.payMentModel.balance];
         [yuElab1 wl_changeColorWithTextColor:[UIColor colorWithHexString:@"#D0021B"] changeText:[NSString stringWithFormat:@"￥%@",self.payMentModel.balance]];
         
         yuEBtn.selected = self.payMentModel.isUseBalance;
-
+        
     }
     else {
         yuEView.hidden = YES;
-//        yuEView.bottom = 0;
-
+        //        yuEView.bottom = 0;
+        
     }
     
     // 礼金券
@@ -157,8 +159,8 @@
     UIButton *liJinBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-9-52, yuElab1.center.y-12, 52, 24) text:@"" font:SystemFont(17) textColor:@"#333333" backgroundColor:@"" normal:@"Group 3-1" selected:@"Group 4"];
     [liJinView addSubview:liJinBtn];
     [liJinBtn addTarget:self action:@selector(liJinAction) forControlEvents:UIControlEventTouchUpInside];
-
-
+    
+    
     if (self.payMentModel.coupon.boolValue) {
         liJinView.height = liJinWhiteView.bottom;
         liJinlab1.text = [NSString stringWithFormat:@"礼金券可抵扣：￥%@",self.payMentModel.coupon];
@@ -168,7 +170,7 @@
     }
     else {
         liJinView.hidden = YES;
-//        liJinView.bottom = 0;
+        //        liJinView.bottom = 0;
     }
     
     // 备注
@@ -200,7 +202,7 @@
     if (self.remarks) {
         
         self.marklab1.text = self.remarks;
-        CGSize size = [NSString textHeight:self.remarks font:self.marklab1.font width:self.marklab1.width];
+        CGSize size = [NSString textHeight:self.marklab1.text font:self.marklab1.font width:self.marklab1.width];
         if (size.height+20 > self.markWhiteView.height) {
             
             self.marklab1.height = size.height;
@@ -215,8 +217,9 @@
     }
     else {
         markView.height = markWhiteView.bottom;
-        
+
     }
+    
     
     
     // 支付方式
@@ -240,7 +243,7 @@
     // 默认微信支付
     self.lastBtn = wechatBtn;
     self.payType = @"wxpay";
-
+    
     
     UIButton *wechatBtn1 = [UIButton buttonWithframe:CGRectMake(21, 0, 200, 52) text:@"微信支付" font:SystemFont(14) textColor:@"#333333" backgroundColor:@"#ffffff" normal:@"24" selected:@""];
     [wechatBtn addSubview:wechatBtn1];
@@ -259,7 +262,7 @@
     aliBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
     [aliBtn addTarget:self action:@selector(payWayAction:) forControlEvents:UIControlEventTouchUpInside];
     aliBtn.tag = 1;
-
+    
     
     UIButton *aliBtn1 = [UIButton buttonWithframe:CGRectMake(21, 0, 200, 52) text:@"支付宝支付" font:SystemFont(14) textColor:@"#333333" backgroundColor:@"#ffffff" normal:@"25" selected:@""];
     [aliBtn addSubview:aliBtn1];
@@ -272,7 +275,7 @@
     footerView.height = payView.bottom;
     _tableView.tableFooterView = footerView;
     
-
+    
     // !!!!确认支付
     UIButton *payBtn = [UIButton buttonWithframe:CGRectMake(0, _tableView.bottom, kScreenWidth, 45) text:[NSString stringWithFormat:@"￥%@     确认支付",self.payMentModel.priceAll.payMoney] font:SystemFont(17) textColor:@"#333333" backgroundColor:@"#F8E249" normal:nil selected:nil];
     [self.view addSubview:payBtn];
@@ -324,11 +327,16 @@
 
 - (void)payAction
 {
-    if (!self.headerView.userAddressModel) {
+    if (!self.headerView1.userAddressModel) {
         [self.view makeToast:@"请添加地址"];
         return;
     }
-
+    
+    if (!self.time) {
+        [self.view makeToast:@"请选择时间"];
+        return;
+    }
+    
     
     [self createOrder];
 }
@@ -343,7 +351,7 @@
     }
     else {
         self.payType = @"alipay";
-
+        
     }
     self.lastBtn = btn;
 }
@@ -361,7 +369,7 @@
         
         NSMutableArray *mainArr = [NSMutableArray array];//主食
         NSMutableArray *arrM = [NSMutableArray array];// 附加
-
+        
         
         NSDictionary *dic = responseObject[@"data"];
         PayMentModel *payMentModel = [PayMentModel yy_modelWithJSON:dic];
@@ -371,17 +379,17 @@
             
             if (model.isMain.boolValue) {
                 [mainArr addObject:model];
-
+                
             }
             else {
                 [arrM addObject:model];
-
+                
             }
             [self.selectedArr addObject:model];
         }
         [self.dataArr addObject:mainArr];
         [self.dataArr addObject:arrM];
-
+        
         
         [self initView];
         
@@ -400,15 +408,15 @@
         
     }
     
-//    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    //    NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     
     NSString *jsonStr = [NSString JSONString:arrM];
     [self.param setValue:jsonStr forKey:@"listFoods"];
     
     
-//    self.param = paramDic;
+    //    self.param = paramDic;
     
-    [self toPayPage:PlaceOrder];
+    [self toPayPage:PlaceReserveOrder];
     
     NSLog(@"paramDic:%@",self.param);
 }
@@ -422,7 +430,7 @@
             NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.amount,@"amount", nil];
             [arrM addObject:paramDic];
         }
-
+        
     }
     
     NSString *jsonStr = [NSString JSONString:arrM];
@@ -431,6 +439,9 @@
     [self.param setValue:self.payMentModel.userAddress.addressId forKey:@"addressId"];
     [self.param setValue:self.payType forKey:@"payType"];
     [self.param setValue:self.payMentModel.priceAll.payMoney forKey:@"payMoney"];
+    [self.param setValue:self.payMentModel.deposit forKey:@"deposit"];
+    [self.param setValue:self.time forKey:@"timeArea"];
+
     
     if (self.payMentModel.balance.integerValue > 0) {
         [self.param setValue:@"1" forKey:@"isUseBalance"];
@@ -448,26 +459,26 @@
         [self.param setValue:@"0" forKey:@"isUseCoupon"];
         
     }
-
+    
     if (![self.marklab1.text isEqualToString:@"口味、偏好等要求"]) {
         [self.param setValue:self.marklab1.text forKey:@"remarks"];
-
-    }
-    
-//    self.param = paramDic;
-    
-//    NSLog(@"paramDic:%@",paramDic);
-    
-    [AFNetworking_RequestData requestMethodPOSTUrl:CreateOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
         
+    }
 
+    //    self.param = paramDic;
+    
+//    NSLog(@"paramDic:%@",self.param);
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:CreateReserveOrder dic:self.param showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        
         self.orderId = responseObject[@"data"][@"orderId"];
         
         [self payOrder];
         
         //退出登录或下未支付订单通知事件
         [[NSNotificationCenter defaultCenter] postNotificationName:@"kExitOrOrderNotification" object:nil];
-
+        
         
     } failure:^(NSError *error) {
         
@@ -479,10 +490,10 @@
 {
     
     NSMutableDictionary *paramDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-
+    
     [paramDic setValue:self.orderId forKey:@"orderId"];
-
-//    self.param = paramDic;
+    
+    //    self.param = paramDic;
     if ([self.payType isEqualToString:@"wxpay"]) {
         [paramDic setValue:self.payType forKey:@"payType"];
         [paramDic setValue:[NSString getIPAddress:YES] forKey:@"spbill_create_ip"];
@@ -494,16 +505,16 @@
     }
     else {
         [paramDic setValue:@"" forKey:@"payType"];
-
+        
     }
-
+    
     NSLog(@"paramDic:%@",paramDic);
-
-    [AFNetworking_RequestData requestMethodPOSTUrl:PayOrder2 dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
-
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:PayReserveOrder dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
         PayModel *model = [PayModel yy_modelWithJSON:responseObject[@"data"]];
         if ([model.payType isEqualToString:@"wxpay"]) {
-
+            
             //需要创建这个支付对象
             PayReq *req = [[PayReq alloc] init];
             //应用id
@@ -532,29 +543,29 @@
             
             //发送请求到微信，等待微信返回onResp
             [WXApi sendReq:req];
-
+            
             
         }
         else if ([model.payType isEqualToString:@"alipay"]) {
             
             [[AlipaySDK defaultService] payOrder:model.payStr fromScheme:@"Rice" callback:^(NSDictionary *resultDic) {
-//                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
-//                    //9000为支付成功
-//
-//                    NSLog(@"支付成功");
-//                    [self.navigationController popViewControllerAnimated:YES];
-//
-//                }
+                //                if ([[resultDic objectForKey:@"resultStatus"] isEqualToString:@"9000"]) {
+                //                    //9000为支付成功
+                //
+                //                    NSLog(@"支付成功");
+                //                    [self.navigationController popViewControllerAnimated:YES];
+                //
+                //                }
             }];
         }
         else {
             
             [self.navigationController popToRootViewControllerAnimated:YES];
-
+            
         }
-
+        
     } failure:^(NSError *error) {
-
+        
     }];
     
 }
@@ -562,17 +573,17 @@
 - (void)payCancel
 {
     UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
-    vc.title = @"支付订单";
+    vc.title = @"预定支付订单";
     vc.orderId = self.orderId;
     vc.mark = 1;
     [self.navigationController pushViewController:vc animated:YES];
-
+    
 }
 
 - (void)paySuccess
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
-
+    
 }
 
 - (void)markAction
@@ -605,14 +616,14 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.dataArr count];
-//    return 2;
+    //    return 2;
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.dataArr[section] count];
-//    return 2;
+    //    return 2;
     
     
 }
@@ -675,7 +686,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     FoodModel1 *model = self.dataArr[indexPath.section][indexPath.row];
-
+    
     if (indexPath.section == 0) {
         
         OrderDetailOneCell *cell = [tableView dequeueReusableCellWithIdentifier:@"oneCell"];
@@ -693,9 +704,9 @@
         if (cell == nil) {
             
             cell = [[OrderDetailTwoCell1 alloc] initWithStyle:UITableViewCellStyleDefault
-                                             reuseIdentifier:@"twoCell"];
+                                              reuseIdentifier:@"twoCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+            
             cell.block = ^(FoodModel1 *model) {
                 
                 if (self.payMentModel.isUseBalance) {
@@ -742,3 +753,4 @@
 
 
 @end
+

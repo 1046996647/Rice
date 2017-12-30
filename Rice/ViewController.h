@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NavigationController.h"
 
 @interface ViewController : UIViewController
+
+@property (nonatomic,strong) NavigationController *mainNav;
+
 
 @end

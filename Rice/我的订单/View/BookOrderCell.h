@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PayMentModel.h"
+
+typedef void(^BookOrderCellBlock)(PayMentModel *model);
 
 @interface BookOrderCell : UITableViewCell
 
@@ -17,7 +20,13 @@
 @property(nonatomic,strong) UILabel *stateLab;
 @property(nonatomic,strong) UILabel *moneyLab;
 @property(nonatomic,strong) UILabel *timeLab;
+@property(nonatomic,strong) UILabel *secondLab;
 @property(nonatomic,strong) UIButton *confirmBtn;
 @property(nonatomic,strong) UIButton *evaluateBtn;
+@property(nonatomic,strong) UIButton *payBtn;
+
+@property(nonatomic,strong) PayMentModel *model;
+
+@property(nonatomic,copy) BookOrderCellBlock block;
 
 @end

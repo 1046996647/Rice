@@ -125,7 +125,10 @@
 
 - (void)allAction
 {
-    _moneyTF.text = self.yuE;
+    if (self.yuE.floatValue > 0) {
+        _moneyTF.text = self.yuE;
+
+    }
 }
 
 - (void)okAction

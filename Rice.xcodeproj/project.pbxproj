@@ -43,6 +43,7 @@
 		F75232F01FBC15BD002D4AF9 /* RiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232EF1FBC15BD002D4AF9 /* RiceTests.m */; };
 		F75232FB1FBC15BD002D4AF9 /* RiceUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F75232FA1FBC15BD002D4AF9 /* RiceUITests.m */; };
 		F7577F3B1FE11696007DF7F0 /* PhoneBindingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7577F3A1FE11696007DF7F0 /* PhoneBindingVC.m */; };
+		F75814D01FF48C3900AB8703 /* BookPaymentOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75814CF1FF48C3900AB8703 /* BookPaymentOrderVC.m */; };
 		F7588A761FE3B1E300F4AAC2 /* error.png in Resources */ = {isa = PBXBuildFile; fileRef = F7588A6E1FE3B1E300F4AAC2 /* error.png */; };
 		F7588A771FE3B1E300F4AAC2 /* success.png in Resources */ = {isa = PBXBuildFile; fileRef = F7588A6F1FE3B1E300F4AAC2 /* success.png */; };
 		F7588A781FE3B1E300F4AAC2 /* UIColor+Hexadecimal.m in Sources */ = {isa = PBXBuildFile; fileRef = F7588A711FE3B1E300F4AAC2 /* UIColor+Hexadecimal.m */; };
@@ -123,7 +124,6 @@
 		F7680A6D1FCD394300EBC932 /* OrderHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6C1FCD394300EBC932 /* OrderHeaderView.m */; };
 		F7680A701FCD3C9400EBC932 /* OrderDetailOneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */; };
 		F7680A731FCD401E00EBC932 /* OrderDetailTwoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */; };
-		F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */; };
 		F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A781FCD505300EBC932 /* BookHeaderView.m */; };
 		F7680A7C1FCD568600EBC932 /* EvaluateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7B1FCD568600EBC932 /* EvaluateVC.m */; };
 		F7680A811FCD5F1A00EBC932 /* StartsView.m in Sources */ = {isa = PBXBuildFile; fileRef = F7680A7F1FCD5F1A00EBC932 /* StartsView.m */; };
@@ -237,6 +237,8 @@
 		F75232FC1FBC15BD002D4AF9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7577F391FE11696007DF7F0 /* PhoneBindingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhoneBindingVC.h; sourceTree = "<group>"; };
 		F7577F3A1FE11696007DF7F0 /* PhoneBindingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhoneBindingVC.m; sourceTree = "<group>"; };
+		F75814CE1FF48C3900AB8703 /* BookPaymentOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookPaymentOrderVC.h; sourceTree = "<group>"; };
+		F75814CF1FF48C3900AB8703 /* BookPaymentOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookPaymentOrderVC.m; sourceTree = "<group>"; };
 		F7588A6E1FE3B1E300F4AAC2 /* error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = error.png; sourceTree = "<group>"; };
 		F7588A6F1FE3B1E300F4AAC2 /* success.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = success.png; sourceTree = "<group>"; };
 		F7588A701FE3B1E300F4AAC2 /* UIColor+Hexadecimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hexadecimal.h"; sourceTree = "<group>"; };
@@ -399,8 +401,6 @@
 		F7680A6F1FCD3C9400EBC932 /* OrderDetailOneCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailOneCell.m; sourceTree = "<group>"; };
 		F7680A711FCD401E00EBC932 /* OrderDetailTwoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTwoCell.h; sourceTree = "<group>"; };
 		F7680A721FCD401E00EBC932 /* OrderDetailTwoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailTwoCell.m; sourceTree = "<group>"; };
-		F7680A741FCD4A8000EBC932 /* BookOrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookOrderDetailVC.h; sourceTree = "<group>"; };
-		F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderDetailVC.m; sourceTree = "<group>"; };
 		F7680A771FCD505300EBC932 /* BookHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookHeaderView.h; sourceTree = "<group>"; };
 		F7680A781FCD505300EBC932 /* BookHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookHeaderView.m; sourceTree = "<group>"; };
 		F7680A7A1FCD568600EBC932 /* EvaluateVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EvaluateVC.h; sourceTree = "<group>"; };
@@ -705,12 +705,12 @@
 				F75BA4A61FBEBB78009A55DF /* BookOrderVC.m */,
 				F7680A681FCD369B00EBC932 /* HistoryOrderDetailVC.h */,
 				F7680A691FCD369B00EBC932 /* HistoryOrderDetailVC.m */,
-				F7680A741FCD4A8000EBC932 /* BookOrderDetailVC.h */,
-				F7680A751FCD4A8000EBC932 /* BookOrderDetailVC.m */,
 				F7680A7A1FCD568600EBC932 /* EvaluateVC.h */,
 				F7680A7B1FCD568600EBC932 /* EvaluateVC.m */,
 				F744300B1FCE7D3600B92863 /* PaymentOrderVC.h */,
 				F744300C1FCE7D3600B92863 /* PaymentOrderVC.m */,
+				F75814CE1FF48C3900AB8703 /* BookPaymentOrderVC.h */,
+				F75814CF1FF48C3900AB8703 /* BookPaymentOrderVC.m */,
 				F76204271FDF72C100C81990 /* UnpayOrderVC.h */,
 				F76204281FDF72C100C81990 /* UnpayOrderVC.m */,
 				F74430111FCE98A800B92863 /* MarkVC.h */,
@@ -1498,7 +1498,6 @@
 				F74FE9921FD8DBBE004C3199 /* PayMentModel.m in Sources */,
 				F73132881FEA4629001C4F61 /* YBPopupMenu.m in Sources */,
 				F767CA9B1FBD25B700C7518C /* BasePresentViewController.m in Sources */,
-				F7680A761FCD4A8000EBC932 /* BookOrderDetailVC.m in Sources */,
 				F771A4201FF1ECE6008EF6AC /* BalancePaymentDetailCell.m in Sources */,
 				F762042D1FDF7AC600C81990 /* LZQTimerLabel.m in Sources */,
 				F7E1B6601FC6973B0063EAA6 /* TYCyclePagerTransformLayout.m in Sources */,
@@ -1560,6 +1559,7 @@
 				F767CAC11FBD2ECB00C7518C /* LeftViewController.m in Sources */,
 				F767CA921FBD25A300C7518C /* RegisterVC.m in Sources */,
 				F7680A641FCD2C1C00EBC932 /* AddAddressCell.m in Sources */,
+				F75814D01FF48C3900AB8703 /* BookPaymentOrderVC.m in Sources */,
 				F767CA331FBD244900C7518C /* UITableView+EmptyData.m in Sources */,
 				F77CDB071FD1449900B0578B /* FoodModel.m in Sources */,
 			);

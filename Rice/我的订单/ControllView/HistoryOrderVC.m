@@ -9,7 +9,6 @@
 #import "HistoryOrderVC.h"
 #import "HistoryOrderCell.h"
 #import "HistoryOrderDetailVC.h"
-#import "UnpayOrderVC.h"
 
 @interface HistoryOrderVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -167,6 +166,10 @@
                                    reuseIdentifier:cell_id];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor clearColor];
+        cell.block = ^{
+            
+            [_tableView reloadData];
+        };
 
     }
     if (self.dataArr.count > 0) {
@@ -183,12 +186,21 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    PayMentModel *model = self.dataArr[indexPath.row];
+    __block PayMentModel *model = self.dataArr[indexPath.row];
     
-    UnpayOrderVC *vc = [[UnpayOrderVC alloc] init];
+    HistoryOrderDetailVC *vc = [[HistoryOrderDetailVC alloc] init];
     vc.title = @"历史订单详情";
-    vc.orderId = model.orderId;
+    vc.payMentModel1 = model;
     [self.navigationController pushViewController:vc animated:YES];
+//    vc.block = ^{
+//
+//        if (model.status.integerValue == 3) {
+//            model.status = @"7";
+//        }
+//        if (model.status.integerValue == 8) {
+//            model.status = @"9";
+//        }
+//    };
 }
 
 @end

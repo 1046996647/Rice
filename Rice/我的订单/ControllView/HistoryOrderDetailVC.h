@@ -7,7 +7,16 @@
 //
 
 #import "BaseViewController.h"
+#import "PayMentModel.h"
+
+typedef void(^HistoryOrderDetailBlock)(void);
+
 
 @interface HistoryOrderDetailVC : BaseViewController
+
+//@property(nonatomic,strong) NSString *orderId;
+@property(nonatomic,copy) HistoryOrderDetailBlock block;
+@property(nonatomic,strong) PayMentModel *payMentModel1;
+
 
 @end

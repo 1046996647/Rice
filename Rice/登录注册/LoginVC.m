@@ -395,7 +395,14 @@
             // 用户信息通知
             [[NSNotificationCenter defaultCenter] postNotificationName:@"kRefreshNotification" object:nil];
             
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            if (self.level == 1) {
+                [self.navigationController popViewControllerAnimated:YES];
+
+            }
+            else {
+                [self.navigationController popToRootViewControllerAnimated:YES];
+
+            }
         }
         else {
             
