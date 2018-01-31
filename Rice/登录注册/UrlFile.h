@@ -11,9 +11,10 @@
 
 // 服务器(推送要用服务器ip)
 //#define BaseUrl  @"http://106.14.218.31:61"
+#define BaseUrl  @"http://39.104.59.101:8061"
 
 // 调试
-#define BaseUrl  @"http://192.168.2.21:61"
+//#define BaseUrl  @"http://192.168.2.21:61"
 
 
 // 注册
@@ -124,6 +125,9 @@
 // 4.4    获取个人余额和优惠券
 #define GetWallet  [NSString stringWithFormat:@"%@/api/user/GetWallet",BaseUrl]
 
+// 5.10    兑换优惠券
+#define ConvertCoupon  [NSString stringWithFormat:@"%@/api/user/ConvertCoupon",BaseUrl]
+
 // 用户选择地址
 #define ChooseAddress  [NSString stringWithFormat:@"%@/api/UserAddress/ChooseAddress",BaseUrl]
 
@@ -155,6 +159,23 @@
 // 3.7    获取单个订单信息
 #define GetOrderByOrderId  [NSString stringWithFormat:@"%@/api/Order/GetOrderByOrderId",BaseUrl]
 
+// 3.7    获取消息
+#define GetAricleList  [NSString stringWithFormat:@"%@/api/HomePage/GetAricleList",BaseUrl]
 
+// 5.11    判断用户是否点过文章
+#define IsUserClicked  [NSString stringWithFormat:@"%@/api/user/IsUserClicked",BaseUrl]
+
+// 5.12    记录用户进过目前的文章列表
+#define SetUserClicked  [NSString stringWithFormat:@"%@/api/user/SetUserClicked",BaseUrl]
+
+
+// 2.11    获取公告
+#define GetNotice  [NSString stringWithFormat:@"%@/api/HomePage/GetNotice",BaseUrl]
+
+// 5.8    上传打开app的地点
+#define UploadUserLocation  [NSString stringWithFormat:@"%@/api/user/UploadUserLocation",BaseUrl]
+
+// 5.9    上传关闭app的时间
+#define UploadUserClose  [NSString stringWithFormat:@"%@/api/user/UploadUserClose",BaseUrl]
 
 #endif /* UrlFile_h */

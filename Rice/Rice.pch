@@ -6,8 +6,8 @@
 //  Copyright © 2017年 ZhangWeiLiang. All rights reserved.
 //
 
-#ifndef HealthManagement_pch
-#define HealthManagement_pch
+#ifndef Rice_pch
+#define Rice_pch
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
@@ -36,4 +36,4 @@
 #import "PersonModel.h"
 
 
-#endif /* HealthManagement_pch */
+#endif /* Rice_pch */

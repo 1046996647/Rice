@@ -48,17 +48,17 @@
         };
         
         
-        _foodTV = [[UITextView alloc] initWithFrame:CGRectMake(19, _foodEva.bottom+16, kScreenWidth-38, 152*scaleWidth)];
-        _foodTV.layer.cornerRadius = 10;
-        _foodTV.layer.masksToBounds = YES;
-        _foodTV.font = [UIFont systemFontOfSize:13];
-        _foodTV.backgroundColor = colorWithHexStr(@"#FEF9DA");
-        [self.contentView addSubview:_foodTV];
-        _foodTV.delegate = self;
-        _foodTV.tag = 0;
-        
-        _foodRemind = [UILabel labelWithframe:CGRectMake(16, 8, 200, 16) text:@"点击输入文字评价" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#DDBA7F"];
-        [_foodTV addSubview:_foodRemind];
+//        _foodTV = [[UITextView alloc] initWithFrame:CGRectMake(19, _foodEva.bottom+16, kScreenWidth-38, 152*scaleWidth)];
+//        _foodTV.layer.cornerRadius = 10;
+//        _foodTV.layer.masksToBounds = YES;
+//        _foodTV.font = [UIFont systemFontOfSize:13];
+//        _foodTV.backgroundColor = colorWithHexStr(@"#FEF9DA");
+//        [self.contentView addSubview:_foodTV];
+//        _foodTV.delegate = self;
+//        _foodTV.tag = 0;
+//
+//        _foodRemind = [UILabel labelWithframe:CGRectMake(16, 8, 200, 16) text:@"点击输入文字评价" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentLeft textColor:@"#DDBA7F"];
+//        [_foodTV addSubview:_foodRemind];
         
     }
     
@@ -75,23 +75,23 @@
     _foodTV.text = model.foodComment;
 }
 
-/**
- 内容发生改变编辑 自定义文本框placeholder
- 有时候我们要控件自适应输入的文本的内容的高度，只要在textViewDidChange的代理方法中加入调整控件大小的代理即可
- @param textView textView
- */
-- (void)textViewDidChange:(UITextView *)textView
-{
-    _model.foodComment = textView.text;
-    if (textView.text.length < 1) {
-        self.foodRemind.hidden = NO;
-    }
-    else {
-        self.foodRemind.hidden = YES;
-        
-    }
-    
-}
+///**
+// 内容发生改变编辑 自定义文本框placeholder
+// 有时候我们要控件自适应输入的文本的内容的高度，只要在textViewDidChange的代理方法中加入调整控件大小的代理即可
+// @param textView textView
+// */
+//- (void)textViewDidChange:(UITextView *)textView
+//{
+//    _model.foodComment = textView.text;
+//    if (textView.text.length < 1) {
+//        self.foodRemind.hidden = NO;
+//    }
+//    else {
+//        self.foodRemind.hidden = YES;
+//        
+//    }
+//    
+//}
 
 
 @end

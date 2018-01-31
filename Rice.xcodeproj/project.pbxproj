@@ -63,6 +63,10 @@
 		F75BA4B71FBED0D4009A55DF /* SendingOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B61FBED0D4009A55DF /* SendingOrderCell.m */; };
 		F75BA4BA1FBED1F6009A55DF /* BookOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */; };
 		F75BA4BD1FBED797009A55DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F75BA4BC1FBED796009A55DF /* ViewController.m */; };
+		F75CE42C20048AA90006E73C /* SystemMassageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75CE42B20048AA80006E73C /* SystemMassageVC.m */; };
+		F75CE42F20048AC90006E73C /* SystemMassageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75CE42D20048AC80006E73C /* SystemMassageCell.m */; };
+		F75CE43220048AE70006E73C /* SystemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F75CE43120048AE70006E73C /* SystemModel.m */; };
+		F75CE43520048B010006E73C /* SystemMsgDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F75CE43320048B000006E73C /* SystemMsgDetailVC.m */; };
 		F75D43BA1FE24B2A00FD40A8 /* BookCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F75D43B91FE24B2A00FD40A8 /* BookCell.m */; };
 		F75D43BE1FE26FDC00FD40A8 /* libUMessage_Sdk_1.5.0a.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F75D43BC1FE26FDC00FD40A8 /* libUMessage_Sdk_1.5.0a.a */; };
 		F75D43C01FE2700900FD40A8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F75D43BF1FE26FF700FD40A8 /* UserNotifications.framework */; };
@@ -132,6 +136,15 @@
 		F771A4231FF1F5B3008EF6AC /* WithdrawDepositVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4221FF1F5B3008EF6AC /* WithdrawDepositVC.m */; };
 		F771A4261FF21AD5008EF6AC /* RechargeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4251FF21AD5008EF6AC /* RechargeVC.m */; };
 		F771A4291FF22834008EF6AC /* PayRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F771A4281FF22834008EF6AC /* PayRecordModel.m */; };
+		F77C41301FFCA28C0061179C /* ScanVC.m in Sources */ = {isa = PBXBuildFile; fileRef = F77C412F1FFCA28C0061179C /* ScanVC.m */; };
+		F77C413A1FFCA7A40061179C /* lightNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41321FFCA7A40061179C /* lightNormal.png */; };
+		F77C413B1FFCA7A40061179C /* lightSelect.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41331FFCA7A40061179C /* lightSelect.png */; };
+		F77C413C1FFCA7A40061179C /* noticeMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = F77C41341FFCA7A40061179C /* noticeMusic.wav */; };
+		F77C41451FFCBE500061179C /* scanLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41411FFCBE500061179C /* scanLine@3x.png */; };
+		F77C41461FFCBE500061179C /* scanscanBg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41421FFCBE500061179C /* scanscanBg@3x.png */; };
+		F77C41471FFCBE500061179C /* scanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41431FFCBE500061179C /* scanLine@2x.png */; };
+		F77C41481FFCBE500061179C /* scanscanBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F77C41441FFCBE500061179C /* scanscanBg@2x.png */; };
+		F77C414E1FFCD6F40061179C /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F77C414D1FFCD6F40061179C /* QRCodeReaderView.m */; };
 		F77CDADF1FD10B5300B0578B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */; };
 		F77CDAE11FD10B5D00B0578B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE01FD10B5D00B0578B /* libz.tbd */; };
 		F77CDAEF1FD1195100B0578B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F77CDAE41FD10B8800B0578B /* CoreLocation.framework */; };
@@ -275,6 +288,14 @@
 		F75BA4B91FBED1F6009A55DF /* BookOrderCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookOrderCell.m; sourceTree = "<group>"; };
 		F75BA4BB1FBED796009A55DF /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F75BA4BC1FBED796009A55DF /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F75CE42A20048AA80006E73C /* SystemMassageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMassageVC.h; sourceTree = "<group>"; };
+		F75CE42B20048AA80006E73C /* SystemMassageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMassageVC.m; sourceTree = "<group>"; };
+		F75CE42D20048AC80006E73C /* SystemMassageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMassageCell.m; sourceTree = "<group>"; };
+		F75CE42E20048AC80006E73C /* SystemMassageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMassageCell.h; sourceTree = "<group>"; };
+		F75CE43020048AE60006E73C /* SystemModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemModel.h; sourceTree = "<group>"; };
+		F75CE43120048AE70006E73C /* SystemModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemModel.m; sourceTree = "<group>"; };
+		F75CE43320048B000006E73C /* SystemMsgDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMsgDetailVC.m; sourceTree = "<group>"; };
+		F75CE43420048B010006E73C /* SystemMsgDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMsgDetailVC.h; sourceTree = "<group>"; };
 		F75D43B81FE24B2A00FD40A8 /* BookCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BookCell.h; sourceTree = "<group>"; };
 		F75D43B91FE24B2A00FD40A8 /* BookCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BookCell.m; sourceTree = "<group>"; };
 		F75D43BC1FE26FDC00FD40A8 /* libUMessage_Sdk_1.5.0a.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.5.0a.a; sourceTree = "<group>"; };
@@ -417,6 +438,17 @@
 		F771A4251FF21AD5008EF6AC /* RechargeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeVC.m; sourceTree = "<group>"; };
 		F771A4271FF22834008EF6AC /* PayRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayRecordModel.h; sourceTree = "<group>"; };
 		F771A4281FF22834008EF6AC /* PayRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayRecordModel.m; sourceTree = "<group>"; };
+		F77C412E1FFCA28C0061179C /* ScanVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanVC.h; sourceTree = "<group>"; };
+		F77C412F1FFCA28C0061179C /* ScanVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanVC.m; sourceTree = "<group>"; };
+		F77C41321FFCA7A40061179C /* lightNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightNormal.png; sourceTree = "<group>"; };
+		F77C41331FFCA7A40061179C /* lightSelect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightSelect.png; sourceTree = "<group>"; };
+		F77C41341FFCA7A40061179C /* noticeMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = noticeMusic.wav; sourceTree = "<group>"; };
+		F77C41411FFCBE500061179C /* scanLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@3x.png"; sourceTree = "<group>"; };
+		F77C41421FFCBE500061179C /* scanscanBg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanscanBg@3x.png"; sourceTree = "<group>"; };
+		F77C41431FFCBE500061179C /* scanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@2x.png"; sourceTree = "<group>"; };
+		F77C41441FFCBE500061179C /* scanscanBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanscanBg@2x.png"; sourceTree = "<group>"; };
+		F77C414C1FFCD6F40061179C /* QRCodeReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeReaderView.h; sourceTree = "<group>"; };
+		F77C414D1FFCD6F40061179C /* QRCodeReaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeReaderView.m; sourceTree = "<group>"; };
 		F77CDADE1FD10B5300B0578B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F77CDAE01FD10B5D00B0578B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		F77CDAE21FD10B6600B0578B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -806,6 +838,8 @@
 				F771A4221FF1F5B3008EF6AC /* WithdrawDepositVC.m */,
 				F771A4241FF21AD5008EF6AC /* RechargeVC.h */,
 				F771A4251FF21AD5008EF6AC /* RechargeVC.m */,
+				F77C412E1FFCA28C0061179C /* ScanVC.h */,
+				F77C412F1FFCA28C0061179C /* ScanVC.m */,
 			);
 			path = ControllView;
 			sourceTree = "<group>";
@@ -1052,6 +1086,7 @@
 		F767CA891FBD24ED00C7518C /* 我的钱包 */ = {
 			isa = PBXGroup;
 			children = (
+				F77C41311FFCA7A40061179C /* 二维码扫描 */,
 				F75BA49B1FBEBA27009A55DF /* ControllView */,
 				F75BA4991FBEBA27009A55DF /* Model */,
 				F75BA49A1FBEBA27009A55DF /* View */,
@@ -1183,6 +1218,22 @@
 			path = StringPickerView;
 			sourceTree = "<group>";
 		};
+		F77C41311FFCA7A40061179C /* 二维码扫描 */ = {
+			isa = PBXGroup;
+			children = (
+				F77C414C1FFCD6F40061179C /* QRCodeReaderView.h */,
+				F77C414D1FFCD6F40061179C /* QRCodeReaderView.m */,
+				F77C41321FFCA7A40061179C /* lightNormal.png */,
+				F77C41331FFCA7A40061179C /* lightSelect.png */,
+				F77C41341FFCA7A40061179C /* noticeMusic.wav */,
+				F77C41431FFCBE500061179C /* scanLine@2x.png */,
+				F77C41411FFCBE500061179C /* scanLine@3x.png */,
+				F77C41441FFCBE500061179C /* scanscanBg@2x.png */,
+				F77C41421FFCBE500061179C /* scanscanBg@3x.png */,
+			);
+			path = "二维码扫描";
+			sourceTree = "<group>";
+		};
 		F77CDAFB1FD135EF00B0578B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,6 +1256,12 @@
 				F74430091FCE784F00B92863 /* BookFoodVC.m */,
 				F767CAC01FBD2ECA00C7518C /* LeftViewController.h */,
 				F767CABF1FBD2ECA00C7518C /* LeftViewController.m */,
+				F75CE42A20048AA80006E73C /* SystemMassageVC.h */,
+				F75CE42B20048AA80006E73C /* SystemMassageVC.m */,
+				F75CE43420048B010006E73C /* SystemMsgDetailVC.h */,
+				F75CE43320048B000006E73C /* SystemMsgDetailVC.m */,
+				F75CE42E20048AC80006E73C /* SystemMassageCell.h */,
+				F75CE42D20048AC80006E73C /* SystemMassageCell.m */,
 				F75D43B81FE24B2A00FD40A8 /* BookCell.h */,
 				F75D43B91FE24B2A00FD40A8 /* BookCell.m */,
 				F75BA47D1FBE7B3A009A55DF /* LeftViewCell.h */,
@@ -1221,6 +1278,8 @@
 				F77CDB091FD14A5800B0578B /* OrderModel.m */,
 				F789C03B1FDE379C00EECEBC /* RiderModel.h */,
 				F789C03C1FDE379C00EECEBC /* RiderModel.m */,
+				F75CE43020048AE60006E73C /* SystemModel.h */,
+				F75CE43120048AE70006E73C /* SystemModel.m */,
 			);
 			path = "首页";
 			sourceTree = "<group>";
@@ -1359,15 +1418,22 @@
 				F77CDB001FD1360100B0578B /* tiananmen.png in Resources */,
 				F75232E31FBC15BD002D4AF9 /* LaunchScreen.storyboard in Resources */,
 				F7163B491FE7B8DD00095A5B /* AlipaySDK.bundle in Resources */,
+				F77C41461FFCBE500061179C /* scanscanBg@3x.png in Resources */,
 				F75232E01FBC15BD002D4AF9 /* Assets.xcassets in Resources */,
+				F77C41471FFCBE500061179C /* scanLine@2x.png in Resources */,
 				F789C0441FDE4C7100EECEBC /* 39@2x.png in Resources */,
 				F7588A761FE3B1E300F4AAC2 /* error.png in Resources */,
+				F77C413A1FFCA7A40061179C /* lightNormal.png in Resources */,
 				F77CDB011FD1360100B0578B /* tencent.png in Resources */,
 				F7588A771FE3B1E300F4AAC2 /* success.png in Resources */,
 				F75232DE1FBC15BD002D4AF9 /* Main.storyboard in Resources */,
 				F77CDB031FD1360100B0578B /* QMapKit.bundle in Resources */,
 				F7680A4E1FCD07A300EBC932 /* BRCity.plist in Resources */,
+				F77C41451FFCBE500061179C /* scanLine@3x.png in Resources */,
 				F77CDB021FD1360100B0578B /* redflag.png in Resources */,
+				F77C41481FFCBE500061179C /* scanscanBg@2x.png in Resources */,
+				F77C413C1FFCA7A40061179C /* noticeMusic.wav in Resources */,
+				F77C413B1FFCA7A40061179C /* lightSelect.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1488,6 +1554,7 @@
 				F749A7921FD64FF70091F3C9 /* NearbyAddressCell.m in Sources */,
 				F7163B421FE75F5C00095A5B /* EvaluteView.m in Sources */,
 				F767CA321FBD244900C7518C /* RegexTool.m in Sources */,
+				F75CE42C20048AA90006E73C /* SystemMassageVC.m in Sources */,
 				F767CABE1FBD2EB700C7518C /* UIView+Extensions.m in Sources */,
 				F7680A791FCD505300EBC932 /* BookHeaderView.m in Sources */,
 				F767CA381FBD244900C7518C /* UIViewController+UIViewControllerExt.m in Sources */,
@@ -1506,6 +1573,7 @@
 				F7680A501FCD07A300EBC932 /* BRDatePickerView.m in Sources */,
 				F767CA7B1FBD249C00C7518C /* MJCTabItem.m in Sources */,
 				F7588A781FE3B1E300F4AAC2 /* UIColor+Hexadecimal.m in Sources */,
+				F75CE43520048B010006E73C /* SystemMsgDetailVC.m in Sources */,
 				F7680A4C1FCD07A300EBC932 /* BRAddressModel.m in Sources */,
 				F789C03D1FDE379C00EECEBC /* RiderModel.m in Sources */,
 				F74430071FCE5A0500B92863 /* BookView.m in Sources */,
@@ -1523,7 +1591,9 @@
 				F7680A6A1FCD369B00EBC932 /* HistoryOrderDetailVC.m in Sources */,
 				F7E1B6651FC6978A0063EAA6 /* TYCyclePagerViewCell.m in Sources */,
 				F75BA47F1FBE7B3A009A55DF /* LeftViewCell.m in Sources */,
+				F75CE42F20048AC90006E73C /* SystemMassageCell.m in Sources */,
 				F771A4291FF22834008EF6AC /* PayRecordModel.m in Sources */,
+				F77C414E1FFCD6F40061179C /* QRCodeReaderView.m in Sources */,
 				F75BA48F1FBEB9BB009A55DF /* SettingVC.m in Sources */,
 				F744300A1FCE784F00B92863 /* BookFoodVC.m in Sources */,
 				F76019DB1FF08ED50050EEA2 /* OYCountDownManager.m in Sources */,
@@ -1532,6 +1602,7 @@
 				F7577F3B1FE11696007DF7F0 /* PhoneBindingVC.m in Sources */,
 				F7680A551FCD09A400EBC932 /* CountBindingVC.m in Sources */,
 				F767CABD1FBD2EB700C7518C /* UIBarButtonItem+Extensions.m in Sources */,
+				F77C41301FFCA28C0061179C /* ScanVC.m in Sources */,
 				F767CA801FBD249C00C7518C /* UIButton+MJCClassExtension.m in Sources */,
 				F767CAB01FBD2DBB00C7518C /* MainViewController.m in Sources */,
 				F767CA2F1FBD244900C7518C /* InfoCache.m in Sources */,
@@ -1545,6 +1616,7 @@
 				F767CA841FBD249C00C7518C /* MJCSegmentInterface.m in Sources */,
 				F771A4231FF1F5B3008EF6AC /* WithdrawDepositVC.m in Sources */,
 				F771A4261FF21AD5008EF6AC /* RechargeVC.m in Sources */,
+				F75CE43220048AE70006E73C /* SystemModel.m in Sources */,
 				F75BA4A41FBEBA8B009A55DF /* SendingOrderVC.m in Sources */,
 				F767CA9A1FBD25B700C7518C /* NavigationController.m in Sources */,
 				F749A78F1FD64E450091F3C9 /* SearchAddressVC.m in Sources */,

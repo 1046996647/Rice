@@ -22,6 +22,7 @@
 #import "RiderModel.h"
 #import "BookFoodVC.h"
 #import "YBPopupMenu.h"
+#import "SystemMsgDetailVC.h"
 
 #import <QMapKit/QMapKit.h>
 #import <TencentLBS/TencentLBS.h>
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) UIButton *rightBtn;
 @property (nonatomic, strong) MJCSegmentInterface *lala;
 @property (nonatomic, strong) UIView *adView;
+@property(nonatomic,strong) UIView *redDot;
 
 
 @property (nonatomic, strong) UIImageView *baseImg;
@@ -63,6 +65,8 @@
 @property (nonatomic, strong) NSMutableArray *foodIdArr;// id数组
 @property (nonatomic, assign) float totalPrice;// 总费用
 @property(nonatomic,strong) NSTimer *timer;
+
+@property (nonatomic, strong) NSMutableArray *noticeArr;// 公告
 
 
 @property(nonatomic,assign) NSInteger tag;// 显示菜单或订单
@@ -144,6 +148,13 @@
     [leftBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftView];
     
+//    _redDot = [[UIView alloc] initWithFrame:CGRectMake(leftView.width-4-6, 0, 8, 8)];
+//    _redDot.layer.cornerRadius = _redDot.height/2;
+//    _redDot.layer.masksToBounds = YES;
+//    _redDot.backgroundColor = [UIColor redColor];
+//    [leftView addSubview:_redDot];
+//    _redDot.hidden = NO;
+    
     // 赛银国际广场
     UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 110, 20)];
     UIButton *rightBtn = [UIButton buttonWithframe:rightView.bounds text:@"" font:SystemFont(14) textColor:@"#333333" backgroundColor:nil normal:@"定位" selected:@""];
@@ -209,12 +220,16 @@
     [adView addSubview:leftImg];
 
     _advertScrollViewTop = [[SGAdvertScrollView alloc] initWithFrame:CGRectMake(leftImg.right+10, 0, adView.width-(leftImg.right+10)*2, 32)];
-    _advertScrollViewTop.titles = @[@"早餐", @"晚餐", @"下午茶"];
+//    _advertScrollViewTop.titles = @[@"早餐", @"晚餐", @"下午茶"];
     _advertScrollViewTop.titleColor = [UIColor colorWithHexString:@"#666666"];
     _advertScrollViewTop.textAlignment = NSTextAlignmentCenter;
 //    _advertScrollViewTop.delegate = self;
     _advertScrollViewTop.titleFont = [UIFont systemFontOfSize:14];
     [adView addSubview:_advertScrollViewTop];
+    _advertScrollViewTop.hidden = YES;
+    _advertScrollViewTop.delegate = self;
+    
+    [self getNotice];
 
     UIImageView *rightImg = [UIImageView imgViewWithframe:CGRectMake(adView.width-10-5, 0, 10, 32) icon:@"32"];
     rightImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -387,6 +402,35 @@
 
     }
 
+}
+
+
+// 2.11    获取公告
+- (void)getNotice
+{
+
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:GetNotice dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        
+        id obj = responseObject[@"data"];
+        self.noticeArr = obj;
+        
+        if ([obj count] > 0) {
+            _advertScrollViewTop.hidden = NO;
+
+            NSMutableArray *arrM = [NSMutableArray array];
+            for (NSDictionary *dic in obj) {
+                [arrM addObject:dic[@"articleName"]];
+            }
+            _advertScrollViewTop.titles = arrM;
+        }
+
+    } failure:^(NSError *error) {
+
+        
+    }];
 }
 
 // 2.1    用户所在区域
@@ -824,8 +868,11 @@
 #pragma mark SGAdvertScrollViewDelegate
 - (void)advertScrollView:(SGAdvertScrollView *)advertScrollView didSelectedItemAtIndex:(NSInteger)index {
     
-//    DetailViewController *nextVC = [[DetailViewController alloc] init];
-//    [self.navigationController pushViewController:nextVC animated:YES];
+    NSDictionary *dic = self.noticeArr[index];
+    SystemMsgDetailVC *vc = [[SystemMsgDetailVC alloc] init];
+    vc.url = dic[@"articleUrl"];
+    vc.title = @"公告详情";
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - YBPopupMenuDelegate
@@ -991,12 +1038,30 @@
     [_mapView setCenterCoordinate:location.location.coordinate animated:YES];
     
     [self getArea];
+    [self uploadUserLocation:location.address];
+
 
     
 //    [self.rightBtn setTitle:location.name forState:UIControlStateNormal];
 }
 
+// 5.8    上传打开app的地点
+- (void)uploadUserLocation:(NSString *)address
+{
+    
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic  setValue:@(self.coordinate.latitude) forKey:@"lat"];
+    [paramDic  setValue:@(self.coordinate.longitude) forKey:@"lng"];
+    [paramDic  setValue:address forKey:@"address"];
 
+    [AFNetworking_RequestData requestMethodPOSTUrl:UploadUserLocation dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+}
 
 - (void)dealloc
 {

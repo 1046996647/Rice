@@ -104,7 +104,7 @@
     
     NSMutableArray *arrM = [NSMutableArray array];
     for (FoodModel1 *model in self.dataArr) {
-        NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.foodStars,@"foodStars",model.foodComment,@"foodComment", nil];
+        NSMutableDictionary *paramDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:model.foodId,@"foodId", model.foodStars,@"foodStars", nil];
         [arrM addObject:paramDic];
         
     }
@@ -168,7 +168,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (153+118);
+//    return (153+118);
+    return (105);
 }
 
 

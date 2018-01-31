@@ -8,6 +8,7 @@
 
 #import "TYCyclePagerViewCell.h"
 #import "LoginVC.h"
+#import "NSStringExt.h"
 
 @interface TYCyclePagerViewCell ()
 @property (nonatomic, weak) UILabel *label;
@@ -31,6 +32,11 @@
         
         _nameLab = [UILabel labelWithframe:CGRectZero text:@"剁椒鸡排饭" font:[UIFont systemFontOfSize:17] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
         [self.contentView addSubview:_nameLab];
+        
+        // 评价
+        _evaBtn = [UIButton buttonWithframe:CGRectZero text:@"" font:SystemFont(13) textColor:@"#666666" backgroundColor:nil normal:@"Shape-1" selected:nil];
+        _evaBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
+        [self.contentView addSubview:_evaBtn];
         
         _moneyLab = [UILabel labelWithframe:CGRectZero text:@"￥14.8" font:[UIFont systemFontOfSize:15] textAlignment:NSTextAlignmentRight textColor:@"#333333"];
         [self.contentView addSubview:_moneyLab];
@@ -56,31 +62,6 @@
 
 
 
-- (void)layoutSubviews {
-    
-    [super layoutSubviews];
-
-    _bgView.frame = self.bounds;
-
-    
-    _imgView.frame = CGRectMake(28, (138-120)/2, 120, 120);
-    _imgView.layer.cornerRadius = _imgView.height/2;
-    _imgView.layer.masksToBounds = YES;
-    _imgView.layer.borderColor = [UIColor colorWithHexString:@"#F8E249"].CGColor;
-    _imgView.layer.borderWidth = 5;
-//    _imgView.backgroundColor = [UIColor redColor];
-    
-    _nameLab.frame = CGRectMake(_imgView.right+10, 24, kScreenWidth-30-(_imgView.right+10)-32, 24);
-    
-    _moneyLab.frame = CGRectMake(_imgView.right+10, _nameLab.bottom+17, kScreenWidth-40-(_imgView.right+10)-32, 21);
-    
-    _addBtn.frame = CGRectMake(kScreenWidth-30-28-36, _moneyLab.bottom+14, 28, 28);
-    
-    _countLab.frame = CGRectMake(_addBtn.left-28, _moneyLab.bottom+14, 28, 28);
-    
-    _delBtn.frame = CGRectMake(_countLab.left-28, _moneyLab.bottom+14, 28, 28);
-
-}
 
 - (void)btnAction:(UIButton *)btn
 {
@@ -138,8 +119,41 @@
 {
     _model = model;
     
+    _bgView.frame = self.bounds;
+    
+    
+    _imgView.frame = CGRectMake(28, (138-120)/2, 120, 120);
+    _imgView.layer.cornerRadius = _imgView.height/2;
+    _imgView.layer.masksToBounds = YES;
+    _imgView.layer.borderColor = [UIColor colorWithHexString:@"#F8E249"].CGColor;
+    _imgView.layer.borderWidth = 5;
+    //    _imgView.backgroundColor = [UIColor redColor];
+    
+    //    _nameLab.frame = CGRectMake(_imgView.right+10, 24, kScreenWidth-30-(_imgView.right+10)-32, 24);
+    CGSize size = [NSString textLength:_model.foodName font:_nameLab.font];
+    if (size.width > (kScreenWidth-30-(_imgView.right+10)-32-45-5)) {
+        _nameLab.frame = CGRectMake(kScreenWidth-30-(kScreenWidth-30-(_imgView.right+10)-32-45-5)-32, 24, (kScreenWidth-30-(_imgView.right+10)-32-45-5), 24);
+
+    }
+    else {
+        _nameLab.frame = CGRectMake(kScreenWidth-30-size.width-32, 24, size.width, 24);
+
+    }
+    
+    _evaBtn.frame = CGRectMake(_nameLab.left-45-5, _nameLab.center.y-9, 45, 18);
+    
+    _moneyLab.frame = CGRectMake(_imgView.right+10, _nameLab.bottom+17, kScreenWidth-40-(_imgView.right+10)-32, 21);
+    
+    _addBtn.frame = CGRectMake(kScreenWidth-30-28-36, _moneyLab.bottom+14, 28, 28);
+    
+    _countLab.frame = CGRectMake(_addBtn.left-28, _moneyLab.bottom+14, 28, 28);
+    
+    _delBtn.frame = CGRectMake(_countLab.left-28, _moneyLab.bottom+14, 28, 28);
+    
     [_imgView sd_setImageWithURL:[NSURL URLWithString:model.foodImg] placeholderImage:nil];
     _nameLab.text = model.foodName;
+    [_evaBtn setTitle:model.foodStars forState:UIControlStateNormal];
+
     _countLab.text = _model.amount;
     _moneyLab.text = [NSString stringWithFormat:@"￥%@",model.foodPrice];
 }

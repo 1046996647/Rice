@@ -20,6 +20,8 @@ typedef void(^TYCyclePagerViewBlock)(FoodModel *model,NSString *money);
 @property(nonatomic,strong) UILabel *countLab;
 @property(nonatomic,strong) UIButton *delBtn;
 @property(nonatomic,strong) UIButton *addBtn;
+@property(nonatomic,strong) UIButton *evaBtn;
+
 @property(nonatomic,strong) FoodModel *model;
 @property(nonatomic,copy) TYCyclePagerViewBlock block;
 

@@ -68,7 +68,7 @@
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 //    _tableView.backgroundColor = [UIColor redColor];
-    
+
     // 上拉刷新
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
 
@@ -170,6 +170,7 @@
         [SVProgressHUD dismiss];
 //        [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
+        
     }];
 }
 

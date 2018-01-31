@@ -22,6 +22,7 @@
 @property (nonatomic, strong) NSArray *dataArr;
 @property (nonatomic, strong) UILabel *headerLab;
 @property (nonatomic, strong) UIButton *headerBtn;
+@property(nonatomic,strong) UIView *redDot;
 
 
 @end
@@ -32,12 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kLeftViewW, kScreenHeight)];
     imgView.image = [UIImage imageNamed:@"Group 3"];
     imgView.clipsToBounds = YES;
     imgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.view addSubview:imgView];
+    
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
     
@@ -62,6 +63,20 @@
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableHeaderView = headerView;
+    
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(15, kStatusBarHeight+8.5, 33, 33)];
+    [self.view addSubview:leftView];
+    
+    UIButton *leftBtn = [UIButton buttonWithframe:leftView.bounds text:nil font:nil textColor:nil backgroundColor:nil normal:@"消息" selected:@""];
+    [leftView addSubview:leftBtn];
+    [leftBtn addTarget:self action:@selector(leftAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    _redDot = [[UIView alloc] initWithFrame:CGRectMake(leftView.width-4-4, 4, 8, 8)];
+    _redDot.layer.cornerRadius = _redDot.height/2;
+    _redDot.layer.masksToBounds = YES;
+    _redDot.backgroundColor = [UIColor redColor];
+    [leftView addSubview:_redDot];
+    _redDot.hidden = YES;
 
     self.dataArr = @[@{@"image":@"58",@"text":@"我的订单"},
                      @{@"image":@"57",@"text":@"收货地址"},
@@ -71,7 +86,39 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setMsg) name:@"kRefreshNotification" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(redDotAction) name:@"kRedDotNotification" object:nil];
+    
     [self setMsg];
+    [self redDotAction];
+
+}
+
+- (void)redDotAction
+{
+    NSMutableDictionary *paramDic=[[NSMutableDictionary alloc] initWithCapacity:0];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:IsUserClicked dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+        
+        BOOL obj = [responseObject[@"data"][@"isClicked"] boolValue];
+        if (obj) {
+            _redDot.hidden = YES;
+        }
+        else {
+            _redDot.hidden = NO;
+
+        }
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+
+}
+
+- (void)leftAction
+{
+    [self.delegate LeftViewControllerdidSelectRow:6];
+
     
 }
 
@@ -166,11 +213,6 @@
         self.headerLab.text = @"未设置";
     }
 }
-
-
-
-
-
 
 
 

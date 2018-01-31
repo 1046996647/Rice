@@ -16,6 +16,7 @@
 @property(nonatomic,strong) NSString *foodId;
 @property(nonatomic,strong) NSString *foodImg;
 @property(nonatomic,strong) NSString *foodName;
+@property(nonatomic,strong) NSString *foodStars;
 @property(nonatomic,strong) NSString *foodPrice;
 @property(nonatomic,strong) NSString *foodTagId;
 @property(nonatomic,strong) NSString *secondTag;

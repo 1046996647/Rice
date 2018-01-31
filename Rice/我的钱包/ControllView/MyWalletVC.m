@@ -11,6 +11,7 @@
 #import "BalancePaymentDetailVC.h"
 #import "WithdrawDepositVC.h"
 #import "RechargeVC.h"
+#import "ScanVC.h"
 
 
 @interface MyWalletVC ()
@@ -18,6 +19,7 @@
 @property(nonatomic,strong) UIImageView *baseImg;
 @property(nonatomic,strong) UIView *liJinView;
 @property(nonatomic,strong) UIView *yuEView;
+@property(nonatomic,strong) UITextField *maTF;
 
 
 @property(nonatomic,strong) UILabel *label;
@@ -80,10 +82,13 @@
 
     UIButton *duiHuanBtn = [UIButton buttonWithframe:CGRectMake(kScreenWidth-106, 0, 106, 50) text:@"兑换" font:[UIFont systemFontOfSize:15] textColor:@"#333333" backgroundColor:@"#FFFFFF" normal:@"" selected:nil];
     [liJinView addSubview:duiHuanBtn];
+    [duiHuanBtn addTarget:self action:@selector(duiHuanAction) forControlEvents:UIControlEventTouchUpInside];
+
 
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 43, duiHuanBtn.height)];
     UITextField *maTF = [UITextField textFieldWithframe:CGRectMake(0, duiHuanBtn.top, duiHuanBtn.left-2, duiHuanBtn.height) placeholder:@"请输入兑换码" font:nil leftView:leftView backgroundColor:@"#FFFFFF"];
     [liJinView addSubview:maTF];
+    self.maTF = maTF;
 
     UIButton *saoBtn = [UIButton buttonWithframe:CGRectMake(0, maTF.bottom+2, kScreenWidth, duiHuanBtn.height) text:@"扫一扫" font:[UIFont systemFontOfSize:15] textColor:@"#666666" backgroundColor:@"#FFFFFF" normal:@"" selected:nil];
     [liJinView addSubview:saoBtn];
@@ -131,6 +136,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)duiHuanAction
+{
+    NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+    [paramDic setValue:self.maTF.text forKey:@"couponNo"];
+    
+    [AFNetworking_RequestData requestMethodPOSTUrl:ConvertCoupon dic:paramDic showHUD:YES response:NO Succed:^(id responseObject) {
+        
+        [self.view makeToast:responseObject[@"message"]];
+        [self getWallet];
+
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)chargeOrDepositSuccess
@@ -187,7 +208,12 @@
 
 - (void)saoAction
 {
-
+    ScanVC *vc = [[ScanVC alloc] init];
+    vc.title = @"扫一扫";
+    [self.navigationController pushViewController:vc animated:YES];
+    vc.block = ^(NSString *str) {
+        self.maTF.text = str;
+    };
 }
 
 - (void)selectedAction:(UIButton *)btn

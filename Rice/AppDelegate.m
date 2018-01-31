@@ -291,6 +291,19 @@
     //关闭友盟自带的弹出框
     [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
+    
+    NSString *pushValue = userInfo[@"fdKey"];
+    
+    if ([pushValue isEqualToString:@"TakeOrder"]) {
+        //进行中订单状态更新通知事件(刷新首页或进行中订单)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kSendingOrderNotification" object:nil];
+    }
+    
+    if ([pushValue isEqualToString:@"ArriveOrder"]) {
+        //完成订单通知事件(弹出评价视图)
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kFinishOrderNotification" object:userInfo[@"orderId"]];
+    }
+    
     //    self.userInfo = userInfo;
         //定制自定的的弹出框
         if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
@@ -400,6 +413,24 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+// 5.9    上传关闭app的时间
+- (void)uploadUserClose
+{
+    PersonModel *person = [InfoCache unarchiveObjectWithFile:Person];
 
+    if (person) {
+        
+        NSMutableDictionary  *paramDic=[[NSMutableDictionary  alloc]initWithCapacity:0];
+        
+        [AFNetworking_RequestData requestMethodPOSTUrl:UploadUserClose dic:paramDic showHUD:NO response:NO Succed:^(id responseObject) {
+            
+            
+        } failure:^(NSError *error) {
+            
+            
+        }];
+    }
+
+}
 
 @end

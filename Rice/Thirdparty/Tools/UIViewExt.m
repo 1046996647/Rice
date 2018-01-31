@@ -262,9 +262,11 @@ CGRect CGRectMoveToCenter(CGRect rect, CGPoint center)
     tableView.backgroundColor = [UIColor clearColor];
     
     // 适配iOS11(iOS11后隐藏导航栏的MJRefresh下拉刷新控件会漏出来)
-    if (@available(iOS 11.0, *)){
-        
-        [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    if (@available(iOS 11.0, *)) {
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     }
     
     return tableView;

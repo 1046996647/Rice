@@ -17,6 +17,7 @@
 #import "SettingVC.h"
 #import "NavigationController.h"
 #import "PersonalCenterVC.h"
+#import "SystemMassageVC.h"
 
 @interface CSLeftSlideControllerTwo () <LeftViewControllerDelegate>
 
@@ -203,6 +204,11 @@
     if (row == 5) {
         PersonalCenterVC *vc = [[PersonalCenterVC alloc] init];
         vc.title = @"个人信息";
+        [nav pushViewController:vc animated:YES];
+    }
+    if (row == 6) {
+        SystemMassageVC *vc = [[SystemMassageVC alloc] init];
+        vc.title = @"消息";
         [nav pushViewController:vc animated:YES];
     }
 
